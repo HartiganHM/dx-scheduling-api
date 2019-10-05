@@ -1,0 +1,21 @@
+type Permission {
+  id: ID! @unique
+  name: String!
+}
+
+input PermissionInput {
+  name: String!
+}
+
+input NewPermissionInput {
+  name: String!
+}
+
+type Query {
+  permission(input: PermissionInput!): Permission
+  permissions: [Permission]!
+}
+
+type Mutation {
+  newPermission(input: NewPermissionInput!): Permission!
+}
