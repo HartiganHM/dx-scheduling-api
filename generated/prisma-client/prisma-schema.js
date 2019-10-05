@@ -80,6 +80,11 @@ input PermissionCreateInput {
   name: String!
 }
 
+input PermissionCreateManyInput {
+  create: [PermissionCreateInput!]
+  connect: [PermissionWhereUniqueInput!]
+}
+
 type PermissionEdge {
   node: Permission!
   cursor: String!
@@ -101,6 +106,40 @@ type PermissionPreviousValues {
   name: String!
 }
 
+input PermissionScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [PermissionScalarWhereInput!]
+  OR: [PermissionScalarWhereInput!]
+  NOT: [PermissionScalarWhereInput!]
+}
+
 type PermissionSubscriptionPayload {
   mutation: MutationType!
   node: Permission
@@ -119,12 +158,47 @@ input PermissionSubscriptionWhereInput {
   NOT: [PermissionSubscriptionWhereInput!]
 }
 
+input PermissionUpdateDataInput {
+  name: String
+}
+
 input PermissionUpdateInput {
   name: String
 }
 
+input PermissionUpdateManyDataInput {
+  name: String
+}
+
+input PermissionUpdateManyInput {
+  create: [PermissionCreateInput!]
+  update: [PermissionUpdateWithWhereUniqueNestedInput!]
+  upsert: [PermissionUpsertWithWhereUniqueNestedInput!]
+  delete: [PermissionWhereUniqueInput!]
+  connect: [PermissionWhereUniqueInput!]
+  disconnect: [PermissionWhereUniqueInput!]
+  deleteMany: [PermissionScalarWhereInput!]
+  updateMany: [PermissionUpdateManyWithWhereNestedInput!]
+}
+
 input PermissionUpdateManyMutationInput {
   name: String
+}
+
+input PermissionUpdateManyWithWhereNestedInput {
+  where: PermissionScalarWhereInput!
+  data: PermissionUpdateManyDataInput!
+}
+
+input PermissionUpdateWithWhereUniqueNestedInput {
+  where: PermissionWhereUniqueInput!
+  data: PermissionUpdateDataInput!
+}
+
+input PermissionUpsertWithWhereUniqueNestedInput {
+  where: PermissionWhereUniqueInput!
+  update: PermissionUpdateDataInput!
+  create: PermissionCreateInput!
 }
 
 input PermissionWhereInput {
@@ -184,6 +258,7 @@ type Query {
 type Role {
   id: ID!
   name: String!
+  permissions(where: PermissionWhereInput, orderBy: PermissionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Permission!]
 }
 
 type RoleConnection {
@@ -194,6 +269,7 @@ type RoleConnection {
 
 input RoleCreateInput {
   name: String!
+  permissions: PermissionCreateManyInput
 }
 
 type RoleEdge {
@@ -346,6 +422,7 @@ input RoleToPermissionWhereUniqueInput {
 
 input RoleUpdateInput {
   name: String
+  permissions: PermissionUpdateManyInput
 }
 
 input RoleUpdateManyMutationInput {
@@ -381,6 +458,9 @@ input RoleWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  permissions_every: PermissionWhereInput
+  permissions_some: PermissionWhereInput
+  permissions_none: PermissionWhereInput
   AND: [RoleWhereInput!]
   OR: [RoleWhereInput!]
   NOT: [RoleWhereInput!]

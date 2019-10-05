@@ -366,6 +366,9 @@ export interface RoleWhereInput {
   name_not_starts_with?: String;
   name_ends_with?: String;
   name_not_ends_with?: String;
+  permissions_every?: PermissionWhereInput;
+  permissions_some?: PermissionWhereInput;
+  permissions_none?: PermissionWhereInput;
   AND?: RoleWhereInput[] | RoleWhereInput;
   OR?: RoleWhereInput[] | RoleWhereInput;
   NOT?: RoleWhereInput[] | RoleWhereInput;
@@ -477,9 +480,91 @@ export interface PermissionUpdateManyMutationInput {
 
 export interface RoleCreateInput {
   name: String;
+  permissions?: PermissionCreateManyInput;
+}
+
+export interface PermissionCreateManyInput {
+  create?: PermissionCreateInput[] | PermissionCreateInput;
+  connect?: PermissionWhereUniqueInput[] | PermissionWhereUniqueInput;
 }
 
 export interface RoleUpdateInput {
+  name?: String;
+  permissions?: PermissionUpdateManyInput;
+}
+
+export interface PermissionUpdateManyInput {
+  create?: PermissionCreateInput[] | PermissionCreateInput;
+  update?:
+    | PermissionUpdateWithWhereUniqueNestedInput[]
+    | PermissionUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | PermissionUpsertWithWhereUniqueNestedInput[]
+    | PermissionUpsertWithWhereUniqueNestedInput;
+  delete?: PermissionWhereUniqueInput[] | PermissionWhereUniqueInput;
+  connect?: PermissionWhereUniqueInput[] | PermissionWhereUniqueInput;
+  disconnect?: PermissionWhereUniqueInput[] | PermissionWhereUniqueInput;
+  deleteMany?: PermissionScalarWhereInput[] | PermissionScalarWhereInput;
+  updateMany?:
+    | PermissionUpdateManyWithWhereNestedInput[]
+    | PermissionUpdateManyWithWhereNestedInput;
+}
+
+export interface PermissionUpdateWithWhereUniqueNestedInput {
+  where: PermissionWhereUniqueInput;
+  data: PermissionUpdateDataInput;
+}
+
+export interface PermissionUpdateDataInput {
+  name?: String;
+}
+
+export interface PermissionUpsertWithWhereUniqueNestedInput {
+  where: PermissionWhereUniqueInput;
+  update: PermissionUpdateDataInput;
+  create: PermissionCreateInput;
+}
+
+export interface PermissionScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  AND?: PermissionScalarWhereInput[] | PermissionScalarWhereInput;
+  OR?: PermissionScalarWhereInput[] | PermissionScalarWhereInput;
+  NOT?: PermissionScalarWhereInput[] | PermissionScalarWhereInput;
+}
+
+export interface PermissionUpdateManyWithWhereNestedInput {
+  where: PermissionScalarWhereInput;
+  data: PermissionUpdateManyDataInput;
+}
+
+export interface PermissionUpdateManyDataInput {
   name?: String;
 }
 
@@ -675,6 +760,17 @@ export interface Role {
 export interface RolePromise extends Promise<Role>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  permissions: <T = FragmentableArray<Permission>>(
+    args?: {
+      where?: PermissionWhereInput;
+      orderBy?: PermissionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface RoleSubscription
@@ -682,6 +778,17 @@ export interface RoleSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  permissions: <T = Promise<AsyncIterator<PermissionSubscription>>>(
+    args?: {
+      where?: PermissionWhereInput;
+      orderBy?: PermissionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface RoleConnection {
