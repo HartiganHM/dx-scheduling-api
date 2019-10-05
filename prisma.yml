@@ -1,0 +1,10 @@
+# This is where you would define the relevant properties of prisma. 
+# You define your api secret , where your datamodel (database schema in graphql language) 
+# lies, the endpoint url of the server etc.
+
+endpoint: http://localhost:4466
+datamodel: datamodel.prisma
+
+generate:
+  - generator: javascript-client
+    output: ./generated/prisma-client/
