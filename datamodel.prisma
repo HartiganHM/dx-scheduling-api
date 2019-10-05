@@ -9,6 +9,7 @@ type User {
 type Role {
   id: ID! @unique
   name: String!
+  permissions: [Permission!]
 }
 
 type RoleToPermission {
