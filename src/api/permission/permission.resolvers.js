@@ -7,7 +7,6 @@ const permissions = (parent, args, context) => {
 }; 
 
 const createPermission = (parent, { input: { name } }, context) => {
-  console.log(name)
   return context.prisma.createPermission({ name });
 };
 
