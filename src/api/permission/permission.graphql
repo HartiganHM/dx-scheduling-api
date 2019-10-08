@@ -1,13 +1,13 @@
 type Permission {
-  id: ID! @unique
+  id: ID!
   name: String!
 }
 
 input PermissionInput {
-  name: String!
+  id: ID!
 }
 
-input NewPermissionInput {
+input PermissionCreateInput {
   name: String!
 }
 
@@ -17,5 +17,5 @@ type Query {
 }
 
 type Mutation {
-  newPermission(input: NewPermissionInput!): Permission!
+  createPermission(input: PermissionCreateInput!): Permission!
 }
