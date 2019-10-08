@@ -14,12 +14,14 @@
     "apollo-server-express": "^2.9.5",
     "dataloader": "^1.4.0",
     "dotenv": "^8.1.0",
+    "express": "^4.17.1",
     "graphql-import": "^0.7.1",
     "lodash": "^4.17.15",
     "prisma-client-lib": "^1.34.8"
   },
   "devDependencies": {
     "graphql": "^14.5.8",
+    "graphql-tools": "^4.0.5",
     "graphqlgen": "^0.6.0-rc9",
     "jest": "^24.9.0",
     "nodemon": "^1.19.3",
