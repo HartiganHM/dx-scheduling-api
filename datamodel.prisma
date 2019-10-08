@@ -1,0 +1,24 @@
+# This is the schema representation of your database in graphql language.
+
+type User {
+  id: ID! @unique
+  name: String!
+  email: String
+}
+
+type Role {
+  id: ID! @unique
+  name: String!
+  permissions: [Permission!]
+}
+
+type RoleToPermission {
+  id: ID! @unique
+  roleId: Int!
+  permissionId: Int!
+}
+
+type Permission {
+  id: ID! @unique
+  name: String!
+}
