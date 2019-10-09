@@ -1,6 +1,7 @@
 type Permission {
   id: ID!
   name: String!
+  roles: [Role!]!
 }
 
 input PermissionInput {
@@ -9,6 +10,7 @@ input PermissionInput {
 
 input PermissionCreateInput {
   name: String!
+  roles: [Role!]
 }
 
 type Query {
