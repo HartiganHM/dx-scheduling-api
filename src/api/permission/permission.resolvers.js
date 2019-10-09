@@ -1,4 +1,4 @@
-const permission = (parent, { id }, context) => {
+const permission = (parent, { input: { id } }, context) => {
   return context.prisma.permission({ id });
 };
 
