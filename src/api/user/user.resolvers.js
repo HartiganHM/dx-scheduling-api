@@ -1,4 +1,4 @@
-const user = (parent, { id }, context) => {
+const user = (parent, { input: { id } }, context) => {
   return context.prisma.role({ id });
 }
 
