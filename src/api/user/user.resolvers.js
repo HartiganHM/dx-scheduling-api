@@ -2,7 +2,7 @@ const user = (parent, { id }, context) => {
   return context.prisma.role({ id });
 }
 
-const roles = (parent, args, context) => {
+const users = (parent, args, context) => {
   return context.prisma.users();
 }
 
