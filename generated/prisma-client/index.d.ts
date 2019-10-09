@@ -16,7 +16,6 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export interface Exists {
   permission: (where?: PermissionWhereInput) => Promise<boolean>;
   role: (where?: RoleWhereInput) => Promise<boolean>;
-  roleToPermission: (where?: RoleToPermissionWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -85,31 +84,6 @@ export interface Prisma {
       last?: Int;
     }
   ) => RoleConnectionPromise;
-  roleToPermission: (
-    where: RoleToPermissionWhereUniqueInput
-  ) => RoleToPermissionPromise;
-  roleToPermissions: (
-    args?: {
-      where?: RoleToPermissionWhereInput;
-      orderBy?: RoleToPermissionOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => FragmentableArray<RoleToPermission>;
-  roleToPermissionsConnection: (
-    args?: {
-      where?: RoleToPermissionWhereInput;
-      orderBy?: RoleToPermissionOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => RoleToPermissionConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserPromise;
   users: (
     args?: {
@@ -174,34 +148,6 @@ export interface Prisma {
   ) => RolePromise;
   deleteRole: (where: RoleWhereUniqueInput) => RolePromise;
   deleteManyRoles: (where?: RoleWhereInput) => BatchPayloadPromise;
-  createRoleToPermission: (
-    data: RoleToPermissionCreateInput
-  ) => RoleToPermissionPromise;
-  updateRoleToPermission: (
-    args: {
-      data: RoleToPermissionUpdateInput;
-      where: RoleToPermissionWhereUniqueInput;
-    }
-  ) => RoleToPermissionPromise;
-  updateManyRoleToPermissions: (
-    args: {
-      data: RoleToPermissionUpdateManyMutationInput;
-      where?: RoleToPermissionWhereInput;
-    }
-  ) => BatchPayloadPromise;
-  upsertRoleToPermission: (
-    args: {
-      where: RoleToPermissionWhereUniqueInput;
-      create: RoleToPermissionCreateInput;
-      update: RoleToPermissionUpdateInput;
-    }
-  ) => RoleToPermissionPromise;
-  deleteRoleToPermission: (
-    where: RoleToPermissionWhereUniqueInput
-  ) => RoleToPermissionPromise;
-  deleteManyRoleToPermissions: (
-    where?: RoleToPermissionWhereInput
-  ) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (
     args: { data: UserUpdateInput; where: UserWhereUniqueInput }
@@ -233,9 +179,6 @@ export interface Subscription {
   role: (
     where?: RoleSubscriptionWhereInput
   ) => RoleSubscriptionPayloadSubscription;
-  roleToPermission: (
-    where?: RoleToPermissionSubscriptionWhereInput
-  ) => RoleToPermissionSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -249,16 +192,6 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type PermissionOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
 export type RoleOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -269,13 +202,11 @@ export type RoleOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type RoleToPermissionOrderByInput =
+export type PermissionOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "roleId_ASC"
-  | "roleId_DESC"
-  | "permissionId_ASC"
-  | "permissionId_DESC"
+  | "name_ASC"
+  | "name_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -296,44 +227,6 @@ export type UserOrderByInput =
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export type PermissionWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface PermissionWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  AND?: PermissionWhereInput[] | PermissionWhereInput;
-  OR?: PermissionWhereInput[] | PermissionWhereInput;
-  NOT?: PermissionWhereInput[] | PermissionWhereInput;
-}
-
-export type RoleWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
@@ -369,16 +262,15 @@ export interface RoleWhereInput {
   permissions_every?: PermissionWhereInput;
   permissions_some?: PermissionWhereInput;
   permissions_none?: PermissionWhereInput;
+  users_every?: UserWhereInput;
+  users_some?: UserWhereInput;
+  users_none?: UserWhereInput;
   AND?: RoleWhereInput[] | RoleWhereInput;
   OR?: RoleWhereInput[] | RoleWhereInput;
   NOT?: RoleWhereInput[] | RoleWhereInput;
 }
 
-export type RoleToPermissionWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface RoleToPermissionWhereInput {
+export interface PermissionWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -393,30 +285,27 @@ export interface RoleToPermissionWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  roleId?: Int;
-  roleId_not?: Int;
-  roleId_in?: Int[] | Int;
-  roleId_not_in?: Int[] | Int;
-  roleId_lt?: Int;
-  roleId_lte?: Int;
-  roleId_gt?: Int;
-  roleId_gte?: Int;
-  permissionId?: Int;
-  permissionId_not?: Int;
-  permissionId_in?: Int[] | Int;
-  permissionId_not_in?: Int[] | Int;
-  permissionId_lt?: Int;
-  permissionId_lte?: Int;
-  permissionId_gt?: Int;
-  permissionId_gte?: Int;
-  AND?: RoleToPermissionWhereInput[] | RoleToPermissionWhereInput;
-  OR?: RoleToPermissionWhereInput[] | RoleToPermissionWhereInput;
-  NOT?: RoleToPermissionWhereInput[] | RoleToPermissionWhereInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  roles_every?: RoleWhereInput;
+  roles_some?: RoleWhereInput;
+  roles_none?: RoleWhereInput;
+  AND?: PermissionWhereInput[] | PermissionWhereInput;
+  OR?: PermissionWhereInput[] | PermissionWhereInput;
+  NOT?: PermissionWhereInput[] | PermissionWhereInput;
 }
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
 
 export interface UserWhereInput {
   id?: ID_Input;
@@ -461,16 +350,220 @@ export interface UserWhereInput {
   email_not_starts_with?: String;
   email_ends_with?: String;
   email_not_ends_with?: String;
+  roles_every?: RoleWhereInput;
+  roles_some?: RoleWhereInput;
+  roles_none?: RoleWhereInput;
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
   NOT?: UserWhereInput[] | UserWhereInput;
 }
 
+export type RoleWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
 export interface PermissionCreateInput {
   name: String;
+  roles?: RoleCreateManyWithoutPermissionsInput;
+}
+
+export interface RoleCreateManyWithoutPermissionsInput {
+  create?:
+    | RoleCreateWithoutPermissionsInput[]
+    | RoleCreateWithoutPermissionsInput;
+  connect?: RoleWhereUniqueInput[] | RoleWhereUniqueInput;
+}
+
+export interface RoleCreateWithoutPermissionsInput {
+  name: String;
+  users?: UserCreateManyWithoutRolesInput;
+}
+
+export interface UserCreateManyWithoutRolesInput {
+  create?: UserCreateWithoutRolesInput[] | UserCreateWithoutRolesInput;
+  connect?: UserWhereUniqueInput[] | UserWhereUniqueInput;
+}
+
+export interface UserCreateWithoutRolesInput {
+  name: String;
+  email?: String;
 }
 
 export interface PermissionUpdateInput {
+  name?: String;
+  roles?: RoleUpdateManyWithoutPermissionsInput;
+}
+
+export interface RoleUpdateManyWithoutPermissionsInput {
+  create?:
+    | RoleCreateWithoutPermissionsInput[]
+    | RoleCreateWithoutPermissionsInput;
+  delete?: RoleWhereUniqueInput[] | RoleWhereUniqueInput;
+  connect?: RoleWhereUniqueInput[] | RoleWhereUniqueInput;
+  disconnect?: RoleWhereUniqueInput[] | RoleWhereUniqueInput;
+  update?:
+    | RoleUpdateWithWhereUniqueWithoutPermissionsInput[]
+    | RoleUpdateWithWhereUniqueWithoutPermissionsInput;
+  upsert?:
+    | RoleUpsertWithWhereUniqueWithoutPermissionsInput[]
+    | RoleUpsertWithWhereUniqueWithoutPermissionsInput;
+  deleteMany?: RoleScalarWhereInput[] | RoleScalarWhereInput;
+  updateMany?:
+    | RoleUpdateManyWithWhereNestedInput[]
+    | RoleUpdateManyWithWhereNestedInput;
+}
+
+export interface RoleUpdateWithWhereUniqueWithoutPermissionsInput {
+  where: RoleWhereUniqueInput;
+  data: RoleUpdateWithoutPermissionsDataInput;
+}
+
+export interface RoleUpdateWithoutPermissionsDataInput {
+  name?: String;
+  users?: UserUpdateManyWithoutRolesInput;
+}
+
+export interface UserUpdateManyWithoutRolesInput {
+  create?: UserCreateWithoutRolesInput[] | UserCreateWithoutRolesInput;
+  delete?: UserWhereUniqueInput[] | UserWhereUniqueInput;
+  connect?: UserWhereUniqueInput[] | UserWhereUniqueInput;
+  disconnect?: UserWhereUniqueInput[] | UserWhereUniqueInput;
+  update?:
+    | UserUpdateWithWhereUniqueWithoutRolesInput[]
+    | UserUpdateWithWhereUniqueWithoutRolesInput;
+  upsert?:
+    | UserUpsertWithWhereUniqueWithoutRolesInput[]
+    | UserUpsertWithWhereUniqueWithoutRolesInput;
+  deleteMany?: UserScalarWhereInput[] | UserScalarWhereInput;
+  updateMany?:
+    | UserUpdateManyWithWhereNestedInput[]
+    | UserUpdateManyWithWhereNestedInput;
+}
+
+export interface UserUpdateWithWhereUniqueWithoutRolesInput {
+  where: UserWhereUniqueInput;
+  data: UserUpdateWithoutRolesDataInput;
+}
+
+export interface UserUpdateWithoutRolesDataInput {
+  name?: String;
+  email?: String;
+}
+
+export interface UserUpsertWithWhereUniqueWithoutRolesInput {
+  where: UserWhereUniqueInput;
+  update: UserUpdateWithoutRolesDataInput;
+  create: UserCreateWithoutRolesInput;
+}
+
+export interface UserScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  email?: String;
+  email_not?: String;
+  email_in?: String[] | String;
+  email_not_in?: String[] | String;
+  email_lt?: String;
+  email_lte?: String;
+  email_gt?: String;
+  email_gte?: String;
+  email_contains?: String;
+  email_not_contains?: String;
+  email_starts_with?: String;
+  email_not_starts_with?: String;
+  email_ends_with?: String;
+  email_not_ends_with?: String;
+  AND?: UserScalarWhereInput[] | UserScalarWhereInput;
+  OR?: UserScalarWhereInput[] | UserScalarWhereInput;
+  NOT?: UserScalarWhereInput[] | UserScalarWhereInput;
+}
+
+export interface UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput;
+  data: UserUpdateManyDataInput;
+}
+
+export interface UserUpdateManyDataInput {
+  name?: String;
+  email?: String;
+}
+
+export interface RoleUpsertWithWhereUniqueWithoutPermissionsInput {
+  where: RoleWhereUniqueInput;
+  update: RoleUpdateWithoutPermissionsDataInput;
+  create: RoleCreateWithoutPermissionsInput;
+}
+
+export interface RoleScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  AND?: RoleScalarWhereInput[] | RoleScalarWhereInput;
+  OR?: RoleScalarWhereInput[] | RoleScalarWhereInput;
+  NOT?: RoleScalarWhereInput[] | RoleScalarWhereInput;
+}
+
+export interface RoleUpdateManyWithWhereNestedInput {
+  where: RoleScalarWhereInput;
+  data: RoleUpdateManyDataInput;
+}
+
+export interface RoleUpdateManyDataInput {
   name?: String;
 }
 
@@ -480,49 +573,59 @@ export interface PermissionUpdateManyMutationInput {
 
 export interface RoleCreateInput {
   name: String;
-  permissions?: PermissionCreateManyInput;
+  permissions?: PermissionCreateManyWithoutRolesInput;
+  users?: UserCreateManyWithoutRolesInput;
 }
 
-export interface PermissionCreateManyInput {
-  create?: PermissionCreateInput[] | PermissionCreateInput;
+export interface PermissionCreateManyWithoutRolesInput {
+  create?:
+    | PermissionCreateWithoutRolesInput[]
+    | PermissionCreateWithoutRolesInput;
   connect?: PermissionWhereUniqueInput[] | PermissionWhereUniqueInput;
+}
+
+export interface PermissionCreateWithoutRolesInput {
+  name: String;
 }
 
 export interface RoleUpdateInput {
   name?: String;
-  permissions?: PermissionUpdateManyInput;
+  permissions?: PermissionUpdateManyWithoutRolesInput;
+  users?: UserUpdateManyWithoutRolesInput;
 }
 
-export interface PermissionUpdateManyInput {
-  create?: PermissionCreateInput[] | PermissionCreateInput;
-  update?:
-    | PermissionUpdateWithWhereUniqueNestedInput[]
-    | PermissionUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | PermissionUpsertWithWhereUniqueNestedInput[]
-    | PermissionUpsertWithWhereUniqueNestedInput;
+export interface PermissionUpdateManyWithoutRolesInput {
+  create?:
+    | PermissionCreateWithoutRolesInput[]
+    | PermissionCreateWithoutRolesInput;
   delete?: PermissionWhereUniqueInput[] | PermissionWhereUniqueInput;
   connect?: PermissionWhereUniqueInput[] | PermissionWhereUniqueInput;
   disconnect?: PermissionWhereUniqueInput[] | PermissionWhereUniqueInput;
+  update?:
+    | PermissionUpdateWithWhereUniqueWithoutRolesInput[]
+    | PermissionUpdateWithWhereUniqueWithoutRolesInput;
+  upsert?:
+    | PermissionUpsertWithWhereUniqueWithoutRolesInput[]
+    | PermissionUpsertWithWhereUniqueWithoutRolesInput;
   deleteMany?: PermissionScalarWhereInput[] | PermissionScalarWhereInput;
   updateMany?:
     | PermissionUpdateManyWithWhereNestedInput[]
     | PermissionUpdateManyWithWhereNestedInput;
 }
 
-export interface PermissionUpdateWithWhereUniqueNestedInput {
+export interface PermissionUpdateWithWhereUniqueWithoutRolesInput {
   where: PermissionWhereUniqueInput;
-  data: PermissionUpdateDataInput;
+  data: PermissionUpdateWithoutRolesDataInput;
 }
 
-export interface PermissionUpdateDataInput {
+export interface PermissionUpdateWithoutRolesDataInput {
   name?: String;
 }
 
-export interface PermissionUpsertWithWhereUniqueNestedInput {
+export interface PermissionUpsertWithWhereUniqueWithoutRolesInput {
   where: PermissionWhereUniqueInput;
-  update: PermissionUpdateDataInput;
-  create: PermissionCreateInput;
+  update: PermissionUpdateWithoutRolesDataInput;
+  create: PermissionCreateWithoutRolesInput;
 }
 
 export interface PermissionScalarWhereInput {
@@ -572,29 +675,59 @@ export interface RoleUpdateManyMutationInput {
   name?: String;
 }
 
-export interface RoleToPermissionCreateInput {
-  roleId: Int;
-  permissionId: Int;
-}
-
-export interface RoleToPermissionUpdateInput {
-  roleId?: Int;
-  permissionId?: Int;
-}
-
-export interface RoleToPermissionUpdateManyMutationInput {
-  roleId?: Int;
-  permissionId?: Int;
-}
-
 export interface UserCreateInput {
   name: String;
   email?: String;
+  roles?: RoleCreateManyWithoutUsersInput;
+}
+
+export interface RoleCreateManyWithoutUsersInput {
+  create?: RoleCreateWithoutUsersInput[] | RoleCreateWithoutUsersInput;
+  connect?: RoleWhereUniqueInput[] | RoleWhereUniqueInput;
+}
+
+export interface RoleCreateWithoutUsersInput {
+  name: String;
+  permissions?: PermissionCreateManyWithoutRolesInput;
 }
 
 export interface UserUpdateInput {
   name?: String;
   email?: String;
+  roles?: RoleUpdateManyWithoutUsersInput;
+}
+
+export interface RoleUpdateManyWithoutUsersInput {
+  create?: RoleCreateWithoutUsersInput[] | RoleCreateWithoutUsersInput;
+  delete?: RoleWhereUniqueInput[] | RoleWhereUniqueInput;
+  connect?: RoleWhereUniqueInput[] | RoleWhereUniqueInput;
+  disconnect?: RoleWhereUniqueInput[] | RoleWhereUniqueInput;
+  update?:
+    | RoleUpdateWithWhereUniqueWithoutUsersInput[]
+    | RoleUpdateWithWhereUniqueWithoutUsersInput;
+  upsert?:
+    | RoleUpsertWithWhereUniqueWithoutUsersInput[]
+    | RoleUpsertWithWhereUniqueWithoutUsersInput;
+  deleteMany?: RoleScalarWhereInput[] | RoleScalarWhereInput;
+  updateMany?:
+    | RoleUpdateManyWithWhereNestedInput[]
+    | RoleUpdateManyWithWhereNestedInput;
+}
+
+export interface RoleUpdateWithWhereUniqueWithoutUsersInput {
+  where: RoleWhereUniqueInput;
+  data: RoleUpdateWithoutUsersDataInput;
+}
+
+export interface RoleUpdateWithoutUsersDataInput {
+  name?: String;
+  permissions?: PermissionUpdateManyWithoutRolesInput;
+}
+
+export interface RoleUpsertWithWhereUniqueWithoutUsersInput {
+  where: RoleWhereUniqueInput;
+  update: RoleUpdateWithoutUsersDataInput;
+  create: RoleCreateWithoutUsersInput;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -624,23 +757,6 @@ export interface RoleSubscriptionWhereInput {
   NOT?: RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput;
 }
 
-export interface RoleToPermissionSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: RoleToPermissionWhereInput;
-  AND?:
-    | RoleToPermissionSubscriptionWhereInput[]
-    | RoleToPermissionSubscriptionWhereInput;
-  OR?:
-    | RoleToPermissionSubscriptionWhereInput[]
-    | RoleToPermissionSubscriptionWhereInput;
-  NOT?:
-    | RoleToPermissionSubscriptionWhereInput[]
-    | RoleToPermissionSubscriptionWhereInput;
-}
-
 export interface UserSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
@@ -664,6 +780,17 @@ export interface Permission {
 export interface PermissionPromise extends Promise<Permission>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  roles: <T = FragmentableArray<Role>>(
+    args?: {
+      where?: RoleWhereInput;
+      orderBy?: RoleOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface PermissionSubscription
@@ -671,6 +798,120 @@ export interface PermissionSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  roles: <T = Promise<AsyncIterator<RoleSubscription>>>(
+    args?: {
+      where?: RoleWhereInput;
+      orderBy?: RoleOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface Role {
+  id: ID_Output;
+  name: String;
+}
+
+export interface RolePromise extends Promise<Role>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  permissions: <T = FragmentableArray<Permission>>(
+    args?: {
+      where?: PermissionWhereInput;
+      orderBy?: PermissionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  users: <T = FragmentableArray<User>>(
+    args?: {
+      where?: UserWhereInput;
+      orderBy?: UserOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface RoleSubscription
+  extends Promise<AsyncIterator<Role>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  permissions: <T = Promise<AsyncIterator<PermissionSubscription>>>(
+    args?: {
+      where?: PermissionWhereInput;
+      orderBy?: PermissionOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  users: <T = Promise<AsyncIterator<UserSubscription>>>(
+    args?: {
+      where?: UserWhereInput;
+      orderBy?: UserOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface User {
+  id: ID_Output;
+  name: String;
+  email?: String;
+}
+
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  email: () => Promise<String>;
+  roles: <T = FragmentableArray<Role>>(
+    args?: {
+      where?: RoleWhereInput;
+      orderBy?: RoleOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  roles: <T = Promise<AsyncIterator<RoleSubscription>>>(
+    args?: {
+      where?: RoleWhereInput;
+      orderBy?: RoleOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface PermissionConnection {
@@ -752,45 +993,6 @@ export interface AggregatePermissionSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface Role {
-  id: ID_Output;
-  name: String;
-}
-
-export interface RolePromise extends Promise<Role>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  permissions: <T = FragmentableArray<Permission>>(
-    args?: {
-      where?: PermissionWhereInput;
-      orderBy?: PermissionOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface RoleSubscription
-  extends Promise<AsyncIterator<Role>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  permissions: <T = Promise<AsyncIterator<PermissionSubscription>>>(
-    args?: {
-      where?: PermissionWhereInput;
-      orderBy?: PermissionOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
 export interface RoleConnection {
   pageInfo: PageInfo;
   edges: RoleEdge[];
@@ -843,104 +1045,6 @@ export interface AggregateRoleSubscription
   extends Promise<AsyncIterator<AggregateRole>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface RoleToPermission {
-  id: ID_Output;
-  roleId: Int;
-  permissionId: Int;
-}
-
-export interface RoleToPermissionPromise
-  extends Promise<RoleToPermission>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  roleId: () => Promise<Int>;
-  permissionId: () => Promise<Int>;
-}
-
-export interface RoleToPermissionSubscription
-  extends Promise<AsyncIterator<RoleToPermission>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  roleId: () => Promise<AsyncIterator<Int>>;
-  permissionId: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface RoleToPermissionConnection {
-  pageInfo: PageInfo;
-  edges: RoleToPermissionEdge[];
-}
-
-export interface RoleToPermissionConnectionPromise
-  extends Promise<RoleToPermissionConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<RoleToPermissionEdge>>() => T;
-  aggregate: <T = AggregateRoleToPermissionPromise>() => T;
-}
-
-export interface RoleToPermissionConnectionSubscription
-  extends Promise<AsyncIterator<RoleToPermissionConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<RoleToPermissionEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateRoleToPermissionSubscription>() => T;
-}
-
-export interface RoleToPermissionEdge {
-  node: RoleToPermission;
-  cursor: String;
-}
-
-export interface RoleToPermissionEdgePromise
-  extends Promise<RoleToPermissionEdge>,
-    Fragmentable {
-  node: <T = RoleToPermissionPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface RoleToPermissionEdgeSubscription
-  extends Promise<AsyncIterator<RoleToPermissionEdge>>,
-    Fragmentable {
-  node: <T = RoleToPermissionSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateRoleToPermission {
-  count: Int;
-}
-
-export interface AggregateRoleToPermissionPromise
-  extends Promise<AggregateRoleToPermission>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateRoleToPermissionSubscription
-  extends Promise<AsyncIterator<AggregateRoleToPermission>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface User {
-  id: ID_Output;
-  name: String;
-  email?: String;
-}
-
-export interface UserPromise extends Promise<User>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  email: () => Promise<String>;
-}
-
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserConnection {
@@ -1101,53 +1205,6 @@ export interface RolePreviousValuesSubscription
   name: () => Promise<AsyncIterator<String>>;
 }
 
-export interface RoleToPermissionSubscriptionPayload {
-  mutation: MutationType;
-  node: RoleToPermission;
-  updatedFields: String[];
-  previousValues: RoleToPermissionPreviousValues;
-}
-
-export interface RoleToPermissionSubscriptionPayloadPromise
-  extends Promise<RoleToPermissionSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = RoleToPermissionPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = RoleToPermissionPreviousValuesPromise>() => T;
-}
-
-export interface RoleToPermissionSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<RoleToPermissionSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = RoleToPermissionSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = RoleToPermissionPreviousValuesSubscription>() => T;
-}
-
-export interface RoleToPermissionPreviousValues {
-  id: ID_Output;
-  roleId: Int;
-  permissionId: Int;
-}
-
-export interface RoleToPermissionPreviousValuesPromise
-  extends Promise<RoleToPermissionPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  roleId: () => Promise<Int>;
-  permissionId: () => Promise<Int>;
-}
-
-export interface RoleToPermissionPreviousValuesSubscription
-  extends Promise<AsyncIterator<RoleToPermissionPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  roleId: () => Promise<AsyncIterator<Int>>;
-  permissionId: () => Promise<AsyncIterator<Int>>;
-}
-
 export interface UserSubscriptionPayload {
   mutation: MutationType;
   node: User;
@@ -1229,10 +1286,6 @@ export const models: Model[] = [
   },
   {
     name: "Role",
-    embedded: false
-  },
-  {
-    name: "RoleToPermission",
     embedded: false
   },
   {

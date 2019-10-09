@@ -13,10 +13,6 @@ var models = [
     embedded: false
   },
   {
-    name: "RoleToPermission",
-    embedded: false
-  },
-  {
     name: "User",
     embedded: false
   }
