@@ -390,7 +390,7 @@ export interface UserCreateManyWithoutRolesInput {
 
 export interface UserCreateWithoutRolesInput {
   name: String;
-  email?: String;
+  email: String;
 }
 
 export interface PermissionUpdateInput {
@@ -677,7 +677,7 @@ export interface RoleUpdateManyMutationInput {
 
 export interface UserCreateInput {
   name: String;
-  email?: String;
+  email: String;
   roles?: RoleCreateManyWithoutUsersInput;
 }
 
@@ -875,7 +875,7 @@ export interface RoleSubscription
 export interface User {
   id: ID_Output;
   name: String;
-  email?: String;
+  email: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
@@ -1233,7 +1233,7 @@ export interface UserSubscriptionPayloadSubscription
 export interface UserPreviousValues {
   id: ID_Output;
   name: String;
-  email?: String;
+  email: String;
 }
 
 export interface UserPreviousValuesPromise

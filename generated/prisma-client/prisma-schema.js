@@ -490,7 +490,7 @@ type Subscription {
 type User {
   id: ID!
   name: String!
-  email: String
+  email: String!
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
 }
 
@@ -502,7 +502,7 @@ type UserConnection {
 
 input UserCreateInput {
   name: String!
-  email: String
+  email: String!
   roles: RoleCreateManyWithoutUsersInput
 }
 
@@ -513,7 +513,7 @@ input UserCreateManyWithoutRolesInput {
 
 input UserCreateWithoutRolesInput {
   name: String!
-  email: String
+  email: String!
 }
 
 type UserEdge {
@@ -537,7 +537,7 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   name: String!
-  email: String
+  email: String!
 }
 
 input UserScalarWhereInput {
