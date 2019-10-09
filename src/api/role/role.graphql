@@ -12,7 +12,7 @@ input RoleInput {
 input RoleCreateInput {
   name: String!
   permissions: [Permission!]
-  user: [User!]
+  users: [User!]
 }
 
 type Query {
