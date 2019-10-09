@@ -1,21 +1,21 @@
 # This is the schema representation of your database in graphql language.
 
 type User {
-  id: ID! @isUnique
+  id: ID! @unique
   name: String!
   email: String
   roles: [Role!]! @relation(name: "RoleOnUser")
 }
 
 type Role {
-  id: ID! @isUnique
+  id: ID! @unique
   name: String!
   permissions: [Permission!]! @relation(name: "PermissionOnRole")
   users: [User!]! @relation(name: "RoleOnUser")
 }
 
 type Permission {
-  id: ID! @isUnique
+  id: ID! @unique
   name: String!
   roles: [Role!]! @relation(name: "PermissionOnRole")
 }
