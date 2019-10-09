@@ -11,15 +11,13 @@ input RoleInput {
 
 input RoleCreateInput {
   name: String!
-  permissions: [Permission!]
-  users: [User!]
 }
 
-type Query {
+extend type Query {
   role(input: RoleInput!): Role
   roles: [Role]!
 }
 
-type Mutation {
+extend type Mutation {
   createRole(input: RoleCreateInput!): Role!
 }

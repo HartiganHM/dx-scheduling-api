@@ -12,14 +12,13 @@ input UserInput {
 input UserCreateInput {
   name: String!
   email: String!
-  roles: [Role!]
 }
 
-type Query {
-  user(input: UserInput!)
+extend type Query {
+  user(input: UserInput!): User
   users: [User!]
 }
 
-type Mutation {
+extend type Mutation {
   createUser(input: UserCreateInput!): User
 }
