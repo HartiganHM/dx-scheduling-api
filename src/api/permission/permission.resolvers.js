@@ -6,8 +6,8 @@ const permissions = (parent, args, context) => {
   return context.prisma.permissions();
 }; 
 
-const createPermission = (parent, { input: { name } }, context) => {
-  return context.prisma.createPermission({ name });
+const createPermission = (parent, { input: { name, roles } }, context) => {
+  return context.prisma.createPermission({ name, roles });
 };
 
 const permissionResolvers = {
