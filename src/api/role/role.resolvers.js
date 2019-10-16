@@ -10,6 +10,10 @@ const createRole = (parent, { input: { name, permissions, roles } }, context) =>
   return context.prisma.createRole({ name, permissions, users });
 }
 
+const updateRole = (parent, { input: { name }, where: { id } }, context) => {
+  return context.prisma.updateRole({ name }, { id })
+}
+
 const roleResolvers = {
   Query: {
     role,
@@ -17,6 +21,7 @@ const roleResolvers = {
   },
   Mutation: {
     createRole,
+    updateRole,
   }
 }
 
