@@ -7,10 +7,6 @@ type AggregateRole {
   count: Int!
 }
 
-type AggregateRoleToPermission {
-  count: Int!
-}
-
 type AggregateUser {
   count: Int!
 }
@@ -34,12 +30,6 @@ type Mutation {
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
   deleteRole(where: RoleWhereUniqueInput!): Role
   deleteManyRoles(where: RoleWhereInput): BatchPayload!
-  createRoleToPermission(data: RoleToPermissionCreateInput!): RoleToPermission!
-  updateRoleToPermission(data: RoleToPermissionUpdateInput!, where: RoleToPermissionWhereUniqueInput!): RoleToPermission
-  updateManyRoleToPermissions(data: RoleToPermissionUpdateManyMutationInput!, where: RoleToPermissionWhereInput): BatchPayload!
-  upsertRoleToPermission(where: RoleToPermissionWhereUniqueInput!, create: RoleToPermissionCreateInput!, update: RoleToPermissionUpdateInput!): RoleToPermission!
-  deleteRoleToPermission(where: RoleToPermissionWhereUniqueInput!): RoleToPermission
-  deleteManyRoleToPermissions(where: RoleToPermissionWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -68,6 +58,7 @@ type PageInfo {
 type Permission {
   id: ID!
   name: String!
+  roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
 }
 
 type PermissionConnection {
@@ -78,11 +69,16 @@ type PermissionConnection {
 
 input PermissionCreateInput {
   name: String!
+  roles: RoleCreateManyWithoutPermissionsInput
 }
 
-input PermissionCreateManyInput {
-  create: [PermissionCreateInput!]
+input PermissionCreateManyWithoutRolesInput {
+  create: [PermissionCreateWithoutRolesInput!]
   connect: [PermissionWhereUniqueInput!]
+}
+
+input PermissionCreateWithoutRolesInput {
+  name: String!
 }
 
 type PermissionEdge {
@@ -158,31 +154,28 @@ input PermissionSubscriptionWhereInput {
   NOT: [PermissionSubscriptionWhereInput!]
 }
 
-input PermissionUpdateDataInput {
-  name: String
-}
-
 input PermissionUpdateInput {
   name: String
+  roles: RoleUpdateManyWithoutPermissionsInput
 }
 
 input PermissionUpdateManyDataInput {
   name: String
 }
 
-input PermissionUpdateManyInput {
-  create: [PermissionCreateInput!]
-  update: [PermissionUpdateWithWhereUniqueNestedInput!]
-  upsert: [PermissionUpsertWithWhereUniqueNestedInput!]
+input PermissionUpdateManyMutationInput {
+  name: String
+}
+
+input PermissionUpdateManyWithoutRolesInput {
+  create: [PermissionCreateWithoutRolesInput!]
   delete: [PermissionWhereUniqueInput!]
   connect: [PermissionWhereUniqueInput!]
   disconnect: [PermissionWhereUniqueInput!]
+  update: [PermissionUpdateWithWhereUniqueWithoutRolesInput!]
+  upsert: [PermissionUpsertWithWhereUniqueWithoutRolesInput!]
   deleteMany: [PermissionScalarWhereInput!]
   updateMany: [PermissionUpdateManyWithWhereNestedInput!]
-}
-
-input PermissionUpdateManyMutationInput {
-  name: String
 }
 
 input PermissionUpdateManyWithWhereNestedInput {
@@ -190,15 +183,19 @@ input PermissionUpdateManyWithWhereNestedInput {
   data: PermissionUpdateManyDataInput!
 }
 
-input PermissionUpdateWithWhereUniqueNestedInput {
-  where: PermissionWhereUniqueInput!
-  data: PermissionUpdateDataInput!
+input PermissionUpdateWithoutRolesDataInput {
+  name: String
 }
 
-input PermissionUpsertWithWhereUniqueNestedInput {
+input PermissionUpdateWithWhereUniqueWithoutRolesInput {
   where: PermissionWhereUniqueInput!
-  update: PermissionUpdateDataInput!
-  create: PermissionCreateInput!
+  data: PermissionUpdateWithoutRolesDataInput!
+}
+
+input PermissionUpsertWithWhereUniqueWithoutRolesInput {
+  where: PermissionWhereUniqueInput!
+  update: PermissionUpdateWithoutRolesDataInput!
+  create: PermissionCreateWithoutRolesInput!
 }
 
 input PermissionWhereInput {
@@ -230,6 +227,9 @@ input PermissionWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  roles_every: RoleWhereInput
+  roles_some: RoleWhereInput
+  roles_none: RoleWhereInput
   AND: [PermissionWhereInput!]
   OR: [PermissionWhereInput!]
   NOT: [PermissionWhereInput!]
@@ -246,9 +246,6 @@ type Query {
   role(where: RoleWhereUniqueInput!): Role
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
   rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
-  roleToPermission(where: RoleToPermissionWhereUniqueInput!): RoleToPermission
-  roleToPermissions(where: RoleToPermissionWhereInput, orderBy: RoleToPermissionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RoleToPermission]!
-  roleToPermissionsConnection(where: RoleToPermissionWhereInput, orderBy: RoleToPermissionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleToPermissionConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -259,6 +256,7 @@ type Role {
   id: ID!
   name: String!
   permissions(where: PermissionWhereInput, orderBy: PermissionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Permission!]
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 type RoleConnection {
@@ -269,7 +267,28 @@ type RoleConnection {
 
 input RoleCreateInput {
   name: String!
-  permissions: PermissionCreateManyInput
+  permissions: PermissionCreateManyWithoutRolesInput
+  users: UserCreateManyWithoutRolesInput
+}
+
+input RoleCreateManyWithoutPermissionsInput {
+  create: [RoleCreateWithoutPermissionsInput!]
+  connect: [RoleWhereUniqueInput!]
+}
+
+input RoleCreateManyWithoutUsersInput {
+  create: [RoleCreateWithoutUsersInput!]
+  connect: [RoleWhereUniqueInput!]
+}
+
+input RoleCreateWithoutPermissionsInput {
+  name: String!
+  users: UserCreateManyWithoutRolesInput
+}
+
+input RoleCreateWithoutUsersInput {
+  name: String!
+  permissions: PermissionCreateManyWithoutRolesInput
 }
 
 type RoleEdge {
@@ -293,6 +312,40 @@ type RolePreviousValues {
   name: String!
 }
 
+input RoleScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [RoleScalarWhereInput!]
+  OR: [RoleScalarWhereInput!]
+  NOT: [RoleScalarWhereInput!]
+}
+
 type RoleSubscriptionPayload {
   mutation: MutationType!
   node: Role
@@ -311,122 +364,77 @@ input RoleSubscriptionWhereInput {
   NOT: [RoleSubscriptionWhereInput!]
 }
 
-type RoleToPermission {
-  id: ID!
-  roleId: Int!
-  permissionId: Int!
-}
-
-type RoleToPermissionConnection {
-  pageInfo: PageInfo!
-  edges: [RoleToPermissionEdge]!
-  aggregate: AggregateRoleToPermission!
-}
-
-input RoleToPermissionCreateInput {
-  roleId: Int!
-  permissionId: Int!
-}
-
-type RoleToPermissionEdge {
-  node: RoleToPermission!
-  cursor: String!
-}
-
-enum RoleToPermissionOrderByInput {
-  id_ASC
-  id_DESC
-  roleId_ASC
-  roleId_DESC
-  permissionId_ASC
-  permissionId_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type RoleToPermissionPreviousValues {
-  id: ID!
-  roleId: Int!
-  permissionId: Int!
-}
-
-type RoleToPermissionSubscriptionPayload {
-  mutation: MutationType!
-  node: RoleToPermission
-  updatedFields: [String!]
-  previousValues: RoleToPermissionPreviousValues
-}
-
-input RoleToPermissionSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: RoleToPermissionWhereInput
-  AND: [RoleToPermissionSubscriptionWhereInput!]
-  OR: [RoleToPermissionSubscriptionWhereInput!]
-  NOT: [RoleToPermissionSubscriptionWhereInput!]
-}
-
-input RoleToPermissionUpdateInput {
-  roleId: Int
-  permissionId: Int
-}
-
-input RoleToPermissionUpdateManyMutationInput {
-  roleId: Int
-  permissionId: Int
-}
-
-input RoleToPermissionWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  roleId: Int
-  roleId_not: Int
-  roleId_in: [Int!]
-  roleId_not_in: [Int!]
-  roleId_lt: Int
-  roleId_lte: Int
-  roleId_gt: Int
-  roleId_gte: Int
-  permissionId: Int
-  permissionId_not: Int
-  permissionId_in: [Int!]
-  permissionId_not_in: [Int!]
-  permissionId_lt: Int
-  permissionId_lte: Int
-  permissionId_gt: Int
-  permissionId_gte: Int
-  AND: [RoleToPermissionWhereInput!]
-  OR: [RoleToPermissionWhereInput!]
-  NOT: [RoleToPermissionWhereInput!]
-}
-
-input RoleToPermissionWhereUniqueInput {
-  id: ID
-}
-
 input RoleUpdateInput {
   name: String
-  permissions: PermissionUpdateManyInput
+  permissions: PermissionUpdateManyWithoutRolesInput
+  users: UserUpdateManyWithoutRolesInput
+}
+
+input RoleUpdateManyDataInput {
+  name: String
 }
 
 input RoleUpdateManyMutationInput {
   name: String
+}
+
+input RoleUpdateManyWithoutPermissionsInput {
+  create: [RoleCreateWithoutPermissionsInput!]
+  delete: [RoleWhereUniqueInput!]
+  connect: [RoleWhereUniqueInput!]
+  disconnect: [RoleWhereUniqueInput!]
+  update: [RoleUpdateWithWhereUniqueWithoutPermissionsInput!]
+  upsert: [RoleUpsertWithWhereUniqueWithoutPermissionsInput!]
+  deleteMany: [RoleScalarWhereInput!]
+  updateMany: [RoleUpdateManyWithWhereNestedInput!]
+}
+
+input RoleUpdateManyWithoutUsersInput {
+  create: [RoleCreateWithoutUsersInput!]
+  delete: [RoleWhereUniqueInput!]
+  connect: [RoleWhereUniqueInput!]
+  disconnect: [RoleWhereUniqueInput!]
+  update: [RoleUpdateWithWhereUniqueWithoutUsersInput!]
+  upsert: [RoleUpsertWithWhereUniqueWithoutUsersInput!]
+  deleteMany: [RoleScalarWhereInput!]
+  updateMany: [RoleUpdateManyWithWhereNestedInput!]
+}
+
+input RoleUpdateManyWithWhereNestedInput {
+  where: RoleScalarWhereInput!
+  data: RoleUpdateManyDataInput!
+}
+
+input RoleUpdateWithoutPermissionsDataInput {
+  name: String
+  users: UserUpdateManyWithoutRolesInput
+}
+
+input RoleUpdateWithoutUsersDataInput {
+  name: String
+  permissions: PermissionUpdateManyWithoutRolesInput
+}
+
+input RoleUpdateWithWhereUniqueWithoutPermissionsInput {
+  where: RoleWhereUniqueInput!
+  data: RoleUpdateWithoutPermissionsDataInput!
+}
+
+input RoleUpdateWithWhereUniqueWithoutUsersInput {
+  where: RoleWhereUniqueInput!
+  data: RoleUpdateWithoutUsersDataInput!
+}
+
+input RoleUpsertWithWhereUniqueWithoutPermissionsInput {
+  where: RoleWhereUniqueInput!
+  update: RoleUpdateWithoutPermissionsDataInput!
+  create: RoleCreateWithoutPermissionsInput!
+}
+
+input RoleUpsertWithWhereUniqueWithoutUsersInput {
+  where: RoleWhereUniqueInput!
+  update: RoleUpdateWithoutUsersDataInput!
+  create: RoleCreateWithoutUsersInput!
 }
 
 input RoleWhereInput {
@@ -461,6 +469,9 @@ input RoleWhereInput {
   permissions_every: PermissionWhereInput
   permissions_some: PermissionWhereInput
   permissions_none: PermissionWhereInput
+  users_every: UserWhereInput
+  users_some: UserWhereInput
+  users_none: UserWhereInput
   AND: [RoleWhereInput!]
   OR: [RoleWhereInput!]
   NOT: [RoleWhereInput!]
@@ -473,14 +484,14 @@ input RoleWhereUniqueInput {
 type Subscription {
   permission(where: PermissionSubscriptionWhereInput): PermissionSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
-  roleToPermission(where: RoleToPermissionSubscriptionWhereInput): RoleToPermissionSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User {
   id: ID!
   name: String!
-  email: String
+  email: String!
+  roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
 }
 
 type UserConnection {
@@ -491,7 +502,18 @@ type UserConnection {
 
 input UserCreateInput {
   name: String!
-  email: String
+  email: String!
+  roles: RoleCreateManyWithoutUsersInput
+}
+
+input UserCreateManyWithoutRolesInput {
+  create: [UserCreateWithoutRolesInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateWithoutRolesInput {
+  name: String!
+  email: String!
 }
 
 type UserEdge {
@@ -515,7 +537,55 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   name: String!
+  email: String!
+}
+
+input UserScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
   email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
 }
 
 type UserSubscriptionPayload {
@@ -539,11 +609,49 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   name: String
   email: String
+  roles: RoleUpdateManyWithoutUsersInput
+}
+
+input UserUpdateManyDataInput {
+  name: String
+  email: String
 }
 
 input UserUpdateManyMutationInput {
   name: String
   email: String
+}
+
+input UserUpdateManyWithoutRolesInput {
+  create: [UserCreateWithoutRolesInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutRolesInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutRolesInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
+}
+
+input UserUpdateWithoutRolesDataInput {
+  name: String
+  email: String
+}
+
+input UserUpdateWithWhereUniqueWithoutRolesInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutRolesDataInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutRolesInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutRolesDataInput!
+  create: UserCreateWithoutRolesInput!
 }
 
 input UserWhereInput {
@@ -589,6 +697,9 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  roles_every: RoleWhereInput
+  roles_some: RoleWhereInput
+  roles_none: RoleWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

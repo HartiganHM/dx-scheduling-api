@@ -3,22 +3,19 @@
 type User {
   id: ID! @unique
   name: String!
-  email: String
+  email: String!
+  roles: [Role!]! @relation(name: "RoleOnUser")
 }
 
 type Role {
   id: ID! @unique
   name: String!
-  permissions: [Permission!]
-}
-
-type RoleToPermission {
-  id: ID! @unique
-  roleId: Int!
-  permissionId: Int!
+  permissions: [Permission!]! @relation(name: "PermissionOnRole")
+  users: [User!]! @relation(name: "RoleOnUser")
 }
 
 type Permission {
   id: ID! @unique
   name: String!
+  roles: [Role!]! @relation(name: "PermissionOnRole")
 }

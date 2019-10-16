@@ -1,6 +1,7 @@
 type Permission {
   id: ID!
   name: String!
+  roles: [Role!]!
 }
 
 input PermissionInput {
@@ -11,6 +12,14 @@ input PermissionCreateInput {
   name: String!
 }
 
+input PermissionUpdateInput {
+  name: String
+}
+
+input PermissionWhereUniqueInput {
+  id: ID!
+}
+
 type Query {
   permission(input: PermissionInput!): Permission
   permissions: [Permission]!
@@ -18,4 +27,5 @@ type Query {
 
 type Mutation {
   createPermission(input: PermissionCreateInput!): Permission!
+  updatePermission(input: PermissionUpdateInput!, where: PermissionWhereUniqueInput): Permission!
 }
