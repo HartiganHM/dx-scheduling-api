@@ -13,6 +13,14 @@ input RoleCreateInput {
   name: String!
 }
 
+input RoleUpdateInput {
+  name: String
+}
+
+input RoleWhereUniqueInput {
+  id: ID!
+}
+
 extend type Query {
   role(input: RoleInput!): Role
   roles: [Role]!
@@ -20,4 +28,5 @@ extend type Query {
 
 extend type Mutation {
   createRole(input: RoleCreateInput!): Role!
+  updateRole(input: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
 }
