@@ -6,12 +6,12 @@ const roles = (parent, args, context) => {
   return context.prisma.roles();
 }
 
-const createRole = (parent, { input: { name, permissions, roles } }, context) => {
-  return context.prisma.createRole({ name, permissions, users });
+const createRole = (parent, { input: { name, permissions } }, context) => {
+  return context.prisma.createRole({ name, permissions });
 }
 
 const updateRole = (parent, { input: { name }, where: { id } }, context) => {
-  return context.prisma.updateRole({ name }, { id })
+  return context.prisma.updateRole({ data: { name }, where: { id }})
 }
 
 const roleResolvers = {

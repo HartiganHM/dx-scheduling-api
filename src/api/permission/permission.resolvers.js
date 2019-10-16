@@ -11,7 +11,7 @@ const createPermission = (parent, { input: { name, roles } }, context) => {
 };
 
 const updatePermission = (parent, { input: { name }, where: { id } }, context) => {
-  return context.prisma.updatePermission({ name }, { id });
+  return context.prisma.updatePermission({ data: { name }, where: { id }});
 }
 
 const permissionResolvers = {
