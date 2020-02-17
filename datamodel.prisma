@@ -2,6 +2,8 @@
 
 type User {
   id: ID! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   firstName: String!
   lastName: String!
   email: String!
@@ -10,29 +12,38 @@ type User {
 
 type Role {
   id: ID! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   name: String!
   permissions: [Permission!]! @relation(name: "PermissionOnRole")
-  users: [User!]! @relation(name: "RoleOnUser")
+  users: [User!]! @relation(name: "UserOnRole")
 }
 
 type Permission {
   id: ID! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   name: String!
-  roles: [Role!]! @relation(name: "PermissionOnRole")
+  roles: [Role!]! @relation(name: "RoleOnPermission")
 }
 
 type Client {
   id: ID! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   firstName: String!
   lastName: String!
   dob: String!
   gender: String!
   school: String!
   grade: String!
+  parents: [Parent!]! @relation(name: "ParentOnClient")
 }
 
 type Parent {
   id: ID! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   firstName: String!
   lastName: String!
   phoneNumber: String!
@@ -44,6 +55,8 @@ type Parent {
 
 type Address {
   id: ID! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   street: String!
   city: String!
   state: String!

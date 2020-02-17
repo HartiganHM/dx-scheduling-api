@@ -5,6 +5,8 @@ module.exports = {
 
 /* GraphQL */ `type Address {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   street: String!
   city: String!
   state: String!
@@ -37,6 +39,10 @@ type AddressEdge {
 enum AddressOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   street_ASC
   street_DESC
   city_ASC
@@ -49,6 +55,8 @@ enum AddressOrderByInput {
 
 type AddressPreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   street: String!
   city: String!
   state: String!
@@ -121,6 +129,22 @@ input AddressWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   street: String
   street_not: String
   street_in: [String!]
@@ -216,12 +240,15 @@ type BatchPayload {
 
 type Client {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   firstName: String!
   lastName: String!
   dob: String!
   gender: String!
   school: String!
   grade: String!
+  parents(where: ParentWhereInput, orderBy: ParentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Parent!]
 }
 
 type ClientConnection {
@@ -237,6 +264,7 @@ input ClientCreateInput {
   gender: String!
   school: String!
   grade: String!
+  parents: ParentCreateManyInput
 }
 
 type ClientEdge {
@@ -247,6 +275,10 @@ type ClientEdge {
 enum ClientOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   firstName_ASC
   firstName_DESC
   lastName_ASC
@@ -263,6 +295,8 @@ enum ClientOrderByInput {
 
 type ClientPreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   firstName: String!
   lastName: String!
   dob: String!
@@ -296,6 +330,7 @@ input ClientUpdateInput {
   gender: String
   school: String
   grade: String
+  parents: ParentUpdateManyInput
 }
 
 input ClientUpdateManyMutationInput {
@@ -322,6 +357,22 @@ input ClientWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   firstName: String
   firstName_not: String
   firstName_in: [String!]
@@ -406,6 +457,9 @@ input ClientWhereInput {
   grade_not_starts_with: String
   grade_ends_with: String
   grade_not_ends_with: String
+  parents_every: ParentWhereInput
+  parents_some: ParentWhereInput
+  parents_none: ParentWhereInput
   AND: [ClientWhereInput!]
   OR: [ClientWhereInput!]
   NOT: [ClientWhereInput!]
@@ -414,6 +468,8 @@ input ClientWhereInput {
 input ClientWhereUniqueInput {
   id: ID
 }
+
+scalar DateTime
 
 scalar Long
 
@@ -475,6 +531,8 @@ type PageInfo {
 
 type Parent {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   firstName: String!
   lastName: String!
   phoneNumber: String!
@@ -500,6 +558,11 @@ input ParentCreateInput {
   dob: String!
 }
 
+input ParentCreateManyInput {
+  create: [ParentCreateInput!]
+  connect: [ParentWhereUniqueInput!]
+}
+
 type ParentEdge {
   node: Parent!
   cursor: String!
@@ -508,6 +571,10 @@ type ParentEdge {
 enum ParentOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   firstName_ASC
   firstName_DESC
   lastName_ASC
@@ -524,12 +591,122 @@ enum ParentOrderByInput {
 
 type ParentPreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   firstName: String!
   lastName: String!
   phoneNumber: String!
   email: String!
   isInSameHousehold: Boolean!
   dob: String!
+}
+
+input ParentScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  firstName: String
+  firstName_not: String
+  firstName_in: [String!]
+  firstName_not_in: [String!]
+  firstName_lt: String
+  firstName_lte: String
+  firstName_gt: String
+  firstName_gte: String
+  firstName_contains: String
+  firstName_not_contains: String
+  firstName_starts_with: String
+  firstName_not_starts_with: String
+  firstName_ends_with: String
+  firstName_not_ends_with: String
+  lastName: String
+  lastName_not: String
+  lastName_in: [String!]
+  lastName_not_in: [String!]
+  lastName_lt: String
+  lastName_lte: String
+  lastName_gt: String
+  lastName_gte: String
+  lastName_contains: String
+  lastName_not_contains: String
+  lastName_starts_with: String
+  lastName_not_starts_with: String
+  lastName_ends_with: String
+  lastName_not_ends_with: String
+  phoneNumber: String
+  phoneNumber_not: String
+  phoneNumber_in: [String!]
+  phoneNumber_not_in: [String!]
+  phoneNumber_lt: String
+  phoneNumber_lte: String
+  phoneNumber_gt: String
+  phoneNumber_gte: String
+  phoneNumber_contains: String
+  phoneNumber_not_contains: String
+  phoneNumber_starts_with: String
+  phoneNumber_not_starts_with: String
+  phoneNumber_ends_with: String
+  phoneNumber_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  isInSameHousehold: Boolean
+  isInSameHousehold_not: Boolean
+  dob: String
+  dob_not: String
+  dob_in: [String!]
+  dob_not_in: [String!]
+  dob_lt: String
+  dob_lte: String
+  dob_gt: String
+  dob_gte: String
+  dob_contains: String
+  dob_not_contains: String
+  dob_starts_with: String
+  dob_not_starts_with: String
+  dob_ends_with: String
+  dob_not_ends_with: String
+  AND: [ParentScalarWhereInput!]
+  OR: [ParentScalarWhereInput!]
+  NOT: [ParentScalarWhereInput!]
 }
 
 type ParentSubscriptionPayload {
@@ -550,6 +727,16 @@ input ParentSubscriptionWhereInput {
   NOT: [ParentSubscriptionWhereInput!]
 }
 
+input ParentUpdateDataInput {
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  email: String
+  address: AddressUpdateOneRequiredInput
+  isInSameHousehold: Boolean
+  dob: String
+}
+
 input ParentUpdateInput {
   firstName: String
   lastName: String
@@ -560,6 +747,27 @@ input ParentUpdateInput {
   dob: String
 }
 
+input ParentUpdateManyDataInput {
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  email: String
+  isInSameHousehold: Boolean
+  dob: String
+}
+
+input ParentUpdateManyInput {
+  create: [ParentCreateInput!]
+  update: [ParentUpdateWithWhereUniqueNestedInput!]
+  upsert: [ParentUpsertWithWhereUniqueNestedInput!]
+  delete: [ParentWhereUniqueInput!]
+  connect: [ParentWhereUniqueInput!]
+  set: [ParentWhereUniqueInput!]
+  disconnect: [ParentWhereUniqueInput!]
+  deleteMany: [ParentScalarWhereInput!]
+  updateMany: [ParentUpdateManyWithWhereNestedInput!]
+}
+
 input ParentUpdateManyMutationInput {
   firstName: String
   lastName: String
@@ -567,6 +775,22 @@ input ParentUpdateManyMutationInput {
   email: String
   isInSameHousehold: Boolean
   dob: String
+}
+
+input ParentUpdateManyWithWhereNestedInput {
+  where: ParentScalarWhereInput!
+  data: ParentUpdateManyDataInput!
+}
+
+input ParentUpdateWithWhereUniqueNestedInput {
+  where: ParentWhereUniqueInput!
+  data: ParentUpdateDataInput!
+}
+
+input ParentUpsertWithWhereUniqueNestedInput {
+  where: ParentWhereUniqueInput!
+  update: ParentUpdateDataInput!
+  create: ParentCreateInput!
 }
 
 input ParentWhereInput {
@@ -584,6 +808,22 @@ input ParentWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   firstName: String
   firstName_not: String
   firstName_in: [String!]
@@ -668,6 +908,8 @@ input ParentWhereUniqueInput {
 
 type Permission {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
 }
@@ -700,12 +942,18 @@ type PermissionEdge {
 enum PermissionOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   name_ASC
   name_DESC
 }
 
 type PermissionPreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
 }
 
@@ -724,6 +972,22 @@ input PermissionScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
@@ -821,6 +1085,22 @@ input PermissionWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
@@ -871,6 +1151,8 @@ type Query {
 
 type Role {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   permissions(where: PermissionWhereInput, orderBy: PermissionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Permission!]
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
@@ -916,12 +1198,18 @@ type RoleEdge {
 enum RoleOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   name_ASC
   name_DESC
 }
 
 type RolePreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
 }
 
@@ -940,6 +1228,22 @@ input RoleScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
@@ -1067,6 +1371,22 @@ input RoleWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
@@ -1107,6 +1427,8 @@ type Subscription {
 
 type User {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   firstName: String!
   lastName: String!
   email: String!
@@ -1145,6 +1467,10 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   firstName_ASC
   firstName_DESC
   lastName_ASC
@@ -1155,6 +1481,8 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   firstName: String!
   lastName: String!
   email: String!
@@ -1175,6 +1503,22 @@ input UserScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   firstName: String
   firstName_not: String
   firstName_in: [String!]
@@ -1308,6 +1652,22 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   firstName: String
   firstName_not: String
   firstName_in: [String!]
