@@ -2,7 +2,8 @@
 
 type User {
   id: ID! @unique
-  name: String!
+  firstName: String!
+  lastName: String!
   email: String!
   roles: [Role!]! @relation(name: "RoleOnUser")
 }
@@ -18,4 +19,33 @@ type Permission {
   id: ID! @unique
   name: String!
   roles: [Role!]! @relation(name: "PermissionOnRole")
+}
+
+type Client {
+  id: ID! @unique
+  firstName: String!
+  lastName: String!
+  dob: String!
+  gender: String!
+  school: String!
+  grade: String!
+}
+
+type Parent {
+  id: ID! @unique
+  firstName: String!
+  lastName: String!
+  phoneNumber: String!
+  email: String!
+  address: Address!
+  isInSameHousehold: Boolean!
+  dob: String!
+}
+
+type Address {
+  id: ID! @unique
+  street: String!
+  city: String!
+  state: String!
+  zip: String!
 }
