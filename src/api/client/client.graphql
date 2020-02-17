@@ -1,0 +1,48 @@
+type Client {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  dob: String!
+  gender: String!
+  school: String!
+  grade: String!
+}
+
+input ClientInput {
+  id: ID!
+}
+
+input ClientCreateInput {
+  firstName: String!
+  lastName: String!
+  dob: String!
+  gender: String!
+  school: String!
+  grade: String!
+}
+
+input ClientUpdateInput {
+  firstName: String
+  lastName: String
+  dob: String
+  gender: String
+  school: String
+  grade: String
+}
+
+input ClientWhereUniqueInput {
+  id: ID!
+}
+
+type Query {
+  client(input: ClientInput!): Client
+  clients: [Client]!
+}
+
+type Mutation {
+  createClient(input: ClientCreateInput!): Cleint!
+  updateClient(
+    input: ClientUpdateInput!
+    where: ClientWhereUniqueInput!
+  ): Client
+}
