@@ -27,5 +27,5 @@ type Query {
 
 type Mutation {
   createPermission(input: PermissionCreateInput!): Permission!
-  updatePermission(input: PermissionUpdateInput!, where: PermissionWhereUniqueInput): Permission!
+  updatePermission(input: PermissionUpdateInput!, where: PermissionWhereUniqueInput!): Permission!
 }
