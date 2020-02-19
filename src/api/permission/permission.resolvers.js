@@ -11,7 +11,6 @@ const deletePermission = (parent, { where }, context) =>
   context.prisma.deletePermission(where);
 
 const updatePermission = (parent, { input, where }, context) => {
-  console.log({ input, where })
   return context.prisma.updatePermission({ data: input, where });
 };
 
