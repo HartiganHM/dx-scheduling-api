@@ -6,6 +6,7 @@ type Client {
   gender: String!
   school: String!
   grade: String!
+  parents: [Parent!]!
 }
 
 input ClientInput {
@@ -19,6 +20,7 @@ input ClientCreateInput {
   gender: String!
   school: String!
   grade: String!
+  parents: [Parent!]!
 }
 
 input ClientUpdateInput {
@@ -28,6 +30,7 @@ input ClientUpdateInput {
   gender: String
   school: String
   grade: String
+  parents: [Parent]
 }
 
 input ClientWhereUniqueInput {
