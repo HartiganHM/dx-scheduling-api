@@ -1,18 +1,18 @@
-const permission = (parent, { input: { id } }, context) =>
-  context.prisma.permission({ id });
+const permission = (parent, { input }, context) =>
+  context.prisma.permission(input);
 
 const permissions = (parent, args, context) => context.prisma.permissions();
 
-const createPermission = (parent, { input: { name, roles } }, context) => {
-  return context.prisma.createPermission({ name, roles });
+const createPermission = (parent, { input }, context) => {
+  return context.prisma.createPermission(input);
 };
 
-const updatePermission = (
-  parent,
-  { input: { name }, where: { id } },
-  context
-) => {
-  return context.prisma.updatePermission({ data: { name }, where: { id } });
+const deletePermission = (parent, { where }, context) =>
+  context.prisma.deletePermission(where);
+
+const updatePermission = (parent, { input, where }, context) => {
+  console.log({ input, where })
+  return context.prisma.updatePermission({ data: input, where });
 };
 
 const permissionResolvers = {
@@ -22,6 +22,7 @@ const permissionResolvers = {
   },
   Mutation: {
     createPermission,
+    deletePermission,
     updatePermission,
   },
 };
