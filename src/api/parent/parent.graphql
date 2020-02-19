@@ -1,0 +1,52 @@
+type Parent {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  phoneNumber: String!
+  email: String!
+  address: Address!
+  isInSameHousehold: Boolean!
+  dob: String
+}
+
+input ParentInput {
+  id: ID!
+}
+
+input ParentCreateInput {
+  firstName: String!
+  lastName: String!
+  phoneNumber: String!
+  email: String!
+  address: Address!
+  isInSameHousehold: Boolean!
+  dob: String
+}
+
+input ParentUpdateInput {
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  email: String
+  address: Address
+  isInSameHousehold: Boolean
+  dob: String
+}
+
+input ParentWhereUniqueInput {
+  id: ID!
+}
+
+extend type Query {
+  parent(input: ParentInput!): Parent!
+  parents: [Parent]!
+}
+
+extend type Mutation {
+  createParent(input: ParentCreateInput!): Parent!
+  deleteParent(where: ParentWhereUniqueInput!): Parent!
+  updateParent(
+    input: ParentUpdateInput!
+    where: ParentWhereUniqueInput!
+  ): Parent!
+}
