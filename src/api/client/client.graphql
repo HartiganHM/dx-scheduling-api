@@ -20,7 +20,7 @@ input ClientCreateInput {
   gender: String!
   school: String!
   grade: String!
-  parents: [Parent!]!
+  parents: [ParentCreateInput!]!
 }
 
 input ClientUpdateInput {
@@ -30,7 +30,7 @@ input ClientUpdateInput {
   gender: String
   school: String
   grade: String
-  parents: [Parent]
+  parents: [ParentUpdateInput]
 }
 
 input ClientWhereUniqueInput {

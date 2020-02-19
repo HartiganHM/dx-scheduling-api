@@ -18,7 +18,7 @@ input ParentCreateInput {
   lastName: String!
   phoneNumber: String!
   email: String!
-  address: Address!
+  address: AddressCreateInput!
   isInSameHousehold: Boolean!
   dob: String
 }
@@ -28,7 +28,7 @@ input ParentUpdateInput {
   lastName: String
   phoneNumber: String
   email: String
-  address: Address
+  address: AddressUpdateInput
   isInSameHousehold: Boolean
   dob: String
 }
