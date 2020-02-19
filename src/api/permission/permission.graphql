@@ -27,5 +27,6 @@ extend type Query {
 
 extend type Mutation {
   createPermission(input: PermissionCreateInput!): Permission!
+  deletePermission(where: PermissionWhereUniqueInput!): Permission!
   updatePermission(input: PermissionUpdateInput!, where: PermissionWhereUniqueInput!): Permission!
 }
