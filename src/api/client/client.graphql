@@ -40,7 +40,7 @@ type Query {
 }
 
 type Mutation {
-  createClient(input: ClientCreateInput!): Cleint!
+  createClient(input: ClientCreateInput!): Client!
   updateClient(
     input: ClientUpdateInput!
     where: ClientWhereUniqueInput!
