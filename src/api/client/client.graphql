@@ -34,12 +34,12 @@ input ClientWhereUniqueInput {
   id: ID!
 }
 
-type Query {
+extend type Query {
   client(input: ClientInput!): Client
   clients: [Client]!
 }
 
-type Mutation {
+extend type Mutation {
   createClient(input: ClientCreateInput!): Client!
   deleteClient(where: ClientWhereUniqueInput!): Client!
   updateClient(
