@@ -41,6 +41,7 @@ type Query {
 
 type Mutation {
   createClient(input: ClientCreateInput!): Client!
+  deleteClient(where: ClientWhereUniqueInput!): Client!
   updateClient(
     input: ClientUpdateInput!
     where: ClientWhereUniqueInput!

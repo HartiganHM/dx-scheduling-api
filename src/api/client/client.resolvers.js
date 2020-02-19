@@ -18,11 +18,12 @@ const createClient = (
   });
 };
 
+const deleteClient = (parent, { where }, context) =>
+  context.prisma.deleteClient(where);
+
 const updateClient = (parent, { input, where }, context) => {
-  console.log({ input, where })
   return context.prisma.updateClient({ data: input, where });
 };
-
 
 const clientResolvers = {
   Query: {
@@ -31,6 +32,7 @@ const clientResolvers = {
   },
   Mutation: {
     createClient,
+    deleteClient,
     updateClient,
   },
 };
