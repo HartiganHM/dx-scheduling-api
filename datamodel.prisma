@@ -50,7 +50,7 @@ type Parent {
   email: String!
   address: Address!
   isInSameHousehold: Boolean!
-  dob: String!
+  dob: String
 }
 
 type Address {

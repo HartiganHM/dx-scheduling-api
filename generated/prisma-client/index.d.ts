@@ -767,7 +767,7 @@ export interface ParentCreateInput {
   email: String;
   address: AddressCreateOneInput;
   isInSameHousehold: Boolean;
-  dob: String;
+  dob?: Maybe<String>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -2204,7 +2204,7 @@ export interface Parent {
   phoneNumber: String;
   email: String;
   isInSameHousehold: Boolean;
-  dob: String;
+  dob?: String;
 }
 
 export interface ParentPromise extends Promise<Parent>, Fragmentable {
@@ -2653,7 +2653,7 @@ export interface ParentPreviousValues {
   phoneNumber: String;
   email: String;
   isInSameHousehold: Boolean;
-  dob: String;
+  dob?: String;
 }
 
 export interface ParentPreviousValuesPromise

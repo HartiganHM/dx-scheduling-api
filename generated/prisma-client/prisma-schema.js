@@ -539,7 +539,7 @@ type Parent {
   email: String!
   address: Address!
   isInSameHousehold: Boolean!
-  dob: String!
+  dob: String
 }
 
 type ParentConnection {
@@ -555,7 +555,7 @@ input ParentCreateInput {
   email: String!
   address: AddressCreateOneInput!
   isInSameHousehold: Boolean!
-  dob: String!
+  dob: String
 }
 
 input ParentCreateManyInput {
@@ -598,7 +598,7 @@ type ParentPreviousValues {
   phoneNumber: String!
   email: String!
   isInSameHousehold: Boolean!
-  dob: String!
+  dob: String
 }
 
 input ParentScalarWhereInput {
