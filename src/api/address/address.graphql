@@ -29,6 +29,17 @@ input AddressUpdateInput {
   zip: String
 }
 
+input AddressUpdateDataInput {
+  street: String
+  city: String
+  state: String
+  zip: String
+}
+
+input AddressUpdateOneRequiredInput {
+  update: AddressUpdateDataInput
+}
+
 input AddressWhereUniqueInput {
   id: ID!
 }

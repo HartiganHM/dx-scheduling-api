@@ -28,7 +28,7 @@ input ParentUpdateInput {
   lastName: String
   phoneNumber: String
   email: String
-  address: AddressUpdateInput
+  address: AddressUpdateOneRequiredInput
   isInSameHousehold: Boolean
   dob: String
 }
