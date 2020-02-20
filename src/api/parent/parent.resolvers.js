@@ -2,9 +2,8 @@ const parent = (parent, { input }, context) => context.prisma.parent(input);
 
 const parents = (parent, args, context) => context.prisma.parents();
 
-const createParent = (parent, { input }, context) => {
-  return context.prisma.createParent(input);
-};
+const createParent = async (parent, { input }, context) =>
+  context.prisma.createParent(input);
 
 const deleteParent = (parent, { where }, context) =>
   context.prisma.deleteParent(where);
@@ -22,6 +21,10 @@ const parentResolvers = {
     createParent,
     deleteParent,
     updateParent,
+  },
+  Parent: {
+    address: (parent, args, context) =>
+      context.prisma.parent({ id: parent.id }).address(),
   },
 };
 
