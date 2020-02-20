@@ -17,6 +17,11 @@ input AddressCreateInput {
   zip: String!
 }
 
+input AddressCreateOneInput {
+  create: AddressCreateInput
+  connect: AddressWhereUniqueInput
+}
+
 input AddressUpdateInput {
   street: String
   city: String
