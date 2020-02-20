@@ -37,7 +37,7 @@ type Client {
   gender: String!
   school: String!
   grade: String!
-  parents: [Parent!]! @relation(name: "ParentOnClient")
+  parents: [Parent!]! @relation(name: "ParentOnClient", link: INLINE, onDelete: CASCADE)
 }
 
 type Parent {
@@ -48,7 +48,7 @@ type Parent {
   lastName: String!
   phoneNumber: String!
   email: String!
-  address: Address!
+  address: Address! @relation(name: "AddressOnParent", link: INLINE, onDelete: CASCADE)
   isInSameHousehold: Boolean!
   dob: String
 }
