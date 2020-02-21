@@ -49,9 +49,10 @@ type Parent {
   lastName: String!
   phoneNumber: String!
   email: String!
-  address: Address! @relation(name: "AddressOnParent", link: INLINE, onDelete: CASCADE)
   isInSameHousehold: Boolean!
   dob: String
+  address: Address! @relation(name: "AddressOnParent", link: INLINE, onDelete: CASCADE)
+  insurance: Insurance @relation(name: "InsuranceOnParent", link: INLINE, onDelete: CASCADE)
 }
 
 type Address {
@@ -70,4 +71,12 @@ type Physician {
   lastName: String!
   pracitce: String!
   phoneNumber: String!
+}
+
+type Insurance {
+  id: ID! @unique
+  idNumber: String!
+  groupNumber: String!
+  provider: String!
+  insured: Parent! @relation(name: "ParentOnInsurance", link: INLINE)
 }
