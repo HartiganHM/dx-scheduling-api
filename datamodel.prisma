@@ -39,6 +39,7 @@ type Client {
   grade: String!
   parents: [Parent!]! @relation(name: "ParentOnClient", link: INLINE, onDelete: CASCADE)
   physician: Physician! @relation(name: "PhysicianOnClient", link: INLINE, onDelete: CASCADE)
+  insurances: [Insurance!]! @relation(name: "InsuranceOnClient", link: INLINE, onDelete: CASCADE)
 }
 
 type Parent {
