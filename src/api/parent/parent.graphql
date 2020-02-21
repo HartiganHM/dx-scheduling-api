@@ -18,9 +18,13 @@ input ParentCreateInput {
   lastName: String!
   phoneNumber: String!
   email: String!
-  address: AddressCreateOneInput!
   isInSameHousehold: Boolean!
   dob: String
+  address: AddressCreateOneInput!
+}
+
+input ParentCreateManyInput {
+  create: [ParentCreateInput!]
 }
 
 input ParentUpdateInput {
@@ -31,6 +35,25 @@ input ParentUpdateInput {
   address: AddressUpdateOneRequiredInput
   isInSameHousehold: Boolean
   dob: String
+}
+
+input ParentUpdateDataInput {
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  email: String
+  isInSameHousehold: Boolean
+  dob: String
+  address: AddressUpdateOneRequiredInput
+}
+
+input ParentUpdateWithWhereUniqueNestedInput {
+  where: ParentWhereUniqueInput!
+  data: ParentUpdateDataInput!
+}
+
+input ParentUpdateManyInput {
+  update: [ParentUpdateWithWhereUniqueNestedInput!]
 }
 
 input ParentWhereUniqueInput {
