@@ -21,6 +21,7 @@ input ClientCreateInput {
   school: String!
   grade: String!
   parents: ParentCreateManyInput!
+  physician: PhysicianCreateOneInput!
 }
 
 input ClientUpdateInput {
@@ -31,6 +32,7 @@ input ClientUpdateInput {
   school: String
   grade: String
   parents: ParentUpdateManyInput
+  physician: PhysicianUpdateDataInput
 }
 
 input ClientWhereUniqueInput {
