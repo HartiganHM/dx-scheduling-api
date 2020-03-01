@@ -503,7 +503,7 @@ type Insurance {
   idNumber: String!
   groupNumber: String!
   provider: String!
-  insured: Parent!
+  insured: String!
 }
 
 type InsuranceConnection {
@@ -516,23 +516,12 @@ input InsuranceCreateInput {
   idNumber: String!
   groupNumber: String!
   provider: String!
-  insured: ParentCreateOneWithoutInsuranceInput!
+  insured: String!
 }
 
 input InsuranceCreateManyInput {
   create: [InsuranceCreateInput!]
   connect: [InsuranceWhereUniqueInput!]
-}
-
-input InsuranceCreateOneWithoutInsuredInput {
-  create: InsuranceCreateWithoutInsuredInput
-  connect: InsuranceWhereUniqueInput
-}
-
-input InsuranceCreateWithoutInsuredInput {
-  idNumber: String!
-  groupNumber: String!
-  provider: String!
 }
 
 type InsuranceEdge {
@@ -549,6 +538,8 @@ enum InsuranceOrderByInput {
   groupNumber_DESC
   provider_ASC
   provider_DESC
+  insured_ASC
+  insured_DESC
 }
 
 type InsurancePreviousValues {
@@ -556,6 +547,7 @@ type InsurancePreviousValues {
   idNumber: String!
   groupNumber: String!
   provider: String!
+  insured: String!
 }
 
 input InsuranceScalarWhereInput {
@@ -615,6 +607,20 @@ input InsuranceScalarWhereInput {
   provider_not_starts_with: String
   provider_ends_with: String
   provider_not_ends_with: String
+  insured: String
+  insured_not: String
+  insured_in: [String!]
+  insured_not_in: [String!]
+  insured_lt: String
+  insured_lte: String
+  insured_gt: String
+  insured_gte: String
+  insured_contains: String
+  insured_not_contains: String
+  insured_starts_with: String
+  insured_not_starts_with: String
+  insured_ends_with: String
+  insured_not_ends_with: String
   AND: [InsuranceScalarWhereInput!]
   OR: [InsuranceScalarWhereInput!]
   NOT: [InsuranceScalarWhereInput!]
@@ -642,20 +648,21 @@ input InsuranceUpdateDataInput {
   idNumber: String
   groupNumber: String
   provider: String
-  insured: ParentUpdateOneRequiredWithoutInsuranceInput
+  insured: String
 }
 
 input InsuranceUpdateInput {
   idNumber: String
   groupNumber: String
   provider: String
-  insured: ParentUpdateOneRequiredWithoutInsuranceInput
+  insured: String
 }
 
 input InsuranceUpdateManyDataInput {
   idNumber: String
   groupNumber: String
   provider: String
+  insured: String
 }
 
 input InsuranceUpdateManyInput {
@@ -674,6 +681,7 @@ input InsuranceUpdateManyMutationInput {
   idNumber: String
   groupNumber: String
   provider: String
+  insured: String
 }
 
 input InsuranceUpdateManyWithWhereNestedInput {
@@ -681,29 +689,9 @@ input InsuranceUpdateManyWithWhereNestedInput {
   data: InsuranceUpdateManyDataInput!
 }
 
-input InsuranceUpdateOneWithoutInsuredInput {
-  create: InsuranceCreateWithoutInsuredInput
-  update: InsuranceUpdateWithoutInsuredDataInput
-  upsert: InsuranceUpsertWithoutInsuredInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: InsuranceWhereUniqueInput
-}
-
-input InsuranceUpdateWithoutInsuredDataInput {
-  idNumber: String
-  groupNumber: String
-  provider: String
-}
-
 input InsuranceUpdateWithWhereUniqueNestedInput {
   where: InsuranceWhereUniqueInput!
   data: InsuranceUpdateDataInput!
-}
-
-input InsuranceUpsertWithoutInsuredInput {
-  update: InsuranceUpdateWithoutInsuredDataInput!
-  create: InsuranceCreateWithoutInsuredInput!
 }
 
 input InsuranceUpsertWithWhereUniqueNestedInput {
@@ -769,7 +757,20 @@ input InsuranceWhereInput {
   provider_not_starts_with: String
   provider_ends_with: String
   provider_not_ends_with: String
-  insured: ParentWhereInput
+  insured: String
+  insured_not: String
+  insured_in: [String!]
+  insured_not_in: [String!]
+  insured_lt: String
+  insured_lte: String
+  insured_gt: String
+  insured_gte: String
+  insured_contains: String
+  insured_not_contains: String
+  insured_starts_with: String
+  insured_not_starts_with: String
+  insured_ends_with: String
+  insured_not_ends_with: String
   AND: [InsuranceWhereInput!]
   OR: [InsuranceWhereInput!]
   NOT: [InsuranceWhereInput!]
@@ -948,7 +949,6 @@ type Parent {
   isInSameHousehold: Boolean!
   dob: String
   address: Address!
-  insurance: Insurance
 }
 
 type ParentConnection {
@@ -965,27 +965,11 @@ input ParentCreateInput {
   isInSameHousehold: Boolean!
   dob: String
   address: AddressCreateOneInput!
-  insurance: InsuranceCreateOneWithoutInsuredInput
 }
 
 input ParentCreateManyInput {
   create: [ParentCreateInput!]
   connect: [ParentWhereUniqueInput!]
-}
-
-input ParentCreateOneWithoutInsuranceInput {
-  create: ParentCreateWithoutInsuranceInput
-  connect: ParentWhereUniqueInput
-}
-
-input ParentCreateWithoutInsuranceInput {
-  firstName: String!
-  lastName: String!
-  phoneNumber: String!
-  email: String!
-  isInSameHousehold: Boolean!
-  dob: String
-  address: AddressCreateOneInput!
 }
 
 type ParentEdge {
@@ -1160,7 +1144,6 @@ input ParentUpdateDataInput {
   isInSameHousehold: Boolean
   dob: String
   address: AddressUpdateOneRequiredInput
-  insurance: InsuranceUpdateOneWithoutInsuredInput
 }
 
 input ParentUpdateInput {
@@ -1171,7 +1154,6 @@ input ParentUpdateInput {
   isInSameHousehold: Boolean
   dob: String
   address: AddressUpdateOneRequiredInput
-  insurance: InsuranceUpdateOneWithoutInsuredInput
 }
 
 input ParentUpdateManyDataInput {
@@ -1209,31 +1191,9 @@ input ParentUpdateManyWithWhereNestedInput {
   data: ParentUpdateManyDataInput!
 }
 
-input ParentUpdateOneRequiredWithoutInsuranceInput {
-  create: ParentCreateWithoutInsuranceInput
-  update: ParentUpdateWithoutInsuranceDataInput
-  upsert: ParentUpsertWithoutInsuranceInput
-  connect: ParentWhereUniqueInput
-}
-
-input ParentUpdateWithoutInsuranceDataInput {
-  firstName: String
-  lastName: String
-  phoneNumber: String
-  email: String
-  isInSameHousehold: Boolean
-  dob: String
-  address: AddressUpdateOneRequiredInput
-}
-
 input ParentUpdateWithWhereUniqueNestedInput {
   where: ParentWhereUniqueInput!
   data: ParentUpdateDataInput!
-}
-
-input ParentUpsertWithoutInsuranceInput {
-  update: ParentUpdateWithoutInsuranceDataInput!
-  create: ParentCreateWithoutInsuranceInput!
 }
 
 input ParentUpsertWithWhereUniqueNestedInput {
@@ -1346,7 +1306,6 @@ input ParentWhereInput {
   dob_ends_with: String
   dob_not_ends_with: String
   address: AddressWhereInput
-  insurance: InsuranceWhereInput
   AND: [ParentWhereInput!]
   OR: [ParentWhereInput!]
   NOT: [ParentWhereInput!]

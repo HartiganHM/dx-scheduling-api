@@ -60,7 +60,6 @@ type Parent {
   isInSameHousehold: Boolean!
   dob: String
   address: Address! @relation(name: "AddressOnParent", link: INLINE, onDelete: CASCADE)
-  insurance: Insurance @relation(name: "InsuranceOnParent", link: INLINE, onDelete: CASCADE)
 }
 
 type Address {
@@ -86,5 +85,5 @@ type Insurance {
   idNumber: String!
   groupNumber: String!
   provider: String!
-  insured: Parent! @relation(name: "ParentOnInsurance", link: INLINE)
+  insured: String!
 }
