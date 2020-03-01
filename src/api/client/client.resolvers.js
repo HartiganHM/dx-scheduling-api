@@ -25,6 +25,8 @@ const clientResolvers = {
   Client: {
     parents: (parent, args, context) =>
       context.prisma.client({ id: parent.id }).parents(),
+    physician: (parent, args, context) =>
+      context.prisma.client({ id: parent.id }).physician(),
   },
 };
 
