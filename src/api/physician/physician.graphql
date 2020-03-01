@@ -6,7 +6,7 @@ type Physician {
   phoneNumber: String!
 }
 
-type PhysicianInput {
+input PhysicianInput {
   id: ID!
 }
 
