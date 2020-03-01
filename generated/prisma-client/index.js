@@ -17,6 +17,10 @@ var models = [
     embedded: false
   },
   {
+    name: "IntakeFormValues",
+    embedded: false
+  },
+  {
     name: "Client",
     embedded: false
   },

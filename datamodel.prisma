@@ -27,6 +27,13 @@ type Permission {
   roles: [Role!]! @relation(name: "RoleOnPermission")
 }
 
+type IntakeFormValues {
+  date: String!
+  servicesRequested: [String!]!
+  client: Client!
+}
+
+
 type Client {
   id: ID! @unique
   createdAt: DateTime! @createdAt
@@ -38,8 +45,8 @@ type Client {
   school: String!
   grade: String!
   parents: [Parent!]! @relation(name: "ParentOnClient", link: INLINE, onDelete: CASCADE)
-  physician: Physician! @relation(name: "PhysicianOnClient", link: INLINE, onDelete: CASCADE)
   insurances: [Insurance!]! @relation(name: "InsuranceOnClient", link: INLINE, onDelete: CASCADE)
+  physician: Physician! @relation(name: "PhysicianOnClient", link: INLINE, onDelete: CASCADE)
 }
 
 type Parent {
