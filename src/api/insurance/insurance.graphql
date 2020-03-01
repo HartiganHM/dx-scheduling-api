@@ -3,7 +3,7 @@ type Insurance {
   idNumber: String!
   groupNumber: String!
   provider: String!
-  insured: Parent!
+  insured: String!
 }
 
 input InsuranceInput {
@@ -14,7 +14,7 @@ input InsuranceCreateInput {
   idNumber: String!
   groupNumber: String!
   provider: String!
-  insured: Parent!
+  insured: String!
 }
 
 input InsuranceCreateManyInput {
@@ -25,14 +25,14 @@ input InsuranceUpdateInput {
   idNumber: String
   groupNumber: String
   provider: String
-  insured: Parent
+  insured: String
 }
 
 input InsuranceUpdateDataInput {
   idNumber: String!
   groupNumber: String!
   provider: String!
-  insured: Parent!
+  insured: String!
 }
 
 input InsuranceUpdateWithWhereUniqueNestedInput {
