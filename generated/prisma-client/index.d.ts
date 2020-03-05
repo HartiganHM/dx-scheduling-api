@@ -538,8 +538,8 @@ export type PhysicianOrderByInput =
   | "firstName_DESC"
   | "lastName_ASC"
   | "lastName_DESC"
-  | "pracitce_ASC"
-  | "pracitce_DESC"
+  | "practice_ASC"
+  | "practice_DESC"
   | "phoneNumber_ASC"
   | "phoneNumber_DESC";
 
@@ -895,20 +895,20 @@ export interface PhysicianWhereInput {
   lastName_not_starts_with?: Maybe<String>;
   lastName_ends_with?: Maybe<String>;
   lastName_not_ends_with?: Maybe<String>;
-  pracitce?: Maybe<String>;
-  pracitce_not?: Maybe<String>;
-  pracitce_in?: Maybe<String[] | String>;
-  pracitce_not_in?: Maybe<String[] | String>;
-  pracitce_lt?: Maybe<String>;
-  pracitce_lte?: Maybe<String>;
-  pracitce_gt?: Maybe<String>;
-  pracitce_gte?: Maybe<String>;
-  pracitce_contains?: Maybe<String>;
-  pracitce_not_contains?: Maybe<String>;
-  pracitce_starts_with?: Maybe<String>;
-  pracitce_not_starts_with?: Maybe<String>;
-  pracitce_ends_with?: Maybe<String>;
-  pracitce_not_ends_with?: Maybe<String>;
+  practice?: Maybe<String>;
+  practice_not?: Maybe<String>;
+  practice_in?: Maybe<String[] | String>;
+  practice_not_in?: Maybe<String[] | String>;
+  practice_lt?: Maybe<String>;
+  practice_lte?: Maybe<String>;
+  practice_gt?: Maybe<String>;
+  practice_gte?: Maybe<String>;
+  practice_contains?: Maybe<String>;
+  practice_not_contains?: Maybe<String>;
+  practice_starts_with?: Maybe<String>;
+  practice_not_starts_with?: Maybe<String>;
+  practice_ends_with?: Maybe<String>;
+  practice_not_ends_with?: Maybe<String>;
   phoneNumber?: Maybe<String>;
   phoneNumber_not?: Maybe<String>;
   phoneNumber_in?: Maybe<String[] | String>;
@@ -981,7 +981,7 @@ export interface RoleUpdateWithWhereUniqueWithoutUsersInput {
 export interface PhysicianCreateInput {
   firstName: String;
   lastName: String;
-  pracitce: String;
+  practice: String;
   phoneNumber: String;
 }
 
@@ -1419,7 +1419,7 @@ export interface UserUpdateWithoutRolesDataInput {
 export interface PhysicianUpdateInput {
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
-  pracitce?: Maybe<String>;
+  practice?: Maybe<String>;
   phoneNumber?: Maybe<String>;
 }
 
@@ -1637,7 +1637,7 @@ export interface InsuranceWhereInput {
 export interface PhysicianUpdateDataInput {
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
-  pracitce?: Maybe<String>;
+  practice?: Maybe<String>;
   phoneNumber?: Maybe<String>;
 }
 
@@ -2036,7 +2036,7 @@ export interface IntakeFormValuesUpdateservicesRequestedInput {
 export interface PhysicianUpdateManyMutationInput {
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
-  pracitce?: Maybe<String>;
+  practice?: Maybe<String>;
   phoneNumber?: Maybe<String>;
 }
 
@@ -3172,7 +3172,7 @@ export interface Physician {
   id: ID_Output;
   firstName: String;
   lastName: String;
-  pracitce: String;
+  practice: String;
   phoneNumber: String;
 }
 
@@ -3180,7 +3180,7 @@ export interface PhysicianPromise extends Promise<Physician>, Fragmentable {
   id: () => Promise<ID_Output>;
   firstName: () => Promise<String>;
   lastName: () => Promise<String>;
-  pracitce: () => Promise<String>;
+  practice: () => Promise<String>;
   phoneNumber: () => Promise<String>;
 }
 
@@ -3190,7 +3190,7 @@ export interface PhysicianSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   firstName: () => Promise<AsyncIterator<String>>;
   lastName: () => Promise<AsyncIterator<String>>;
-  pracitce: () => Promise<AsyncIterator<String>>;
+  practice: () => Promise<AsyncIterator<String>>;
   phoneNumber: () => Promise<AsyncIterator<String>>;
 }
 
@@ -3200,7 +3200,7 @@ export interface PhysicianNullablePromise
   id: () => Promise<ID_Output>;
   firstName: () => Promise<String>;
   lastName: () => Promise<String>;
-  pracitce: () => Promise<String>;
+  practice: () => Promise<String>;
   phoneNumber: () => Promise<String>;
 }
 
@@ -3737,7 +3737,7 @@ export interface PhysicianPreviousValues {
   id: ID_Output;
   firstName: String;
   lastName: String;
-  pracitce: String;
+  practice: String;
   phoneNumber: String;
 }
 
@@ -3747,7 +3747,7 @@ export interface PhysicianPreviousValuesPromise
   id: () => Promise<ID_Output>;
   firstName: () => Promise<String>;
   lastName: () => Promise<String>;
-  pracitce: () => Promise<String>;
+  practice: () => Promise<String>;
   phoneNumber: () => Promise<String>;
 }
 
@@ -3757,7 +3757,7 @@ export interface PhysicianPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   firstName: () => Promise<AsyncIterator<String>>;
   lastName: () => Promise<AsyncIterator<String>>;
-  pracitce: () => Promise<AsyncIterator<String>>;
+  practice: () => Promise<AsyncIterator<String>>;
   phoneNumber: () => Promise<AsyncIterator<String>>;
 }
 

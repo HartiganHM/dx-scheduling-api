@@ -1595,7 +1595,7 @@ type Physician {
   id: ID!
   firstName: String!
   lastName: String!
-  pracitce: String!
+  practice: String!
   phoneNumber: String!
 }
 
@@ -1608,7 +1608,7 @@ type PhysicianConnection {
 input PhysicianCreateInput {
   firstName: String!
   lastName: String!
-  pracitce: String!
+  practice: String!
   phoneNumber: String!
 }
 
@@ -1629,8 +1629,8 @@ enum PhysicianOrderByInput {
   firstName_DESC
   lastName_ASC
   lastName_DESC
-  pracitce_ASC
-  pracitce_DESC
+  practice_ASC
+  practice_DESC
   phoneNumber_ASC
   phoneNumber_DESC
 }
@@ -1639,7 +1639,7 @@ type PhysicianPreviousValues {
   id: ID!
   firstName: String!
   lastName: String!
-  pracitce: String!
+  practice: String!
   phoneNumber: String!
 }
 
@@ -1664,21 +1664,21 @@ input PhysicianSubscriptionWhereInput {
 input PhysicianUpdateDataInput {
   firstName: String
   lastName: String
-  pracitce: String
+  practice: String
   phoneNumber: String
 }
 
 input PhysicianUpdateInput {
   firstName: String
   lastName: String
-  pracitce: String
+  practice: String
   phoneNumber: String
 }
 
 input PhysicianUpdateManyMutationInput {
   firstName: String
   lastName: String
-  pracitce: String
+  practice: String
   phoneNumber: String
 }
 
@@ -1737,20 +1737,20 @@ input PhysicianWhereInput {
   lastName_not_starts_with: String
   lastName_ends_with: String
   lastName_not_ends_with: String
-  pracitce: String
-  pracitce_not: String
-  pracitce_in: [String!]
-  pracitce_not_in: [String!]
-  pracitce_lt: String
-  pracitce_lte: String
-  pracitce_gt: String
-  pracitce_gte: String
-  pracitce_contains: String
-  pracitce_not_contains: String
-  pracitce_starts_with: String
-  pracitce_not_starts_with: String
-  pracitce_ends_with: String
-  pracitce_not_ends_with: String
+  practice: String
+  practice_not: String
+  practice_in: [String!]
+  practice_not_in: [String!]
+  practice_lt: String
+  practice_lte: String
+  practice_gt: String
+  practice_gte: String
+  practice_contains: String
+  practice_not_contains: String
+  practice_starts_with: String
+  practice_not_starts_with: String
+  practice_ends_with: String
+  practice_not_ends_with: String
   phoneNumber: String
   phoneNumber_not: String
   phoneNumber_in: [String!]

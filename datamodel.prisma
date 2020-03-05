@@ -77,7 +77,7 @@ type Physician {
   id: ID! @unique
   firstName: String!
   lastName: String!
-  pracitce: String!
+  practice: String!
   phoneNumber: String!
 }
 
