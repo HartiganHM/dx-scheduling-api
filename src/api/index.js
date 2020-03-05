@@ -2,6 +2,7 @@ const merge = require('lodash/merge');
 
 const address = require('./address');
 const client = require('./client');
+const intakeFormValues = require('./intakeFormValues');
 const insurance = require('./insurance');
 const parent = require('./parent');
 const permission = require('./permission');
@@ -12,6 +13,7 @@ const user = require('./user');
 const typeDefs = [
   address.typeDefs,
   client.typeDefs,
+  intakeFormValues.typeDefs,
   insurance.typeDefs,
   parent.typeDefs,
   permission.typeDefs,
@@ -24,6 +26,7 @@ const resolvers = merge(
   {},
   address.resolvers,
   client.resolvers,
+  intakeFormValues.resolvers,
   insurance.resolvers,
   parent.resolvers,
   permission.resolvers,
