@@ -1,0 +1,50 @@
+type IntakeFormValues {
+  id: ID!
+  date: String!
+  servicesRequested: [String!]!
+  client: Client!
+}
+
+input IntakeFormValuesInput {
+  id: ID!
+}
+
+input IntakeFormValuesWhereUniqueInput {
+  id: ID
+}
+
+input IntakeFormValuesCreateInput {
+  date: String!
+  servicesRequested: IntakeFormValuesCreateservicesRequestedInput
+  client: ClientCreateOneInput!
+}
+
+input IntakeFormValuesCreateservicesRequestedInput {
+  set: [String!]
+}
+
+input IntakeFormValuesUpdateInput {
+  date: String
+  servicesRequested: [String]
+  client: ClientUpdateOneRequiredInput
+}
+
+input IntakeFormValuesUpdateservicesRequestedInput {
+  set: [String!]
+}
+
+extend type Query {
+  intakeFormValues(input: IntakeFormValuesWhereUniqueInput!): IntakeFormValues
+  intakeFormValueses: [IntakeFormValues]!
+}
+
+extend type Mutation {
+  creatIntakeFormValues(input: IntakeFormValuesCreateInput!): IntakeFormValues!
+  deleteIntakeFormValues(
+    where: IntakeFormValuesWhereUniqueInput
+  ): IntakeFormValues!
+  updateIntakeFormValues(
+    input: IntakeFormValuesUpdateInput
+    where: IntakeFormValuesWhereUniqueInput
+  ): IntakeFormValues!
+}
