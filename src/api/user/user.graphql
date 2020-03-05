@@ -15,7 +15,7 @@ input UserCreateInput {
 }
 
 extend type Query {
-  user(input: UserInput!): User
+  user(where: UserInput!): User
   users: [User!]
 }
 

@@ -1,0 +1,63 @@
+type Insurance {
+  id: ID!
+  idNumber: String!
+  groupNumber: String!
+  provider: String!
+  insured: String!
+}
+
+input InsuranceInput {
+  id: ID!
+}
+
+input InsuranceCreateInput {
+  idNumber: String!
+  groupNumber: String!
+  provider: String!
+  insured: String!
+}
+
+input InsuranceCreateManyInput {
+  create: [InsuranceCreateInput!]
+}
+
+input InsuranceUpdateInput {
+  idNumber: String
+  groupNumber: String
+  provider: String
+  insured: String
+}
+
+input InsuranceUpdateDataInput {
+  idNumber: String!
+  groupNumber: String!
+  provider: String!
+  insured: String!
+}
+
+input InsuranceUpdateWithWhereUniqueNestedInput {
+  where: InsuranceWhereUniqueInput!
+  data: InsuranceUpdateDataInput!
+}
+
+input InsuranceUpdateManyInput {
+  update: [InsuranceUpdateWithWhereUniqueNestedInput!]
+}
+
+input InsuranceWhereUniqueInput {
+  id: ID!
+}
+
+extend type Query {
+  insurance(where: InsuranceInput!): Insurance!
+  insurances: [Insurance]!
+}
+
+extend type Mutation {
+  createInsurance(input: InsuranceCreateInput!): Insurance!
+  deleteInsurance(where: InsuranceWhereUniqueInput!): Insurance!
+  updateInsurance(
+    input: InsuranceUpdateInput!
+    where: InsuranceWhereUniqueInput!
+  ): Insurance!
+}

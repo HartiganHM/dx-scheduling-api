@@ -1,0 +1,78 @@
+type Client {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  dob: String!
+  gender: String!
+  school: String!
+  grade: String!
+  parents: [Parent!]!
+  physician: Physician!
+  insurances: [Insurance!]!
+}
+
+input ClientInput {
+  id: ID!
+}
+
+input ClientCreateInput {
+  firstName: String!
+  lastName: String!
+  dob: String!
+  gender: String!
+  school: String!
+  grade: String!
+  parents: ParentCreateManyInput!
+  insurances: InsuranceCreateManyInput!
+  physician: PhysicianCreateOneInput!
+}
+
+input ClientCreateOneInput {
+  create: ClientCreateInput
+}
+
+input ClientUpdateInput {
+  firstName: String
+  lastName: String
+  dob: String
+  gender: String
+  school: String
+  grade: String
+  parents: ParentUpdateManyInput
+  insurances: InsuranceUpdateManyInput
+  physician: PhysicianUpdateDataInput
+}
+
+input ClientUpdateDataInput {
+  firstName: String
+  lastName: String
+  dob: String
+  gender: String
+  school: String
+  grade: String
+  parents: ParentUpdateManyInput
+  insurances: InsuranceUpdateManyInput
+  physician: PhysicianUpdateOneRequiredInput
+}
+
+input ClientUpdateOneRequiredInput {
+  update: ClientUpdateDataInput
+}
+
+input ClientWhereUniqueInput {
+  id: ID!
+}
+
+extend type Query {
+  client(where: ClientInput!): Client
+  clients: [Client]!
+}
+
+extend type Mutation {
+  createClient(input: ClientCreateInput!): Client!
+  deleteClient(where: ClientWhereUniqueInput!): Client!
+  updateClient(
+    input: ClientUpdateInput!
+    where: ClientWhereUniqueInput!
+  ): Client!
+}

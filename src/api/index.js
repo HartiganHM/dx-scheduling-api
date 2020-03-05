@@ -1,14 +1,41 @@
 const merge = require('lodash/merge');
 
+const address = require('./address');
+const client = require('./client');
+const intakeFormValues = require('./intakeFormValues');
+const insurance = require('./insurance');
+const parent = require('./parent');
 const permission = require('./permission');
+const physician = require('./physician');
 const role = require('./role');
 const user = require('./user');
 
-const typeDefs = [permission.typeDefs, role.typeDefs, user.typeDefs].join(' ');
+const typeDefs = [
+  address.typeDefs,
+  client.typeDefs,
+  intakeFormValues.typeDefs,
+  insurance.typeDefs,
+  parent.typeDefs,
+  permission.typeDefs,
+  physician.typeDefs,
+  role.typeDefs,
+  user.typeDefs,
+].join(' ');
 
-const resolvers = merge({}, permission.resolvers, role.resolvers, user.resolvers);
+const resolvers = merge(
+  {},
+  address.resolvers,
+  client.resolvers,
+  intakeFormValues.resolvers,
+  insurance.resolvers,
+  parent.resolvers,
+  permission.resolvers,
+  physician.resolvers,
+  role.resolvers,
+  user.resolvers
+);
 
 module.exports = {
   typeDefs,
-  resolvers
+  resolvers,
 };

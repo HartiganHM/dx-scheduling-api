@@ -22,7 +22,7 @@ input RoleWhereUniqueInput {
 }
 
 extend type Query {
-  role(input: RoleInput!): Role
+  role(where: RoleInput!): Role
   roles: [Role]!
 }
 

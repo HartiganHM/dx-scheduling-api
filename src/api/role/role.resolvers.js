@@ -1,18 +1,12 @@
-const role = (parent, { input: { id } }, context) => {
-  return context.prisma.role({ id });
-}
+const role = (parent, { where }, context) => context.prisma.role(where);
 
-const roles = (parent, args, context) => {
-  return context.prisma.roles();
-}
+const roles = (parent, args, context) => context.prisma.roles();
 
-const createRole = (parent, { input: { name, permissions } }, context) => {
-  return context.prisma.createRole({ name, permissions });
-}
+const createRole = (parent, { input: { name, permissions } }, context) =>
+  context.prisma.createRole({ name, permissions });
 
-const updateRole = (parent, { input: { name }, where: { id } }, context) => {
-  return context.prisma.updateRole({ data: { name }, where: { id }})
-}
+const updateRole = (parent, { input: { name }, where: { id } }, context) =>
+  context.prisma.updateRole({ data: { name }, where: { id } });
 
 const roleResolvers = {
   Query: {
@@ -22,7 +16,7 @@ const roleResolvers = {
   Mutation: {
     createRole,
     updateRole,
-  }
-}
+  },
+};
 
 module.exports = roleResolvers;

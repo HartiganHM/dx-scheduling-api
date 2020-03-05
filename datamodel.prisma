@@ -2,20 +2,89 @@
 
 type User {
   id: ID! @unique
-  name: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  firstName: String!
+  lastName: String!
   email: String!
   roles: [Role!]! @relation(name: "RoleOnUser")
 }
 
 type Role {
   id: ID! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   name: String!
   permissions: [Permission!]! @relation(name: "PermissionOnRole")
-  users: [User!]! @relation(name: "RoleOnUser")
+  users: [User!]! @relation(name: "UserOnRole")
 }
 
 type Permission {
   id: ID! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   name: String!
-  roles: [Role!]! @relation(name: "PermissionOnRole")
+  roles: [Role!]! @relation(name: "RoleOnPermission")
+}
+
+type IntakeFormValues {
+  id: ID! @unique
+  date: String!
+  servicesRequested: [String!]!
+  client: Client!
+}
+
+
+type Client {
+  id: ID! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  firstName: String!
+  lastName: String!
+  dob: String!
+  gender: String!
+  school: String!
+  grade: String!
+  parents: [Parent!]! @relation(name: "ParentOnClient", link: INLINE, onDelete: CASCADE)
+  insurances: [Insurance!]! @relation(name: "InsuranceOnClient", link: INLINE, onDelete: CASCADE)
+  physician: Physician! @relation(name: "PhysicianOnClient", link: INLINE, onDelete: CASCADE)
+}
+
+type Parent {
+  id: ID! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  firstName: String!
+  lastName: String!
+  phoneNumber: String!
+  email: String!
+  isInSameHousehold: Boolean!
+  dob: String
+  address: Address! @relation(name: "AddressOnParent", link: INLINE, onDelete: CASCADE)
+}
+
+type Address {
+  id: ID! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  street: String!
+  city: String!
+  state: String!
+  zip: String!
+}
+
+type Physician {
+  id: ID! @unique
+  firstName: String!
+  lastName: String!
+  practice: String!
+  phoneNumber: String!
+}
+
+type Insurance {
+  id: ID! @unique
+  idNumber: String!
+  groupNumber: String!
+  provider: String!
+  insured: String!
 }

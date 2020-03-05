@@ -1,0 +1,59 @@
+type Physician {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  practice: String!
+  phoneNumber: String!
+}
+
+input PhysicianInput {
+  id: ID!
+}
+
+input PhysicianCreateInput {
+  firstName: String!
+  lastName: String!
+  practice: String!
+  phoneNumber: String!
+}
+
+input PhysicianCreateOneInput {
+  create: PhysicianCreateInput
+  connection: PhysicianWhereUniqueInput
+}
+
+input PhysicianUpdateInput {
+  firstName: String
+  lastName: String
+  practice: String
+  phoneNumber: String
+}
+
+input PhysicianUpdateDataInput {
+  firstName: String
+  lastName: String
+  practice: String
+  phoneNumber: String
+}
+
+input PhysicianUpdateOneRequiredInput {
+  update: PhysicianUpdateDataInput
+}
+
+input PhysicianWhereUniqueInput {
+  id: ID!
+}
+
+extend type Query {
+  physician(where: PhysicianInput): Physician
+  physicians: [Physician]!
+}
+
+extend type Mutation {
+  createPhysician(input: PhysicianCreateInput!): Physician!
+  deletePhysician(where: PhysicianWhereUniqueInput!): Physician!
+  updatePhysician(
+    input: PhysicianUpdateInput!
+    where: PhysicianWhereUniqueInput!
+  ): Physician
+}
