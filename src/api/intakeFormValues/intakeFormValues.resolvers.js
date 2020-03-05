@@ -1,5 +1,5 @@
-const intakeFormValues = (parent, { input }, context) =>
-  context.prisma.intakeFormValues(input);
+const intakeFormValues = (parent, { where }, context) =>
+  context.prisma.intakeFormValues(where);
 
 const intakeFormValueses = (parent, args, context) =>
   context.prisma.intakeFormValueses();
@@ -28,3 +28,5 @@ const intakeFormValuesResolvers = {
       context.prisma.intakeFormValues({ id: parent.id }).client(),
   },
 };
+
+module.exports = intakeFormValuesResolvers;
