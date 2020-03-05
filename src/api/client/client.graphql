@@ -23,7 +23,12 @@ input ClientCreateInput {
   school: String!
   grade: String!
   parents: ParentCreateManyInput!
+  insurances: InsuranceCreateManyInput!
   physician: PhysicianCreateOneInput!
+}
+
+input ClientCreateOneInput {
+  create: ClientCreateInput
 }
 
 input ClientUpdateInput {
@@ -34,7 +39,24 @@ input ClientUpdateInput {
   school: String
   grade: String
   parents: ParentUpdateManyInput
+  insurances: InsuranceUpdateManyInput
   physician: PhysicianUpdateDataInput
+}
+
+input ClientUpdateDataInput {
+  firstName: String
+  lastName: String
+  dob: String
+  gender: String
+  school: String
+  grade: String
+  parents: ParentUpdateManyInput
+  insurances: InsuranceUpdateManyInput
+  physician: PhysicianUpdateOneRequiredInput
+}
+
+input ClientUpdateOneRequiredInput {
+  update: ClientUpdateDataInput
 }
 
 input ClientWhereUniqueInput {
