@@ -1,5 +1,4 @@
-const client = (parent, { input: { id } }, context) =>
-  context.prisma.client({ id });
+const client = (parent, { input }, context) => context.prisma.client(input);
 
 const clients = (parent, args, context) => context.prisma.clients();
 
@@ -27,6 +26,8 @@ const clientResolvers = {
       context.prisma.client({ id: parent.id }).parents(),
     physician: (parent, args, context) =>
       context.prisma.client({ id: parent.id }).physician(),
+    insurances: (parent, args, context) =>
+      context.prisma.client({ id: parent.id }).insurances(),
   },
 };
 
