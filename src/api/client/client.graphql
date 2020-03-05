@@ -8,6 +8,7 @@ type Client {
   grade: String!
   parents: [Parent!]!
   physician: Physician!
+  Insurances: [Insurance!]!
 }
 
 input ClientInput {
