@@ -344,6 +344,18 @@ input ClientSubscriptionWhereInput {
   NOT: [ClientSubscriptionWhereInput!]
 }
 
+input ClientUpdateDataInput {
+  firstName: String
+  lastName: String
+  dob: String
+  gender: String
+  school: String
+  grade: String
+  parents: ParentUpdateManyInput
+  insurances: InsuranceUpdateManyInput
+  physician: PhysicianUpdateOneRequiredInput
+}
+
 input ClientUpdateInput {
   firstName: String
   lastName: String
@@ -363,6 +375,18 @@ input ClientUpdateManyMutationInput {
   gender: String
   school: String
   grade: String
+}
+
+input ClientUpdateOneRequiredInput {
+  create: ClientCreateInput
+  update: ClientUpdateDataInput
+  upsert: ClientUpsertNestedInput
+  connect: ClientWhereUniqueInput
+}
+
+input ClientUpsertNestedInput {
+  update: ClientUpdateDataInput!
+  create: ClientCreateInput!
 }
 
 input ClientWhereInput {
@@ -781,6 +805,7 @@ input InsuranceWhereUniqueInput {
 }
 
 type IntakeFormValues {
+  id: ID!
   date: String!
   servicesRequested: [String!]!
   client: Client!
@@ -808,11 +833,14 @@ type IntakeFormValuesEdge {
 }
 
 enum IntakeFormValuesOrderByInput {
+  id_ASC
+  id_DESC
   date_ASC
   date_DESC
 }
 
 type IntakeFormValuesPreviousValues {
+  id: ID!
   date: String!
   servicesRequested: [String!]!
 }
@@ -835,6 +863,12 @@ input IntakeFormValuesSubscriptionWhereInput {
   NOT: [IntakeFormValuesSubscriptionWhereInput!]
 }
 
+input IntakeFormValuesUpdateInput {
+  date: String
+  servicesRequested: IntakeFormValuesUpdateservicesRequestedInput
+  client: ClientUpdateOneRequiredInput
+}
+
 input IntakeFormValuesUpdateManyMutationInput {
   date: String
   servicesRequested: IntakeFormValuesUpdateservicesRequestedInput
@@ -845,6 +879,20 @@ input IntakeFormValuesUpdateservicesRequestedInput {
 }
 
 input IntakeFormValuesWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
   date: String
   date_not: String
   date_in: [String!]
@@ -863,6 +911,10 @@ input IntakeFormValuesWhereInput {
   AND: [IntakeFormValuesWhereInput!]
   OR: [IntakeFormValuesWhereInput!]
   NOT: [IntakeFormValuesWhereInput!]
+}
+
+input IntakeFormValuesWhereUniqueInput {
+  id: ID
 }
 
 scalar Long
@@ -887,7 +939,10 @@ type Mutation {
   deleteInsurance(where: InsuranceWhereUniqueInput!): Insurance
   deleteManyInsurances(where: InsuranceWhereInput): BatchPayload!
   createIntakeFormValues(data: IntakeFormValuesCreateInput!): IntakeFormValues!
+  updateIntakeFormValues(data: IntakeFormValuesUpdateInput!, where: IntakeFormValuesWhereUniqueInput!): IntakeFormValues
   updateManyIntakeFormValueses(data: IntakeFormValuesUpdateManyMutationInput!, where: IntakeFormValuesWhereInput): BatchPayload!
+  upsertIntakeFormValues(where: IntakeFormValuesWhereUniqueInput!, create: IntakeFormValuesCreateInput!, update: IntakeFormValuesUpdateInput!): IntakeFormValues!
+  deleteIntakeFormValues(where: IntakeFormValuesWhereUniqueInput!): IntakeFormValues
   deleteManyIntakeFormValueses(where: IntakeFormValuesWhereInput): BatchPayload!
   createParent(data: ParentCreateInput!): Parent!
   updateParent(data: ParentUpdateInput!, where: ParentWhereUniqueInput!): Parent
@@ -1729,6 +1784,7 @@ type Query {
   insurance(where: InsuranceWhereUniqueInput!): Insurance
   insurances(where: InsuranceWhereInput, orderBy: InsuranceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Insurance]!
   insurancesConnection(where: InsuranceWhereInput, orderBy: InsuranceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InsuranceConnection!
+  intakeFormValues(where: IntakeFormValuesWhereUniqueInput!): IntakeFormValues
   intakeFormValueses(where: IntakeFormValuesWhereInput, orderBy: IntakeFormValuesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IntakeFormValues]!
   intakeFormValuesesConnection(where: IntakeFormValuesWhereInput, orderBy: IntakeFormValuesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IntakeFormValuesConnection!
   parent(where: ParentWhereUniqueInput!): Parent

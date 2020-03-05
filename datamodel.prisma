@@ -28,6 +28,7 @@ type Permission {
 }
 
 type IntakeFormValues {
+  id: ID! @unique
   date: String!
   servicesRequested: [String!]!
   client: Client!

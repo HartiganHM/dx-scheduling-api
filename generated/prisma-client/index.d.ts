@@ -103,6 +103,9 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => InsuranceConnectionPromise;
+  intakeFormValues: (
+    where: IntakeFormValuesWhereUniqueInput
+  ) => IntakeFormValuesNullablePromise;
   intakeFormValueses: (args?: {
     where?: IntakeFormValuesWhereInput;
     orderBy?: IntakeFormValuesOrderByInput;
@@ -273,10 +276,22 @@ export interface Prisma {
   createIntakeFormValues: (
     data: IntakeFormValuesCreateInput
   ) => IntakeFormValuesPromise;
+  updateIntakeFormValues: (args: {
+    data: IntakeFormValuesUpdateInput;
+    where: IntakeFormValuesWhereUniqueInput;
+  }) => IntakeFormValuesPromise;
   updateManyIntakeFormValueses: (args: {
     data: IntakeFormValuesUpdateManyMutationInput;
     where?: IntakeFormValuesWhereInput;
   }) => BatchPayloadPromise;
+  upsertIntakeFormValues: (args: {
+    where: IntakeFormValuesWhereUniqueInput;
+    create: IntakeFormValuesCreateInput;
+    update: IntakeFormValuesUpdateInput;
+  }) => IntakeFormValuesPromise;
+  deleteIntakeFormValues: (
+    where: IntakeFormValuesWhereUniqueInput
+  ) => IntakeFormValuesPromise;
   deleteManyIntakeFormValueses: (
     where?: IntakeFormValuesWhereInput
   ) => BatchPayloadPromise;
@@ -474,7 +489,11 @@ export type ClientOrderByInput =
   | "grade_ASC"
   | "grade_DESC";
 
-export type IntakeFormValuesOrderByInput = "date_ASC" | "date_DESC";
+export type IntakeFormValuesOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "date_ASC"
+  | "date_DESC";
 
 export type RoleOrderByInput =
   | "id_ASC"
@@ -524,34 +543,117 @@ export type PhysicianOrderByInput =
   | "phoneNumber_ASC"
   | "phoneNumber_DESC";
 
-export interface ParentUpdateManyDataInput {
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  phoneNumber?: Maybe<String>;
-  email?: Maybe<String>;
-  isInSameHousehold?: Maybe<Boolean>;
-  dob?: Maybe<String>;
+export interface InsuranceUpdateWithWhereUniqueNestedInput {
+  where: InsuranceWhereUniqueInput;
+  data: InsuranceUpdateDataInput;
 }
 
 export type AddressWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
+export interface AddressUpdateInput {
+  street?: Maybe<String>;
+  city?: Maybe<String>;
+  state?: Maybe<String>;
+  zip?: Maybe<String>;
+}
+
 export interface UserUpdateWithWhereUniqueWithoutRolesInput {
   where: UserWhereUniqueInput;
   data: UserUpdateWithoutRolesDataInput;
 }
 
-export interface InsuranceUpdateManyWithWhereNestedInput {
-  where: InsuranceScalarWhereInput;
-  data: InsuranceUpdateManyDataInput;
+export interface AddressUpdateManyMutationInput {
+  street?: Maybe<String>;
+  city?: Maybe<String>;
+  state?: Maybe<String>;
+  zip?: Maybe<String>;
 }
 
-export interface AddressCreateInput {
-  street: String;
-  city: String;
-  state: String;
-  zip: String;
+export interface PhysicianUpdateOneRequiredInput {
+  create?: Maybe<PhysicianCreateInput>;
+  update?: Maybe<PhysicianUpdateDataInput>;
+  upsert?: Maybe<PhysicianUpsertNestedInput>;
+  connect?: Maybe<PhysicianWhereUniqueInput>;
+}
+
+export interface UserScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  firstName?: Maybe<String>;
+  firstName_not?: Maybe<String>;
+  firstName_in?: Maybe<String[] | String>;
+  firstName_not_in?: Maybe<String[] | String>;
+  firstName_lt?: Maybe<String>;
+  firstName_lte?: Maybe<String>;
+  firstName_gt?: Maybe<String>;
+  firstName_gte?: Maybe<String>;
+  firstName_contains?: Maybe<String>;
+  firstName_not_contains?: Maybe<String>;
+  firstName_starts_with?: Maybe<String>;
+  firstName_not_starts_with?: Maybe<String>;
+  firstName_ends_with?: Maybe<String>;
+  firstName_not_ends_with?: Maybe<String>;
+  lastName?: Maybe<String>;
+  lastName_not?: Maybe<String>;
+  lastName_in?: Maybe<String[] | String>;
+  lastName_not_in?: Maybe<String[] | String>;
+  lastName_lt?: Maybe<String>;
+  lastName_lte?: Maybe<String>;
+  lastName_gt?: Maybe<String>;
+  lastName_gte?: Maybe<String>;
+  lastName_contains?: Maybe<String>;
+  lastName_not_contains?: Maybe<String>;
+  lastName_starts_with?: Maybe<String>;
+  lastName_not_starts_with?: Maybe<String>;
+  lastName_ends_with?: Maybe<String>;
+  lastName_not_ends_with?: Maybe<String>;
+  email?: Maybe<String>;
+  email_not?: Maybe<String>;
+  email_in?: Maybe<String[] | String>;
+  email_not_in?: Maybe<String[] | String>;
+  email_lt?: Maybe<String>;
+  email_lte?: Maybe<String>;
+  email_gt?: Maybe<String>;
+  email_gte?: Maybe<String>;
+  email_contains?: Maybe<String>;
+  email_not_contains?: Maybe<String>;
+  email_starts_with?: Maybe<String>;
+  email_not_starts_with?: Maybe<String>;
+  email_ends_with?: Maybe<String>;
+  email_not_ends_with?: Maybe<String>;
+  AND?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
+  OR?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
+  NOT?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
 }
 
 export interface ParentWhereInput {
@@ -663,11 +765,10 @@ export interface ParentWhereInput {
   NOT?: Maybe<ParentWhereInput[] | ParentWhereInput>;
 }
 
-export interface AddressUpdateInput {
-  street?: Maybe<String>;
-  city?: Maybe<String>;
-  state?: Maybe<String>;
-  zip?: Maybe<String>;
+export interface UserUpsertWithWhereUniqueWithoutRolesInput {
+  where: UserWhereUniqueInput;
+  update: UserUpdateWithoutRolesDataInput;
+  create: UserCreateWithoutRolesInput;
 }
 
 export interface PhysicianSubscriptionWhereInput {
@@ -687,11 +788,16 @@ export interface PhysicianSubscriptionWhereInput {
   >;
 }
 
-export interface AddressUpdateManyMutationInput {
-  street?: Maybe<String>;
-  city?: Maybe<String>;
-  state?: Maybe<String>;
-  zip?: Maybe<String>;
+export interface ClientCreateInput {
+  firstName: String;
+  lastName: String;
+  dob: String;
+  gender: String;
+  school: String;
+  grade: String;
+  parents?: Maybe<ParentCreateManyInput>;
+  insurances?: Maybe<InsuranceCreateManyInput>;
+  physician: PhysicianCreateOneInput;
 }
 
 export interface PermissionSubscriptionWhereInput {
@@ -711,82 +817,9 @@ export interface PermissionSubscriptionWhereInput {
   >;
 }
 
-export interface UserScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  firstName?: Maybe<String>;
-  firstName_not?: Maybe<String>;
-  firstName_in?: Maybe<String[] | String>;
-  firstName_not_in?: Maybe<String[] | String>;
-  firstName_lt?: Maybe<String>;
-  firstName_lte?: Maybe<String>;
-  firstName_gt?: Maybe<String>;
-  firstName_gte?: Maybe<String>;
-  firstName_contains?: Maybe<String>;
-  firstName_not_contains?: Maybe<String>;
-  firstName_starts_with?: Maybe<String>;
-  firstName_not_starts_with?: Maybe<String>;
-  firstName_ends_with?: Maybe<String>;
-  firstName_not_ends_with?: Maybe<String>;
-  lastName?: Maybe<String>;
-  lastName_not?: Maybe<String>;
-  lastName_in?: Maybe<String[] | String>;
-  lastName_not_in?: Maybe<String[] | String>;
-  lastName_lt?: Maybe<String>;
-  lastName_lte?: Maybe<String>;
-  lastName_gt?: Maybe<String>;
-  lastName_gte?: Maybe<String>;
-  lastName_contains?: Maybe<String>;
-  lastName_not_contains?: Maybe<String>;
-  lastName_starts_with?: Maybe<String>;
-  lastName_not_starts_with?: Maybe<String>;
-  lastName_ends_with?: Maybe<String>;
-  lastName_not_ends_with?: Maybe<String>;
-  email?: Maybe<String>;
-  email_not?: Maybe<String>;
-  email_in?: Maybe<String[] | String>;
-  email_not_in?: Maybe<String[] | String>;
-  email_lt?: Maybe<String>;
-  email_lte?: Maybe<String>;
-  email_gt?: Maybe<String>;
-  email_gte?: Maybe<String>;
-  email_contains?: Maybe<String>;
-  email_not_contains?: Maybe<String>;
-  email_starts_with?: Maybe<String>;
-  email_not_starts_with?: Maybe<String>;
-  email_ends_with?: Maybe<String>;
-  email_not_ends_with?: Maybe<String>;
-  AND?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
-  OR?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
-  NOT?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
+export interface ParentCreateManyInput {
+  create?: Maybe<ParentCreateInput[] | ParentCreateInput>;
+  connect?: Maybe<ParentWhereUniqueInput[] | ParentWhereUniqueInput>;
 }
 
 export interface IntakeFormValuesSubscriptionWhereInput {
@@ -809,10 +842,14 @@ export interface IntakeFormValuesSubscriptionWhereInput {
   >;
 }
 
-export interface UserUpsertWithWhereUniqueWithoutRolesInput {
-  where: UserWhereUniqueInput;
-  update: UserUpdateWithoutRolesDataInput;
-  create: UserCreateWithoutRolesInput;
+export interface ParentCreateInput {
+  firstName: String;
+  lastName: String;
+  phoneNumber: String;
+  email: String;
+  isInSameHousehold: Boolean;
+  dob?: Maybe<String>;
+  address: AddressCreateOneInput;
 }
 
 export interface PhysicianWhereInput {
@@ -891,16 +928,9 @@ export interface PhysicianWhereInput {
   NOT?: Maybe<PhysicianWhereInput[] | PhysicianWhereInput>;
 }
 
-export interface ClientCreateInput {
-  firstName: String;
-  lastName: String;
-  dob: String;
-  gender: String;
-  school: String;
-  grade: String;
-  parents?: Maybe<ParentCreateManyInput>;
-  insurances?: Maybe<InsuranceCreateManyInput>;
-  physician: PhysicianCreateOneInput;
+export interface AddressCreateOneInput {
+  create?: Maybe<AddressCreateInput>;
+  connect?: Maybe<AddressWhereUniqueInput>;
 }
 
 export interface ClientSubscriptionWhereInput {
@@ -914,9 +944,9 @@ export interface ClientSubscriptionWhereInput {
   NOT?: Maybe<ClientSubscriptionWhereInput[] | ClientSubscriptionWhereInput>;
 }
 
-export interface ParentCreateManyInput {
-  create?: Maybe<ParentCreateInput[] | ParentCreateInput>;
-  connect?: Maybe<ParentWhereUniqueInput[] | ParentWhereUniqueInput>;
+export interface InsuranceCreateManyInput {
+  create?: Maybe<InsuranceCreateInput[] | InsuranceCreateInput>;
+  connect?: Maybe<InsuranceWhereUniqueInput[] | InsuranceWhereUniqueInput>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -925,14 +955,11 @@ export interface UserUpdateManyMutationInput {
   email?: Maybe<String>;
 }
 
-export interface ParentCreateInput {
-  firstName: String;
-  lastName: String;
-  phoneNumber: String;
-  email: String;
-  isInSameHousehold: Boolean;
-  dob?: Maybe<String>;
-  address: AddressCreateOneInput;
+export interface InsuranceCreateInput {
+  idNumber: String;
+  groupNumber: String;
+  provider: String;
+  insured: String;
 }
 
 export interface RoleUpsertWithWhereUniqueWithoutUsersInput {
@@ -941,9 +968,9 @@ export interface RoleUpsertWithWhereUniqueWithoutUsersInput {
   create: RoleCreateWithoutUsersInput;
 }
 
-export interface AddressCreateOneInput {
-  create?: Maybe<AddressCreateInput>;
-  connect?: Maybe<AddressWhereUniqueInput>;
+export interface PhysicianCreateOneInput {
+  create?: Maybe<PhysicianCreateInput>;
+  connect?: Maybe<PhysicianWhereUniqueInput>;
 }
 
 export interface RoleUpdateWithWhereUniqueWithoutUsersInput {
@@ -951,9 +978,11 @@ export interface RoleUpdateWithWhereUniqueWithoutUsersInput {
   data: RoleUpdateWithoutUsersDataInput;
 }
 
-export interface InsuranceCreateManyInput {
-  create?: Maybe<InsuranceCreateInput[] | InsuranceCreateInput>;
-  connect?: Maybe<InsuranceWhereUniqueInput[] | InsuranceWhereUniqueInput>;
+export interface PhysicianCreateInput {
+  firstName: String;
+  lastName: String;
+  pracitce: String;
+  phoneNumber: String;
 }
 
 export interface RoleUpdateManyWithoutUsersInput {
@@ -976,41 +1005,6 @@ export interface RoleUpdateManyWithoutUsersInput {
   >;
 }
 
-export interface InsuranceCreateInput {
-  idNumber: String;
-  groupNumber: String;
-  provider: String;
-  insured: String;
-}
-
-export interface RoleCreateWithoutUsersInput {
-  name: String;
-  permissions?: Maybe<PermissionCreateManyWithoutRolesInput>;
-}
-
-export interface PhysicianCreateOneInput {
-  create?: Maybe<PhysicianCreateInput>;
-  connect?: Maybe<PhysicianWhereUniqueInput>;
-}
-
-export interface UserCreateInput {
-  firstName: String;
-  lastName: String;
-  email: String;
-  roles?: Maybe<RoleCreateManyWithoutUsersInput>;
-}
-
-export interface PhysicianCreateInput {
-  firstName: String;
-  lastName: String;
-  pracitce: String;
-  phoneNumber: String;
-}
-
-export interface RoleUpdateManyMutationInput {
-  name?: Maybe<String>;
-}
-
 export interface ClientUpdateInput {
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
@@ -1023,9 +1017,11 @@ export interface ClientUpdateInput {
   physician?: Maybe<PhysicianUpdateOneRequiredInput>;
 }
 
-export interface PermissionUpdateManyWithWhereNestedInput {
-  where: PermissionScalarWhereInput;
-  data: PermissionUpdateManyDataInput;
+export interface UserUpdateInput {
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  email?: Maybe<String>;
+  roles?: Maybe<RoleUpdateManyWithoutUsersInput>;
 }
 
 export interface ParentUpdateManyInput {
@@ -1049,54 +1045,9 @@ export interface ParentUpdateManyInput {
   >;
 }
 
-export interface PermissionScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  AND?: Maybe<PermissionScalarWhereInput[] | PermissionScalarWhereInput>;
-  OR?: Maybe<PermissionScalarWhereInput[] | PermissionScalarWhereInput>;
-  NOT?: Maybe<PermissionScalarWhereInput[] | PermissionScalarWhereInput>;
+export interface RoleCreateManyWithoutUsersInput {
+  create?: Maybe<RoleCreateWithoutUsersInput[] | RoleCreateWithoutUsersInput>;
+  connect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
 }
 
 export interface ParentUpdateWithWhereUniqueNestedInput {
@@ -1104,58 +1055,9 @@ export interface ParentUpdateWithWhereUniqueNestedInput {
   data: ParentUpdateDataInput;
 }
 
-export interface PermissionWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  roles_every?: Maybe<RoleWhereInput>;
-  roles_some?: Maybe<RoleWhereInput>;
-  roles_none?: Maybe<RoleWhereInput>;
-  AND?: Maybe<PermissionWhereInput[] | PermissionWhereInput>;
-  OR?: Maybe<PermissionWhereInput[] | PermissionWhereInput>;
-  NOT?: Maybe<PermissionWhereInput[] | PermissionWhereInput>;
-}
+export type ParentWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
 
 export interface ParentUpdateDataInput {
   firstName?: Maybe<String>;
@@ -1167,10 +1069,8 @@ export interface ParentUpdateDataInput {
   address?: Maybe<AddressUpdateOneRequiredInput>;
 }
 
-export interface PermissionUpsertWithWhereUniqueWithoutRolesInput {
-  where: PermissionWhereUniqueInput;
-  update: PermissionUpdateWithoutRolesDataInput;
-  create: PermissionCreateWithoutRolesInput;
+export interface PermissionUpdateManyDataInput {
+  name?: Maybe<String>;
 }
 
 export interface AddressUpdateOneRequiredInput {
@@ -1180,7 +1080,18 @@ export interface AddressUpdateOneRequiredInput {
   connect?: Maybe<AddressWhereUniqueInput>;
 }
 
-export interface AddressWhereInput {
+export type PermissionWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface AddressUpdateDataInput {
+  street?: Maybe<String>;
+  city?: Maybe<String>;
+  state?: Maybe<String>;
+  zip?: Maybe<String>;
+}
+
+export interface RoleWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -1211,95 +1122,29 @@ export interface AddressWhereInput {
   updatedAt_lte?: Maybe<DateTimeInput>;
   updatedAt_gt?: Maybe<DateTimeInput>;
   updatedAt_gte?: Maybe<DateTimeInput>;
-  street?: Maybe<String>;
-  street_not?: Maybe<String>;
-  street_in?: Maybe<String[] | String>;
-  street_not_in?: Maybe<String[] | String>;
-  street_lt?: Maybe<String>;
-  street_lte?: Maybe<String>;
-  street_gt?: Maybe<String>;
-  street_gte?: Maybe<String>;
-  street_contains?: Maybe<String>;
-  street_not_contains?: Maybe<String>;
-  street_starts_with?: Maybe<String>;
-  street_not_starts_with?: Maybe<String>;
-  street_ends_with?: Maybe<String>;
-  street_not_ends_with?: Maybe<String>;
-  city?: Maybe<String>;
-  city_not?: Maybe<String>;
-  city_in?: Maybe<String[] | String>;
-  city_not_in?: Maybe<String[] | String>;
-  city_lt?: Maybe<String>;
-  city_lte?: Maybe<String>;
-  city_gt?: Maybe<String>;
-  city_gte?: Maybe<String>;
-  city_contains?: Maybe<String>;
-  city_not_contains?: Maybe<String>;
-  city_starts_with?: Maybe<String>;
-  city_not_starts_with?: Maybe<String>;
-  city_ends_with?: Maybe<String>;
-  city_not_ends_with?: Maybe<String>;
-  state?: Maybe<String>;
-  state_not?: Maybe<String>;
-  state_in?: Maybe<String[] | String>;
-  state_not_in?: Maybe<String[] | String>;
-  state_lt?: Maybe<String>;
-  state_lte?: Maybe<String>;
-  state_gt?: Maybe<String>;
-  state_gte?: Maybe<String>;
-  state_contains?: Maybe<String>;
-  state_not_contains?: Maybe<String>;
-  state_starts_with?: Maybe<String>;
-  state_not_starts_with?: Maybe<String>;
-  state_ends_with?: Maybe<String>;
-  state_not_ends_with?: Maybe<String>;
-  zip?: Maybe<String>;
-  zip_not?: Maybe<String>;
-  zip_in?: Maybe<String[] | String>;
-  zip_not_in?: Maybe<String[] | String>;
-  zip_lt?: Maybe<String>;
-  zip_lte?: Maybe<String>;
-  zip_gt?: Maybe<String>;
-  zip_gte?: Maybe<String>;
-  zip_contains?: Maybe<String>;
-  zip_not_contains?: Maybe<String>;
-  zip_starts_with?: Maybe<String>;
-  zip_not_starts_with?: Maybe<String>;
-  zip_ends_with?: Maybe<String>;
-  zip_not_ends_with?: Maybe<String>;
-  AND?: Maybe<AddressWhereInput[] | AddressWhereInput>;
-  OR?: Maybe<AddressWhereInput[] | AddressWhereInput>;
-  NOT?: Maybe<AddressWhereInput[] | AddressWhereInput>;
-}
-
-export interface AddressUpdateDataInput {
-  street?: Maybe<String>;
-  city?: Maybe<String>;
-  state?: Maybe<String>;
-  zip?: Maybe<String>;
-}
-
-export interface PermissionUpdateManyWithoutRolesInput {
-  create?: Maybe<
-    PermissionCreateWithoutRolesInput[] | PermissionCreateWithoutRolesInput
-  >;
-  delete?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
-  connect?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
-  set?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
-  disconnect?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
-  update?: Maybe<
-    | PermissionUpdateWithWhereUniqueWithoutRolesInput[]
-    | PermissionUpdateWithWhereUniqueWithoutRolesInput
-  >;
-  upsert?: Maybe<
-    | PermissionUpsertWithWhereUniqueWithoutRolesInput[]
-    | PermissionUpsertWithWhereUniqueWithoutRolesInput
-  >;
-  deleteMany?: Maybe<PermissionScalarWhereInput[] | PermissionScalarWhereInput>;
-  updateMany?: Maybe<
-    | PermissionUpdateManyWithWhereNestedInput[]
-    | PermissionUpdateManyWithWhereNestedInput
-  >;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  permissions_every?: Maybe<PermissionWhereInput>;
+  permissions_some?: Maybe<PermissionWhereInput>;
+  permissions_none?: Maybe<PermissionWhereInput>;
+  users_every?: Maybe<UserWhereInput>;
+  users_some?: Maybe<UserWhereInput>;
+  users_none?: Maybe<UserWhereInput>;
+  AND?: Maybe<RoleWhereInput[] | RoleWhereInput>;
+  OR?: Maybe<RoleWhereInput[] | RoleWhereInput>;
+  NOT?: Maybe<RoleWhereInput[] | RoleWhereInput>;
 }
 
 export interface AddressUpsertNestedInput {
@@ -1307,8 +1152,85 @@ export interface AddressUpsertNestedInput {
   create: AddressCreateInput;
 }
 
-export interface PermissionCreateWithoutRolesInput {
-  name: String;
+export interface UserWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  firstName?: Maybe<String>;
+  firstName_not?: Maybe<String>;
+  firstName_in?: Maybe<String[] | String>;
+  firstName_not_in?: Maybe<String[] | String>;
+  firstName_lt?: Maybe<String>;
+  firstName_lte?: Maybe<String>;
+  firstName_gt?: Maybe<String>;
+  firstName_gte?: Maybe<String>;
+  firstName_contains?: Maybe<String>;
+  firstName_not_contains?: Maybe<String>;
+  firstName_starts_with?: Maybe<String>;
+  firstName_not_starts_with?: Maybe<String>;
+  firstName_ends_with?: Maybe<String>;
+  firstName_not_ends_with?: Maybe<String>;
+  lastName?: Maybe<String>;
+  lastName_not?: Maybe<String>;
+  lastName_in?: Maybe<String[] | String>;
+  lastName_not_in?: Maybe<String[] | String>;
+  lastName_lt?: Maybe<String>;
+  lastName_lte?: Maybe<String>;
+  lastName_gt?: Maybe<String>;
+  lastName_gte?: Maybe<String>;
+  lastName_contains?: Maybe<String>;
+  lastName_not_contains?: Maybe<String>;
+  lastName_starts_with?: Maybe<String>;
+  lastName_not_starts_with?: Maybe<String>;
+  lastName_ends_with?: Maybe<String>;
+  lastName_not_ends_with?: Maybe<String>;
+  email?: Maybe<String>;
+  email_not?: Maybe<String>;
+  email_in?: Maybe<String[] | String>;
+  email_not_in?: Maybe<String[] | String>;
+  email_lt?: Maybe<String>;
+  email_lte?: Maybe<String>;
+  email_gt?: Maybe<String>;
+  email_gte?: Maybe<String>;
+  email_contains?: Maybe<String>;
+  email_not_contains?: Maybe<String>;
+  email_starts_with?: Maybe<String>;
+  email_not_starts_with?: Maybe<String>;
+  email_ends_with?: Maybe<String>;
+  email_not_ends_with?: Maybe<String>;
+  roles_every?: Maybe<RoleWhereInput>;
+  roles_some?: Maybe<RoleWhereInput>;
+  roles_none?: Maybe<RoleWhereInput>;
+  AND?: Maybe<UserWhereInput[] | UserWhereInput>;
+  OR?: Maybe<UserWhereInput[] | UserWhereInput>;
+  NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
 export interface ParentUpsertWithWhereUniqueNestedInput {
@@ -1317,9 +1239,9 @@ export interface ParentUpsertWithWhereUniqueNestedInput {
   create: ParentCreateInput;
 }
 
-export type PhysicianWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
+export interface PermissionUpdateWithoutRolesDataInput {
+  name?: Maybe<String>;
+}
 
 export interface ParentScalarWhereInput {
   id?: Maybe<ID_Input>;
@@ -1429,11 +1351,9 @@ export interface ParentScalarWhereInput {
   NOT?: Maybe<ParentScalarWhereInput[] | ParentScalarWhereInput>;
 }
 
-export interface PhysicianUpdateManyMutationInput {
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  pracitce?: Maybe<String>;
-  phoneNumber?: Maybe<String>;
+export interface PermissionUpdateWithWhereUniqueWithoutRolesInput {
+  where: PermissionWhereUniqueInput;
+  data: PermissionUpdateWithoutRolesDataInput;
 }
 
 export interface ParentUpdateManyWithWhereNestedInput {
@@ -1441,18 +1361,26 @@ export interface ParentUpdateManyWithWhereNestedInput {
   data: ParentUpdateManyDataInput;
 }
 
-export interface PermissionUpdateManyMutationInput {
+export interface RoleUpdateInput {
   name?: Maybe<String>;
+  permissions?: Maybe<PermissionUpdateManyWithoutRolesInput>;
+  users?: Maybe<UserUpdateManyWithoutRolesInput>;
 }
 
-export interface UserUpdateWithoutRolesDataInput {
+export interface ParentUpdateManyDataInput {
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
+  phoneNumber?: Maybe<String>;
   email?: Maybe<String>;
+  isInSameHousehold?: Maybe<Boolean>;
+  dob?: Maybe<String>;
 }
 
-export interface RoleUpdateManyDataInput {
-  name?: Maybe<String>;
+export interface PermissionCreateManyWithoutRolesInput {
+  create?: Maybe<
+    PermissionCreateWithoutRolesInput[] | PermissionCreateWithoutRolesInput
+  >;
+  connect?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
 }
 
 export interface InsuranceUpdateManyInput {
@@ -1476,65 +1404,23 @@ export interface InsuranceUpdateManyInput {
   >;
 }
 
-export interface RoleScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  AND?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
-  OR?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
-  NOT?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
+export interface RoleCreateInput {
+  name: String;
+  permissions?: Maybe<PermissionCreateManyWithoutRolesInput>;
+  users?: Maybe<UserCreateManyWithoutRolesInput>;
 }
 
-export interface InsuranceUpdateWithWhereUniqueNestedInput {
-  where: InsuranceWhereUniqueInput;
-  data: InsuranceUpdateDataInput;
+export interface UserUpdateWithoutRolesDataInput {
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  email?: Maybe<String>;
 }
 
-export interface RoleUpsertWithWhereUniqueWithoutPermissionsInput {
-  where: RoleWhereUniqueInput;
-  update: RoleUpdateWithoutPermissionsDataInput;
-  create: RoleCreateWithoutPermissionsInput;
+export interface PhysicianUpdateInput {
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  pracitce?: Maybe<String>;
+  phoneNumber?: Maybe<String>;
 }
 
 export interface InsuranceUpdateDataInput {
@@ -1544,10 +1430,9 @@ export interface InsuranceUpdateDataInput {
   insured?: Maybe<String>;
 }
 
-export interface UserUpdateManyWithWhereNestedInput {
-  where: UserScalarWhereInput;
-  data: UserUpdateManyDataInput;
-}
+export type RoleWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
 
 export interface InsuranceUpsertWithWhereUniqueNestedInput {
   where: InsuranceWhereUniqueInput;
@@ -1555,15 +1440,9 @@ export interface InsuranceUpsertWithWhereUniqueNestedInput {
   create: InsuranceCreateInput;
 }
 
-export interface RoleSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<RoleWhereInput>;
-  AND?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
-  OR?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
-  NOT?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
+export interface RoleUpdateManyWithWhereNestedInput {
+  where: RoleScalarWhereInput;
+  data: RoleUpdateManyDataInput;
 }
 
 export interface InsuranceScalarWhereInput {
@@ -1642,36 +1521,19 @@ export interface InsuranceScalarWhereInput {
   NOT?: Maybe<InsuranceScalarWhereInput[] | InsuranceScalarWhereInput>;
 }
 
-export interface ParentSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ParentWhereInput>;
-  AND?: Maybe<ParentSubscriptionWhereInput[] | ParentSubscriptionWhereInput>;
-  OR?: Maybe<ParentSubscriptionWhereInput[] | ParentSubscriptionWhereInput>;
-  NOT?: Maybe<ParentSubscriptionWhereInput[] | ParentSubscriptionWhereInput>;
-}
-
-export type ClientWhereUniqueInput = AtLeastOne<{
+export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface InsuranceSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<InsuranceWhereInput>;
-  AND?: Maybe<
-    InsuranceSubscriptionWhereInput[] | InsuranceSubscriptionWhereInput
-  >;
-  OR?: Maybe<
-    InsuranceSubscriptionWhereInput[] | InsuranceSubscriptionWhereInput
-  >;
-  NOT?: Maybe<
-    InsuranceSubscriptionWhereInput[] | InsuranceSubscriptionWhereInput
-  >;
+export interface InsuranceUpdateManyWithWhereNestedInput {
+  where: InsuranceScalarWhereInput;
+  data: InsuranceUpdateManyDataInput;
+}
+
+export interface UserUpdateManyDataInput {
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  email?: Maybe<String>;
 }
 
 export interface InsuranceUpdateManyDataInput {
@@ -1681,69 +1543,22 @@ export interface InsuranceUpdateManyDataInput {
   insured?: Maybe<String>;
 }
 
-export type InsuranceWhereUniqueInput = AtLeastOne<{
+export interface UserSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<UserWhereInput>;
+  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+}
+
+export type ClientWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface PhysicianUpdateOneRequiredInput {
-  create?: Maybe<PhysicianCreateInput>;
-  update?: Maybe<PhysicianUpdateDataInput>;
-  upsert?: Maybe<PhysicianUpsertNestedInput>;
-  connect?: Maybe<PhysicianWhereUniqueInput>;
-}
-
-export interface IntakeFormValuesWhereInput {
-  date?: Maybe<String>;
-  date_not?: Maybe<String>;
-  date_in?: Maybe<String[] | String>;
-  date_not_in?: Maybe<String[] | String>;
-  date_lt?: Maybe<String>;
-  date_lte?: Maybe<String>;
-  date_gt?: Maybe<String>;
-  date_gte?: Maybe<String>;
-  date_contains?: Maybe<String>;
-  date_not_contains?: Maybe<String>;
-  date_starts_with?: Maybe<String>;
-  date_not_starts_with?: Maybe<String>;
-  date_ends_with?: Maybe<String>;
-  date_not_ends_with?: Maybe<String>;
-  client?: Maybe<ClientWhereInput>;
-  AND?: Maybe<IntakeFormValuesWhereInput[] | IntakeFormValuesWhereInput>;
-  OR?: Maybe<IntakeFormValuesWhereInput[] | IntakeFormValuesWhereInput>;
-  NOT?: Maybe<IntakeFormValuesWhereInput[] | IntakeFormValuesWhereInput>;
-}
-
-export interface PhysicianUpdateDataInput {
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  pracitce?: Maybe<String>;
-  phoneNumber?: Maybe<String>;
-}
-
-export interface RoleCreateManyWithoutUsersInput {
-  create?: Maybe<RoleCreateWithoutUsersInput[] | RoleCreateWithoutUsersInput>;
-  connect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
-}
-
-export interface PhysicianUpsertNestedInput {
-  update: PhysicianUpdateDataInput;
-  create: PhysicianCreateInput;
-}
-
-export interface PermissionUpdateManyDataInput {
-  name?: Maybe<String>;
-}
-
-export interface ClientUpdateManyMutationInput {
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  dob?: Maybe<String>;
-  gender?: Maybe<String>;
-  school?: Maybe<String>;
-  grade?: Maybe<String>;
-}
-
-export interface RoleWhereInput {
+export interface InsuranceWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -1758,118 +1573,72 @@ export interface RoleWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  permissions_every?: Maybe<PermissionWhereInput>;
-  permissions_some?: Maybe<PermissionWhereInput>;
-  permissions_none?: Maybe<PermissionWhereInput>;
-  users_every?: Maybe<UserWhereInput>;
-  users_some?: Maybe<UserWhereInput>;
-  users_none?: Maybe<UserWhereInput>;
-  AND?: Maybe<RoleWhereInput[] | RoleWhereInput>;
-  OR?: Maybe<RoleWhereInput[] | RoleWhereInput>;
-  NOT?: Maybe<RoleWhereInput[] | RoleWhereInput>;
-}
-
-export interface InsuranceUpdateInput {
   idNumber?: Maybe<String>;
+  idNumber_not?: Maybe<String>;
+  idNumber_in?: Maybe<String[] | String>;
+  idNumber_not_in?: Maybe<String[] | String>;
+  idNumber_lt?: Maybe<String>;
+  idNumber_lte?: Maybe<String>;
+  idNumber_gt?: Maybe<String>;
+  idNumber_gte?: Maybe<String>;
+  idNumber_contains?: Maybe<String>;
+  idNumber_not_contains?: Maybe<String>;
+  idNumber_starts_with?: Maybe<String>;
+  idNumber_not_starts_with?: Maybe<String>;
+  idNumber_ends_with?: Maybe<String>;
+  idNumber_not_ends_with?: Maybe<String>;
   groupNumber?: Maybe<String>;
+  groupNumber_not?: Maybe<String>;
+  groupNumber_in?: Maybe<String[] | String>;
+  groupNumber_not_in?: Maybe<String[] | String>;
+  groupNumber_lt?: Maybe<String>;
+  groupNumber_lte?: Maybe<String>;
+  groupNumber_gt?: Maybe<String>;
+  groupNumber_gte?: Maybe<String>;
+  groupNumber_contains?: Maybe<String>;
+  groupNumber_not_contains?: Maybe<String>;
+  groupNumber_starts_with?: Maybe<String>;
+  groupNumber_not_starts_with?: Maybe<String>;
+  groupNumber_ends_with?: Maybe<String>;
+  groupNumber_not_ends_with?: Maybe<String>;
   provider?: Maybe<String>;
+  provider_not?: Maybe<String>;
+  provider_in?: Maybe<String[] | String>;
+  provider_not_in?: Maybe<String[] | String>;
+  provider_lt?: Maybe<String>;
+  provider_lte?: Maybe<String>;
+  provider_gt?: Maybe<String>;
+  provider_gte?: Maybe<String>;
+  provider_contains?: Maybe<String>;
+  provider_not_contains?: Maybe<String>;
+  provider_starts_with?: Maybe<String>;
+  provider_not_starts_with?: Maybe<String>;
+  provider_ends_with?: Maybe<String>;
+  provider_not_ends_with?: Maybe<String>;
   insured?: Maybe<String>;
+  insured_not?: Maybe<String>;
+  insured_in?: Maybe<String[] | String>;
+  insured_not_in?: Maybe<String[] | String>;
+  insured_lt?: Maybe<String>;
+  insured_lte?: Maybe<String>;
+  insured_gt?: Maybe<String>;
+  insured_gte?: Maybe<String>;
+  insured_contains?: Maybe<String>;
+  insured_not_contains?: Maybe<String>;
+  insured_starts_with?: Maybe<String>;
+  insured_not_starts_with?: Maybe<String>;
+  insured_ends_with?: Maybe<String>;
+  insured_not_ends_with?: Maybe<String>;
+  AND?: Maybe<InsuranceWhereInput[] | InsuranceWhereInput>;
+  OR?: Maybe<InsuranceWhereInput[] | InsuranceWhereInput>;
+  NOT?: Maybe<InsuranceWhereInput[] | InsuranceWhereInput>;
 }
 
-export interface PermissionUpdateWithoutRolesDataInput {
-  name?: Maybe<String>;
-}
-
-export interface InsuranceUpdateManyMutationInput {
-  idNumber?: Maybe<String>;
-  groupNumber?: Maybe<String>;
-  provider?: Maybe<String>;
-  insured?: Maybe<String>;
-}
-
-export interface RoleUpdateInput {
-  name?: Maybe<String>;
-  permissions?: Maybe<PermissionUpdateManyWithoutRolesInput>;
-  users?: Maybe<UserUpdateManyWithoutRolesInput>;
-}
-
-export interface IntakeFormValuesCreateInput {
-  date: String;
-  servicesRequested?: Maybe<IntakeFormValuesCreateservicesRequestedInput>;
-  client: ClientCreateOneInput;
-}
-
-export interface RoleCreateInput {
-  name: String;
-  permissions?: Maybe<PermissionCreateManyWithoutRolesInput>;
-  users?: Maybe<UserCreateManyWithoutRolesInput>;
-}
-
-export interface IntakeFormValuesCreateservicesRequestedInput {
-  set?: Maybe<String[] | String>;
-}
-
-export type RoleWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface ClientCreateOneInput {
-  create?: Maybe<ClientCreateInput>;
-  connect?: Maybe<ClientWhereUniqueInput>;
-}
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface IntakeFormValuesUpdateManyMutationInput {
-  date?: Maybe<String>;
-  servicesRequested?: Maybe<IntakeFormValuesUpdateservicesRequestedInput>;
-}
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<UserWhereInput>;
-  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-}
-
-export interface IntakeFormValuesUpdateservicesRequestedInput {
-  set?: Maybe<String[] | String>;
+export interface PhysicianUpdateDataInput {
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  pracitce?: Maybe<String>;
+  phoneNumber?: Maybe<String>;
 }
 
 export interface ClientWhereInput {
@@ -1999,14 +1768,29 @@ export interface ClientWhereInput {
   NOT?: Maybe<ClientWhereInput[] | ClientWhereInput>;
 }
 
-export interface ParentUpdateInput {
+export interface PhysicianUpsertNestedInput {
+  update: PhysicianUpdateDataInput;
+  create: PhysicianCreateInput;
+}
+
+export interface AddressSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<AddressWhereInput>;
+  AND?: Maybe<AddressSubscriptionWhereInput[] | AddressSubscriptionWhereInput>;
+  OR?: Maybe<AddressSubscriptionWhereInput[] | AddressSubscriptionWhereInput>;
+  NOT?: Maybe<AddressSubscriptionWhereInput[] | AddressSubscriptionWhereInput>;
+}
+
+export interface ClientUpdateManyMutationInput {
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
-  phoneNumber?: Maybe<String>;
-  email?: Maybe<String>;
-  isInSameHousehold?: Maybe<Boolean>;
   dob?: Maybe<String>;
-  address?: Maybe<AddressUpdateOneRequiredInput>;
+  gender?: Maybe<String>;
+  school?: Maybe<String>;
+  grade?: Maybe<String>;
 }
 
 export interface RoleUpdateWithoutUsersDataInput {
@@ -2014,25 +1798,78 @@ export interface RoleUpdateWithoutUsersDataInput {
   permissions?: Maybe<PermissionUpdateManyWithoutRolesInput>;
 }
 
-export interface ParentUpdateManyMutationInput {
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  phoneNumber?: Maybe<String>;
-  email?: Maybe<String>;
-  isInSameHousehold?: Maybe<Boolean>;
-  dob?: Maybe<String>;
+export interface InsuranceUpdateInput {
+  idNumber?: Maybe<String>;
+  groupNumber?: Maybe<String>;
+  provider?: Maybe<String>;
+  insured?: Maybe<String>;
 }
 
-export type ParentWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface PermissionCreateInput {
-  name: String;
-  roles?: Maybe<RoleCreateManyWithoutPermissionsInput>;
+export interface IntakeFormValuesWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  date?: Maybe<String>;
+  date_not?: Maybe<String>;
+  date_in?: Maybe<String[] | String>;
+  date_not_in?: Maybe<String[] | String>;
+  date_lt?: Maybe<String>;
+  date_lte?: Maybe<String>;
+  date_gt?: Maybe<String>;
+  date_gte?: Maybe<String>;
+  date_contains?: Maybe<String>;
+  date_not_contains?: Maybe<String>;
+  date_starts_with?: Maybe<String>;
+  date_not_starts_with?: Maybe<String>;
+  date_ends_with?: Maybe<String>;
+  date_not_ends_with?: Maybe<String>;
+  client?: Maybe<ClientWhereInput>;
+  AND?: Maybe<IntakeFormValuesWhereInput[] | IntakeFormValuesWhereInput>;
+  OR?: Maybe<IntakeFormValuesWhereInput[] | IntakeFormValuesWhereInput>;
+  NOT?: Maybe<IntakeFormValuesWhereInput[] | IntakeFormValuesWhereInput>;
 }
 
-export interface UserWhereInput {
+export interface InsuranceUpdateManyMutationInput {
+  idNumber?: Maybe<String>;
+  groupNumber?: Maybe<String>;
+  provider?: Maybe<String>;
+  insured?: Maybe<String>;
+}
+
+export interface UserCreateInput {
+  firstName: String;
+  lastName: String;
+  email: String;
+  roles?: Maybe<RoleCreateManyWithoutUsersInput>;
+}
+
+export interface IntakeFormValuesCreateInput {
+  date: String;
+  servicesRequested?: Maybe<IntakeFormValuesCreateservicesRequestedInput>;
+  client: ClientCreateOneInput;
+}
+
+export interface PermissionUpdateManyWithWhereNestedInput {
+  where: PermissionScalarWhereInput;
+  data: PermissionUpdateManyDataInput;
+}
+
+export interface IntakeFormValuesCreateservicesRequestedInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface PermissionWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -2063,86 +1900,34 @@ export interface UserWhereInput {
   updatedAt_lte?: Maybe<DateTimeInput>;
   updatedAt_gt?: Maybe<DateTimeInput>;
   updatedAt_gte?: Maybe<DateTimeInput>;
-  firstName?: Maybe<String>;
-  firstName_not?: Maybe<String>;
-  firstName_in?: Maybe<String[] | String>;
-  firstName_not_in?: Maybe<String[] | String>;
-  firstName_lt?: Maybe<String>;
-  firstName_lte?: Maybe<String>;
-  firstName_gt?: Maybe<String>;
-  firstName_gte?: Maybe<String>;
-  firstName_contains?: Maybe<String>;
-  firstName_not_contains?: Maybe<String>;
-  firstName_starts_with?: Maybe<String>;
-  firstName_not_starts_with?: Maybe<String>;
-  firstName_ends_with?: Maybe<String>;
-  firstName_not_ends_with?: Maybe<String>;
-  lastName?: Maybe<String>;
-  lastName_not?: Maybe<String>;
-  lastName_in?: Maybe<String[] | String>;
-  lastName_not_in?: Maybe<String[] | String>;
-  lastName_lt?: Maybe<String>;
-  lastName_lte?: Maybe<String>;
-  lastName_gt?: Maybe<String>;
-  lastName_gte?: Maybe<String>;
-  lastName_contains?: Maybe<String>;
-  lastName_not_contains?: Maybe<String>;
-  lastName_starts_with?: Maybe<String>;
-  lastName_not_starts_with?: Maybe<String>;
-  lastName_ends_with?: Maybe<String>;
-  lastName_not_ends_with?: Maybe<String>;
-  email?: Maybe<String>;
-  email_not?: Maybe<String>;
-  email_in?: Maybe<String[] | String>;
-  email_not_in?: Maybe<String[] | String>;
-  email_lt?: Maybe<String>;
-  email_lte?: Maybe<String>;
-  email_gt?: Maybe<String>;
-  email_gte?: Maybe<String>;
-  email_contains?: Maybe<String>;
-  email_not_contains?: Maybe<String>;
-  email_starts_with?: Maybe<String>;
-  email_not_starts_with?: Maybe<String>;
-  email_ends_with?: Maybe<String>;
-  email_not_ends_with?: Maybe<String>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
   roles_every?: Maybe<RoleWhereInput>;
   roles_some?: Maybe<RoleWhereInput>;
   roles_none?: Maybe<RoleWhereInput>;
-  AND?: Maybe<UserWhereInput[] | UserWhereInput>;
-  OR?: Maybe<UserWhereInput[] | UserWhereInput>;
-  NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
+  AND?: Maybe<PermissionWhereInput[] | PermissionWhereInput>;
+  OR?: Maybe<PermissionWhereInput[] | PermissionWhereInput>;
+  NOT?: Maybe<PermissionWhereInput[] | PermissionWhereInput>;
 }
 
-export interface RoleCreateManyWithoutPermissionsInput {
-  create?: Maybe<
-    RoleCreateWithoutPermissionsInput[] | RoleCreateWithoutPermissionsInput
-  >;
-  connect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
+export interface ClientCreateOneInput {
+  create?: Maybe<ClientCreateInput>;
+  connect?: Maybe<ClientWhereUniqueInput>;
 }
 
-export interface PermissionCreateManyWithoutRolesInput {
-  create?: Maybe<
-    PermissionCreateWithoutRolesInput[] | PermissionCreateWithoutRolesInput
-  >;
-  connect?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
-}
-
-export interface RoleCreateWithoutPermissionsInput {
-  name: String;
-  users?: Maybe<UserCreateManyWithoutRolesInput>;
-}
-
-export interface RoleUpdateManyWithWhereNestedInput {
-  where: RoleScalarWhereInput;
-  data: RoleUpdateManyDataInput;
-}
-
-export interface UserCreateManyWithoutRolesInput {
-  create?: Maybe<UserCreateWithoutRolesInput[] | UserCreateWithoutRolesInput>;
-  connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
-}
-
-export interface InsuranceWhereInput {
+export interface AddressWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -2157,65 +1942,291 @@ export interface InsuranceWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  idNumber?: Maybe<String>;
-  idNumber_not?: Maybe<String>;
-  idNumber_in?: Maybe<String[] | String>;
-  idNumber_not_in?: Maybe<String[] | String>;
-  idNumber_lt?: Maybe<String>;
-  idNumber_lte?: Maybe<String>;
-  idNumber_gt?: Maybe<String>;
-  idNumber_gte?: Maybe<String>;
-  idNumber_contains?: Maybe<String>;
-  idNumber_not_contains?: Maybe<String>;
-  idNumber_starts_with?: Maybe<String>;
-  idNumber_not_starts_with?: Maybe<String>;
-  idNumber_ends_with?: Maybe<String>;
-  idNumber_not_ends_with?: Maybe<String>;
-  groupNumber?: Maybe<String>;
-  groupNumber_not?: Maybe<String>;
-  groupNumber_in?: Maybe<String[] | String>;
-  groupNumber_not_in?: Maybe<String[] | String>;
-  groupNumber_lt?: Maybe<String>;
-  groupNumber_lte?: Maybe<String>;
-  groupNumber_gt?: Maybe<String>;
-  groupNumber_gte?: Maybe<String>;
-  groupNumber_contains?: Maybe<String>;
-  groupNumber_not_contains?: Maybe<String>;
-  groupNumber_starts_with?: Maybe<String>;
-  groupNumber_not_starts_with?: Maybe<String>;
-  groupNumber_ends_with?: Maybe<String>;
-  groupNumber_not_ends_with?: Maybe<String>;
-  provider?: Maybe<String>;
-  provider_not?: Maybe<String>;
-  provider_in?: Maybe<String[] | String>;
-  provider_not_in?: Maybe<String[] | String>;
-  provider_lt?: Maybe<String>;
-  provider_lte?: Maybe<String>;
-  provider_gt?: Maybe<String>;
-  provider_gte?: Maybe<String>;
-  provider_contains?: Maybe<String>;
-  provider_not_contains?: Maybe<String>;
-  provider_starts_with?: Maybe<String>;
-  provider_not_starts_with?: Maybe<String>;
-  provider_ends_with?: Maybe<String>;
-  provider_not_ends_with?: Maybe<String>;
-  insured?: Maybe<String>;
-  insured_not?: Maybe<String>;
-  insured_in?: Maybe<String[] | String>;
-  insured_not_in?: Maybe<String[] | String>;
-  insured_lt?: Maybe<String>;
-  insured_lte?: Maybe<String>;
-  insured_gt?: Maybe<String>;
-  insured_gte?: Maybe<String>;
-  insured_contains?: Maybe<String>;
-  insured_not_contains?: Maybe<String>;
-  insured_starts_with?: Maybe<String>;
-  insured_not_starts_with?: Maybe<String>;
-  insured_ends_with?: Maybe<String>;
-  insured_not_ends_with?: Maybe<String>;
-  AND?: Maybe<InsuranceWhereInput[] | InsuranceWhereInput>;
-  OR?: Maybe<InsuranceWhereInput[] | InsuranceWhereInput>;
-  NOT?: Maybe<InsuranceWhereInput[] | InsuranceWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  street?: Maybe<String>;
+  street_not?: Maybe<String>;
+  street_in?: Maybe<String[] | String>;
+  street_not_in?: Maybe<String[] | String>;
+  street_lt?: Maybe<String>;
+  street_lte?: Maybe<String>;
+  street_gt?: Maybe<String>;
+  street_gte?: Maybe<String>;
+  street_contains?: Maybe<String>;
+  street_not_contains?: Maybe<String>;
+  street_starts_with?: Maybe<String>;
+  street_not_starts_with?: Maybe<String>;
+  street_ends_with?: Maybe<String>;
+  street_not_ends_with?: Maybe<String>;
+  city?: Maybe<String>;
+  city_not?: Maybe<String>;
+  city_in?: Maybe<String[] | String>;
+  city_not_in?: Maybe<String[] | String>;
+  city_lt?: Maybe<String>;
+  city_lte?: Maybe<String>;
+  city_gt?: Maybe<String>;
+  city_gte?: Maybe<String>;
+  city_contains?: Maybe<String>;
+  city_not_contains?: Maybe<String>;
+  city_starts_with?: Maybe<String>;
+  city_not_starts_with?: Maybe<String>;
+  city_ends_with?: Maybe<String>;
+  city_not_ends_with?: Maybe<String>;
+  state?: Maybe<String>;
+  state_not?: Maybe<String>;
+  state_in?: Maybe<String[] | String>;
+  state_not_in?: Maybe<String[] | String>;
+  state_lt?: Maybe<String>;
+  state_lte?: Maybe<String>;
+  state_gt?: Maybe<String>;
+  state_gte?: Maybe<String>;
+  state_contains?: Maybe<String>;
+  state_not_contains?: Maybe<String>;
+  state_starts_with?: Maybe<String>;
+  state_not_starts_with?: Maybe<String>;
+  state_ends_with?: Maybe<String>;
+  state_not_ends_with?: Maybe<String>;
+  zip?: Maybe<String>;
+  zip_not?: Maybe<String>;
+  zip_in?: Maybe<String[] | String>;
+  zip_not_in?: Maybe<String[] | String>;
+  zip_lt?: Maybe<String>;
+  zip_lte?: Maybe<String>;
+  zip_gt?: Maybe<String>;
+  zip_gte?: Maybe<String>;
+  zip_contains?: Maybe<String>;
+  zip_not_contains?: Maybe<String>;
+  zip_starts_with?: Maybe<String>;
+  zip_not_starts_with?: Maybe<String>;
+  zip_ends_with?: Maybe<String>;
+  zip_not_ends_with?: Maybe<String>;
+  AND?: Maybe<AddressWhereInput[] | AddressWhereInput>;
+  OR?: Maybe<AddressWhereInput[] | AddressWhereInput>;
+  NOT?: Maybe<AddressWhereInput[] | AddressWhereInput>;
+}
+
+export interface IntakeFormValuesUpdateInput {
+  date?: Maybe<String>;
+  servicesRequested?: Maybe<IntakeFormValuesUpdateservicesRequestedInput>;
+  client?: Maybe<ClientUpdateOneRequiredInput>;
+}
+
+export interface PermissionCreateWithoutRolesInput {
+  name: String;
+}
+
+export interface IntakeFormValuesUpdateservicesRequestedInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface PhysicianUpdateManyMutationInput {
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  pracitce?: Maybe<String>;
+  phoneNumber?: Maybe<String>;
+}
+
+export interface ClientUpdateOneRequiredInput {
+  create?: Maybe<ClientCreateInput>;
+  update?: Maybe<ClientUpdateDataInput>;
+  upsert?: Maybe<ClientUpsertNestedInput>;
+  connect?: Maybe<ClientWhereUniqueInput>;
+}
+
+export interface RoleUpdateManyDataInput {
+  name?: Maybe<String>;
+}
+
+export interface ClientUpdateDataInput {
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  dob?: Maybe<String>;
+  gender?: Maybe<String>;
+  school?: Maybe<String>;
+  grade?: Maybe<String>;
+  parents?: Maybe<ParentUpdateManyInput>;
+  insurances?: Maybe<InsuranceUpdateManyInput>;
+  physician?: Maybe<PhysicianUpdateOneRequiredInput>;
+}
+
+export interface RoleUpsertWithWhereUniqueWithoutPermissionsInput {
+  where: RoleWhereUniqueInput;
+  update: RoleUpdateWithoutPermissionsDataInput;
+  create: RoleCreateWithoutPermissionsInput;
+}
+
+export interface ClientUpsertNestedInput {
+  update: ClientUpdateDataInput;
+  create: ClientCreateInput;
+}
+
+export interface AddressCreateInput {
+  street: String;
+  city: String;
+  state: String;
+  zip: String;
+}
+
+export interface IntakeFormValuesUpdateManyMutationInput {
+  date?: Maybe<String>;
+  servicesRequested?: Maybe<IntakeFormValuesUpdateservicesRequestedInput>;
+}
+
+export interface ParentSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ParentWhereInput>;
+  AND?: Maybe<ParentSubscriptionWhereInput[] | ParentSubscriptionWhereInput>;
+  OR?: Maybe<ParentSubscriptionWhereInput[] | ParentSubscriptionWhereInput>;
+  NOT?: Maybe<ParentSubscriptionWhereInput[] | ParentSubscriptionWhereInput>;
+}
+
+export interface ParentUpdateInput {
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  phoneNumber?: Maybe<String>;
+  email?: Maybe<String>;
+  isInSameHousehold?: Maybe<Boolean>;
+  dob?: Maybe<String>;
+  address?: Maybe<AddressUpdateOneRequiredInput>;
+}
+
+export type InsuranceWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ParentUpdateManyMutationInput {
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  phoneNumber?: Maybe<String>;
+  email?: Maybe<String>;
+  isInSameHousehold?: Maybe<Boolean>;
+  dob?: Maybe<String>;
+}
+
+export interface RoleCreateWithoutUsersInput {
+  name: String;
+  permissions?: Maybe<PermissionCreateManyWithoutRolesInput>;
+}
+
+export interface PermissionCreateInput {
+  name: String;
+  roles?: Maybe<RoleCreateManyWithoutPermissionsInput>;
+}
+
+export interface PermissionScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<PermissionScalarWhereInput[] | PermissionScalarWhereInput>;
+  OR?: Maybe<PermissionScalarWhereInput[] | PermissionScalarWhereInput>;
+  NOT?: Maybe<PermissionScalarWhereInput[] | PermissionScalarWhereInput>;
+}
+
+export interface RoleCreateManyWithoutPermissionsInput {
+  create?: Maybe<
+    RoleCreateWithoutPermissionsInput[] | RoleCreateWithoutPermissionsInput
+  >;
+  connect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
+}
+
+export interface PermissionUpdateManyWithoutRolesInput {
+  create?: Maybe<
+    PermissionCreateWithoutRolesInput[] | PermissionCreateWithoutRolesInput
+  >;
+  delete?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
+  connect?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
+  set?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
+  disconnect?: Maybe<PermissionWhereUniqueInput[] | PermissionWhereUniqueInput>;
+  update?: Maybe<
+    | PermissionUpdateWithWhereUniqueWithoutRolesInput[]
+    | PermissionUpdateWithWhereUniqueWithoutRolesInput
+  >;
+  upsert?: Maybe<
+    | PermissionUpsertWithWhereUniqueWithoutRolesInput[]
+    | PermissionUpsertWithWhereUniqueWithoutRolesInput
+  >;
+  deleteMany?: Maybe<PermissionScalarWhereInput[] | PermissionScalarWhereInput>;
+  updateMany?: Maybe<
+    | PermissionUpdateManyWithWhereNestedInput[]
+    | PermissionUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface RoleCreateWithoutPermissionsInput {
+  name: String;
+  users?: Maybe<UserCreateManyWithoutRolesInput>;
+}
+
+export interface PermissionUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+export interface UserCreateManyWithoutRolesInput {
+  create?: Maybe<UserCreateWithoutRolesInput[] | UserCreateWithoutRolesInput>;
+  connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+}
+
+export interface UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput;
+  data: UserUpdateManyDataInput;
 }
 
 export interface UserCreateWithoutRolesInput {
@@ -2224,11 +2235,21 @@ export interface UserCreateWithoutRolesInput {
   email: String;
 }
 
-export interface UserUpdateInput {
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  email?: Maybe<String>;
-  roles?: Maybe<RoleUpdateManyWithoutUsersInput>;
+export interface InsuranceSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<InsuranceWhereInput>;
+  AND?: Maybe<
+    InsuranceSubscriptionWhereInput[] | InsuranceSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    InsuranceSubscriptionWhereInput[] | InsuranceSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    InsuranceSubscriptionWhereInput[] | InsuranceSubscriptionWhereInput
+  >;
 }
 
 export interface PermissionUpdateInput {
@@ -2236,9 +2257,8 @@ export interface PermissionUpdateInput {
   roles?: Maybe<RoleUpdateManyWithoutPermissionsInput>;
 }
 
-export interface PermissionUpdateWithWhereUniqueWithoutRolesInput {
-  where: PermissionWhereUniqueInput;
-  data: PermissionUpdateWithoutRolesDataInput;
+export interface RoleUpdateManyMutationInput {
+  name?: Maybe<String>;
 }
 
 export interface UserUpdateManyWithoutRolesInput {
@@ -2293,33 +2313,80 @@ export interface RoleUpdateManyWithoutPermissionsInput {
   >;
 }
 
-export interface PhysicianUpdateInput {
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  pracitce?: Maybe<String>;
-  phoneNumber?: Maybe<String>;
+export interface PermissionUpsertWithWhereUniqueWithoutRolesInput {
+  where: PermissionWhereUniqueInput;
+  update: PermissionUpdateWithoutRolesDataInput;
+  create: PermissionCreateWithoutRolesInput;
 }
 
-export type PermissionWhereUniqueInput = AtLeastOne<{
+export type IntakeFormValuesWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface AddressSubscriptionWhereInput {
+export interface RoleSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<AddressWhereInput>;
-  AND?: Maybe<AddressSubscriptionWhereInput[] | AddressSubscriptionWhereInput>;
-  OR?: Maybe<AddressSubscriptionWhereInput[] | AddressSubscriptionWhereInput>;
-  NOT?: Maybe<AddressSubscriptionWhereInput[] | AddressSubscriptionWhereInput>;
+  node?: Maybe<RoleWhereInput>;
+  AND?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
+  OR?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
+  NOT?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
 }
 
-export interface UserUpdateManyDataInput {
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  email?: Maybe<String>;
+export interface RoleScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
+  OR?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
+  NOT?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
 }
+
+export type PhysicianWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
 
 export interface NodeNode {
   id: ID_Output;
@@ -3080,33 +3147,25 @@ export interface InsurancePreviousValuesSubscription
   insured: () => Promise<AsyncIterator<String>>;
 }
 
-export interface IntakeFormValues {
-  date: String;
-  servicesRequested: String[];
+export interface AddressConnection {
+  pageInfo: PageInfo;
+  edges: AddressEdge[];
 }
 
-export interface IntakeFormValuesPromise
-  extends Promise<IntakeFormValues>,
+export interface AddressConnectionPromise
+  extends Promise<AddressConnection>,
     Fragmentable {
-  date: () => Promise<String>;
-  servicesRequested: () => Promise<String[]>;
-  client: <T = ClientPromise>() => T;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<AddressEdge>>() => T;
+  aggregate: <T = AggregateAddressPromise>() => T;
 }
 
-export interface IntakeFormValuesSubscription
-  extends Promise<AsyncIterator<IntakeFormValues>>,
+export interface AddressConnectionSubscription
+  extends Promise<AsyncIterator<AddressConnection>>,
     Fragmentable {
-  date: () => Promise<AsyncIterator<String>>;
-  servicesRequested: () => Promise<AsyncIterator<String[]>>;
-  client: <T = ClientSubscription>() => T;
-}
-
-export interface IntakeFormValuesNullablePromise
-  extends Promise<IntakeFormValues | null>,
-    Fragmentable {
-  date: () => Promise<String>;
-  servicesRequested: () => Promise<String[]>;
-  client: <T = ClientPromise>() => T;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<AddressEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateAddressSubscription>() => T;
 }
 
 export interface Physician {
@@ -3203,6 +3262,7 @@ export interface AggregateUserSubscription
 }
 
 export interface IntakeFormValuesPreviousValues {
+  id: ID_Output;
   date: String;
   servicesRequested: String[];
 }
@@ -3210,6 +3270,7 @@ export interface IntakeFormValuesPreviousValues {
 export interface IntakeFormValuesPreviousValuesPromise
   extends Promise<IntakeFormValuesPreviousValues>,
     Fragmentable {
+  id: () => Promise<ID_Output>;
   date: () => Promise<String>;
   servicesRequested: () => Promise<String[]>;
 }
@@ -3217,6 +3278,7 @@ export interface IntakeFormValuesPreviousValuesPromise
 export interface IntakeFormValuesPreviousValuesSubscription
   extends Promise<AsyncIterator<IntakeFormValuesPreviousValues>>,
     Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
   date: () => Promise<AsyncIterator<String>>;
   servicesRequested: () => Promise<AsyncIterator<String[]>>;
 }
@@ -3506,25 +3568,37 @@ export interface RoleSubscriptionPayloadSubscription
   previousValues: <T = RolePreviousValuesSubscription>() => T;
 }
 
-export interface AddressConnection {
-  pageInfo: PageInfo;
-  edges: AddressEdge[];
+export interface IntakeFormValues {
+  id: ID_Output;
+  date: String;
+  servicesRequested: String[];
 }
 
-export interface AddressConnectionPromise
-  extends Promise<AddressConnection>,
+export interface IntakeFormValuesPromise
+  extends Promise<IntakeFormValues>,
     Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<AddressEdge>>() => T;
-  aggregate: <T = AggregateAddressPromise>() => T;
+  id: () => Promise<ID_Output>;
+  date: () => Promise<String>;
+  servicesRequested: () => Promise<String[]>;
+  client: <T = ClientPromise>() => T;
 }
 
-export interface AddressConnectionSubscription
-  extends Promise<AsyncIterator<AddressConnection>>,
+export interface IntakeFormValuesSubscription
+  extends Promise<AsyncIterator<IntakeFormValues>>,
     Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<AddressEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateAddressSubscription>() => T;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  date: () => Promise<AsyncIterator<String>>;
+  servicesRequested: () => Promise<AsyncIterator<String[]>>;
+  client: <T = ClientSubscription>() => T;
+}
+
+export interface IntakeFormValuesNullablePromise
+  extends Promise<IntakeFormValues | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  date: () => Promise<String>;
+  servicesRequested: () => Promise<String[]>;
+  client: <T = ClientPromise>() => T;
 }
 
 export interface PermissionSubscriptionPayload {
