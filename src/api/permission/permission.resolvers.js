@@ -1,5 +1,5 @@
-const permission = (parent, { input }, context) =>
-  context.prisma.permission(input);
+const permission = (parent, { where }, context) =>
+  context.prisma.permission(where);
 
 const permissions = (parent, args, context) => context.prisma.permissions();
 

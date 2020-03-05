@@ -1,5 +1,5 @@
-const insurance = (parent, { input }, context) =>
-  context.prisma.insurance(input);
+const insurance = (parent, { where }, context) =>
+  context.prisma.insurance(where);
 
 const insurances = (parent, args, context) => context.prisma.insurances();
 

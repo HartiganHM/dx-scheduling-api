@@ -1,5 +1,5 @@
-const physician = (parent, { input }, context) =>
-  context.prisma.physician(input);
+const physician = (parent, { where }, context) =>
+  context.prisma.physician(where);
 
 const physicians = (parent, args, context) => context.prisma.physicians();
 

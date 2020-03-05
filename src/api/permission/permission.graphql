@@ -21,12 +21,15 @@ input PermissionWhereUniqueInput {
 }
 
 extend type Query {
-  permission(input: PermissionInput!): Permission
+  permission(where: PermissionInput!): Permission
   permissions: [Permission]!
 }
 
 extend type Mutation {
   createPermission(input: PermissionCreateInput!): Permission!
   deletePermission(where: PermissionWhereUniqueInput!): Permission!
-  updatePermission(input: PermissionUpdateInput!, where: PermissionWhereUniqueInput!): Permission!
+  updatePermission(
+    input: PermissionUpdateInput!
+    where: PermissionWhereUniqueInput!
+  ): Permission!
 }

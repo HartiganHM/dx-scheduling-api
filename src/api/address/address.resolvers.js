@@ -1,4 +1,4 @@
-const address = (parent, { input }, context) => context.prisma.address(input);
+const address = (parent, { where }, context) => context.prisma.address(where);
 
 const addresses = (parent, args, context) => context.prisma.addresses();
 

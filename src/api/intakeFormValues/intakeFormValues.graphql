@@ -34,12 +34,12 @@ input IntakeFormValuesUpdateservicesRequestedInput {
 }
 
 extend type Query {
-  intakeFormValues(input: IntakeFormValuesWhereUniqueInput!): IntakeFormValues
+  intakeFormValues(where: IntakeFormValuesWhereUniqueInput!): IntakeFormValues
   intakeFormValueses: [IntakeFormValues]!
 }
 
 extend type Mutation {
-  creatIntakeFormValues(input: IntakeFormValuesCreateInput!): IntakeFormValues!
+  createIntakeFormValues(input: IntakeFormValuesCreateInput!): IntakeFormValues!
   deleteIntakeFormValues(
     where: IntakeFormValuesWhereUniqueInput
   ): IntakeFormValues!

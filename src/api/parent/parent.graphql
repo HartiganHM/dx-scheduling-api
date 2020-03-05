@@ -61,7 +61,7 @@ input ParentWhereUniqueInput {
 }
 
 extend type Query {
-  parent(input: ParentInput!): Parent!
+  parent(where: ParentInput!): Parent!
   parents: [Parent]!
 }
 

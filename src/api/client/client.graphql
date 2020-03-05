@@ -64,7 +64,7 @@ input ClientWhereUniqueInput {
 }
 
 extend type Query {
-  client(input: ClientInput!): Client
+  client(where: ClientInput!): Client
   clients: [Client]!
 }
 

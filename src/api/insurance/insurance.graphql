@@ -49,7 +49,7 @@ input InsuranceWhereUniqueInput {
 }
 
 extend type Query {
-  insurance(input: InsuranceInput!): Insurance!
+  insurance(where: InsuranceInput!): Insurance!
   insurances: [Insurance]!
 }
 

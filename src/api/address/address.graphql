@@ -45,7 +45,7 @@ input AddressWhereUniqueInput {
 }
 
 type Query {
-  address(input: AddressInput): Address
+  address(where: AddressInput): Address
   addresses: [Address]!
 }
 

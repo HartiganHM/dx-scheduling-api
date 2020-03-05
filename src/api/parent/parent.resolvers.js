@@ -1,4 +1,4 @@
-const parent = (parent, { input }, context) => context.prisma.parent(input);
+const parent = (parent, { where }, context) => context.prisma.parent(where);
 
 const parents = (parent, args, context) => context.prisma.parents();
 

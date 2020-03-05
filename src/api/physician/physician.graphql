@@ -45,7 +45,7 @@ input PhysicianWhereUniqueInput {
 }
 
 extend type Query {
-  physician(input: PhysicianInput): Physician
+  physician(where: PhysicianInput): Physician
   physicians: [Physician]!
 }
 

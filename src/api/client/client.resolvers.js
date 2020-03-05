@@ -1,4 +1,4 @@
-const client = (parent, { input }, context) => context.prisma.client(input);
+const client = (parent, { where }, context) => context.prisma.client(where);
 
 const clients = (parent, args, context) => context.prisma.clients();
 
