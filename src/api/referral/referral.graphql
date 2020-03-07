@@ -1,0 +1,37 @@
+type Referral {
+  id: ID!
+  firstName: String!
+  lastName: String!
+}
+
+input ReferralInput {
+  id: ID!
+}
+
+input ReferralWhereUniqueInput {
+  id: ID
+}
+
+input ReferralCreateInput {
+  firstName: String!
+  lastName: String!
+}
+
+input ReferralUpdateInput {
+  firstName: String
+  lastName: String
+}
+
+extend type Query {
+  referral(where: ReferralInput): Referral!
+  referrals: [Referral]!
+}
+
+extend type Mutation {
+  createReferral(input: ReferralCreateInput!): Referral!
+  deleteReferral(where: ReferralWhereUniqueInput!): Referral!
+  updateReferral(
+    input: ReferralUpdateInput!
+    where: ReferralWhereUniqueInput!
+  ): Referral!
+}
