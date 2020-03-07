@@ -27,6 +27,12 @@ type Permission {
   roles: [Role!]! @relation(name: "RoleOnPermission")
 }
 
+type ClientIntake {
+  id: ID! @unique
+  intakeFormValues: IntakeFormValues!
+  intakeFormQuestions: IntakeFormQuestions!
+}
+
 type IntakeFormValues {
   id: ID! @unique
   date: String!
@@ -87,4 +93,43 @@ type Insurance {
   groupNumber: String!
   provider: String!
   insured: String!
+}
+
+type IntakeFormQuestions {
+  id: ID! @unique
+  creditCardInfoSaved: Boolean!
+  ratesDiscussed: Boolean!
+  preferredTimes: Boolean!
+  needs: String!
+  hasReferral: Boolean!
+  priorTherapy: String!
+  schoolSupport: String!
+  priorTreatments: String!
+  referral: Referral @relation(name: "ReferralOnQuestions", link: INLINE, onDelete: CASCADE)
+  referralConcernMatch: String
+  diagnosis: Diagnosis!  @relation(name: "DiagnosisOnQuestions", link: INLINE, onDelete: CASCADE)
+  concerns: Concerns!  @relation(name: "ConcernsOnQuestions", link: INLINE, onDelete: CASCADE)
+}
+
+type Referral {
+  id: ID! @unique
+  firstName: String!
+  lastName: String!
+}
+
+type Diagnosis {
+  id: ID! @unique
+  name: String!
+  provider: String!
+  data: String!
+  comments: String!
+}
+
+type Concerns {
+  id: ID! @unique
+  areas: String!
+  communication: String!
+  motor: String!
+  sensory: String!
+  cognitive: String!
 }
