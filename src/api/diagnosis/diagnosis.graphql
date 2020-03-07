@@ -1,0 +1,46 @@
+type Diagnosis {
+  id: ID!
+  areas: String!
+  communication: String!
+  motor: String!
+  sensory: String!
+  cognitive: String!
+}
+
+input DiagnosisInput {
+  id: ID!
+}
+
+input DiagnosisWhereUniqueInput {
+  id: ID
+}
+
+input DiagnosisCreateInput {
+  areas: String!
+  communication: String!
+  motor: String!
+  sensory: String!
+  cognitive: String!
+}
+
+input DiagnosisUpdateInput {
+  areas: String
+  communication: String
+  motor: String
+  sensory: String
+  cognitive: String
+}
+
+extend type Query {
+  diagnosis(where: DiagnosisInput!): Diagnosis!
+  diagnosises: [Diagnosis]!
+}
+
+extend type Mutation {
+  createDiagnosis(input: DiagnosisCreateInput!): Diagnosis!
+  deleteDiagnosis(where: DiagnosisWhereUniqueInput!): Diagnosis!
+  updateDiagnosis(
+    input: DiagnosisUpdateInput!
+    where: DiagnosisWhereUniqueInput!
+  ): Diagnosis!
+}
