@@ -5,6 +5,9 @@
 endpoint: http://localhost:4466
 datamodel: datamodel.prisma
 
+# Specifies the type of the database
+databaseType: relational
+
 generate:
   - generator: javascript-client
     output: ./generated/prisma-client/
