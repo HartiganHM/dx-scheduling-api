@@ -17,6 +17,10 @@ var models = [
     embedded: false
   },
   {
+    name: "ClientIntake",
+    embedded: false
+  },
+  {
     name: "IntakeFormValues",
     embedded: false
   },
@@ -38,6 +42,22 @@ var models = [
   },
   {
     name: "Insurance",
+    embedded: false
+  },
+  {
+    name: "IntakeFormQuestions",
+    embedded: false
+  },
+  {
+    name: "Referral",
+    embedded: false
+  },
+  {
+    name: "Diagnosis",
+    embedded: false
+  },
+  {
+    name: "Concerns",
     embedded: false
   }
 ];
