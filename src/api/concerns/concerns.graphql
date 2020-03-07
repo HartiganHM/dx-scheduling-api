@@ -11,6 +11,10 @@ input ConcernsInput {
   id: ID!
 }
 
+input ConcernsWhereUniqueInput {
+  id: ID
+}
+
 input ConcernsCreateInput {
   areas: String!
   communication: String!
@@ -25,10 +29,6 @@ input ConcernsUpdateInput {
   motor: String
   sensory: String
   cognitive: String
-}
-
-input ConcernsWhereUniqueInput {
-  id: ID!
 }
 
 extend type Query {
