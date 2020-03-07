@@ -8,7 +8,7 @@ const createConcerns = (parent, { input }, context) =>
 const deleteConcerns = (parent, { where }, context) =>
   context.prisma.deleteConcerns(where);
 
-const updateConcerns = (paren, { input, where }, context) =>
+const updateConcerns = (parent, { input, where }, context) =>
   context.prisma.updateConcerns({ data: input, where });
 
 const concernsResolvers = {
