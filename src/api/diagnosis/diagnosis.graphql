@@ -1,10 +1,9 @@
 type Diagnosis {
   id: ID!
-  areas: String!
-  communication: String!
-  motor: String!
-  sensory: String!
-  cognitive: String!
+  name: String!
+  provider: String!
+  date: String!
+  comments: String!
 }
 
 input DiagnosisInput {
@@ -16,19 +15,17 @@ input DiagnosisWhereUniqueInput {
 }
 
 input DiagnosisCreateInput {
-  areas: String!
-  communication: String!
-  motor: String!
-  sensory: String!
-  cognitive: String!
+  name: String!
+  provider: String!
+  date: String!
+  comments: String!
 }
 
 input DiagnosisUpdateInput {
-  areas: String
-  communication: String
-  motor: String
-  sensory: String
-  cognitive: String
+  name: String
+  provider: String
+  date: String
+  comments: String
 }
 
 extend type Query {
