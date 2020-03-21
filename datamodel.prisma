@@ -121,7 +121,7 @@ type Diagnosis {
   id: ID! @unique
   name: String!
   provider: String!
-  data: String!
+  date: String!
   comments: String!
 }
 

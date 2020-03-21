@@ -831,7 +831,7 @@ type Diagnosis {
   id: ID!
   name: String!
   provider: String!
-  data: String!
+  date: String!
   comments: String!
 }
 
@@ -844,7 +844,7 @@ type DiagnosisConnection {
 input DiagnosisCreateInput {
   name: String!
   provider: String!
-  data: String!
+  date: String!
   comments: String!
 }
 
@@ -865,8 +865,8 @@ enum DiagnosisOrderByInput {
   name_DESC
   provider_ASC
   provider_DESC
-  data_ASC
-  data_DESC
+  date_ASC
+  date_DESC
   comments_ASC
   comments_DESC
 }
@@ -875,7 +875,7 @@ type DiagnosisPreviousValues {
   id: ID!
   name: String!
   provider: String!
-  data: String!
+  date: String!
   comments: String!
 }
 
@@ -900,21 +900,21 @@ input DiagnosisSubscriptionWhereInput {
 input DiagnosisUpdateDataInput {
   name: String
   provider: String
-  data: String
+  date: String
   comments: String
 }
 
 input DiagnosisUpdateInput {
   name: String
   provider: String
-  data: String
+  date: String
   comments: String
 }
 
 input DiagnosisUpdateManyMutationInput {
   name: String
   provider: String
-  data: String
+  date: String
   comments: String
 }
 
@@ -973,20 +973,20 @@ input DiagnosisWhereInput {
   provider_not_starts_with: String
   provider_ends_with: String
   provider_not_ends_with: String
-  data: String
-  data_not: String
-  data_in: [String!]
-  data_not_in: [String!]
-  data_lt: String
-  data_lte: String
-  data_gt: String
-  data_gte: String
-  data_contains: String
-  data_not_contains: String
-  data_starts_with: String
-  data_not_starts_with: String
-  data_ends_with: String
-  data_not_ends_with: String
+  date: String
+  date_not: String
+  date_in: [String!]
+  date_not_in: [String!]
+  date_lt: String
+  date_lte: String
+  date_gt: String
+  date_gte: String
+  date_contains: String
+  date_not_contains: String
+  date_starts_with: String
+  date_not_starts_with: String
+  date_ends_with: String
+  date_not_ends_with: String
   comments: String
   comments_not: String
   comments_in: [String!]

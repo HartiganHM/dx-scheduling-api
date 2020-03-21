@@ -691,8 +691,8 @@ export type DiagnosisOrderByInput =
   | "name_DESC"
   | "provider_ASC"
   | "provider_DESC"
-  | "data_ASC"
-  | "data_DESC"
+  | "date_ASC"
+  | "date_DESC"
   | "comments_ASC"
   | "comments_DESC";
 
@@ -2413,20 +2413,20 @@ export interface DiagnosisWhereInput {
   provider_not_starts_with?: Maybe<String>;
   provider_ends_with?: Maybe<String>;
   provider_not_ends_with?: Maybe<String>;
-  data?: Maybe<String>;
-  data_not?: Maybe<String>;
-  data_in?: Maybe<String[] | String>;
-  data_not_in?: Maybe<String[] | String>;
-  data_lt?: Maybe<String>;
-  data_lte?: Maybe<String>;
-  data_gt?: Maybe<String>;
-  data_gte?: Maybe<String>;
-  data_contains?: Maybe<String>;
-  data_not_contains?: Maybe<String>;
-  data_starts_with?: Maybe<String>;
-  data_not_starts_with?: Maybe<String>;
-  data_ends_with?: Maybe<String>;
-  data_not_ends_with?: Maybe<String>;
+  date?: Maybe<String>;
+  date_not?: Maybe<String>;
+  date_in?: Maybe<String[] | String>;
+  date_not_in?: Maybe<String[] | String>;
+  date_lt?: Maybe<String>;
+  date_lte?: Maybe<String>;
+  date_gt?: Maybe<String>;
+  date_gte?: Maybe<String>;
+  date_contains?: Maybe<String>;
+  date_not_contains?: Maybe<String>;
+  date_starts_with?: Maybe<String>;
+  date_not_starts_with?: Maybe<String>;
+  date_ends_with?: Maybe<String>;
+  date_not_ends_with?: Maybe<String>;
   comments?: Maybe<String>;
   comments_not?: Maybe<String>;
   comments_in?: Maybe<String[] | String>;
@@ -2487,7 +2487,7 @@ export interface UserUpdateInput {
 export interface DiagnosisCreateInput {
   name: String;
   provider: String;
-  data: String;
+  date: String;
   comments: String;
 }
 
@@ -2818,7 +2818,7 @@ export interface PermissionUpdateManyDataInput {
 export interface DiagnosisUpdateDataInput {
   name?: Maybe<String>;
   provider?: Maybe<String>;
-  data?: Maybe<String>;
+  date?: Maybe<String>;
   comments?: Maybe<String>;
 }
 
@@ -3048,7 +3048,7 @@ export interface PermissionUpsertWithWhereUniqueWithoutRolesInput {
 export interface DiagnosisUpdateInput {
   name?: Maybe<String>;
   provider?: Maybe<String>;
-  data?: Maybe<String>;
+  date?: Maybe<String>;
   comments?: Maybe<String>;
 }
 
@@ -3136,7 +3136,7 @@ export interface UserWhereInput {
 export interface DiagnosisUpdateManyMutationInput {
   name?: Maybe<String>;
   provider?: Maybe<String>;
-  data?: Maybe<String>;
+  date?: Maybe<String>;
   comments?: Maybe<String>;
 }
 
@@ -4112,7 +4112,7 @@ export interface Diagnosis {
   id: ID_Output;
   name: String;
   provider: String;
-  data: String;
+  date: String;
   comments: String;
 }
 
@@ -4120,7 +4120,7 @@ export interface DiagnosisPromise extends Promise<Diagnosis>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   provider: () => Promise<String>;
-  data: () => Promise<String>;
+  date: () => Promise<String>;
   comments: () => Promise<String>;
 }
 
@@ -4130,7 +4130,7 @@ export interface DiagnosisSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   provider: () => Promise<AsyncIterator<String>>;
-  data: () => Promise<AsyncIterator<String>>;
+  date: () => Promise<AsyncIterator<String>>;
   comments: () => Promise<AsyncIterator<String>>;
 }
 
@@ -4140,7 +4140,7 @@ export interface DiagnosisNullablePromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   provider: () => Promise<String>;
-  data: () => Promise<String>;
+  date: () => Promise<String>;
   comments: () => Promise<String>;
 }
 
@@ -4362,7 +4362,7 @@ export interface DiagnosisPreviousValues {
   id: ID_Output;
   name: String;
   provider: String;
-  data: String;
+  date: String;
   comments: String;
 }
 
@@ -4372,7 +4372,7 @@ export interface DiagnosisPreviousValuesPromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   provider: () => Promise<String>;
-  data: () => Promise<String>;
+  date: () => Promise<String>;
   comments: () => Promise<String>;
 }
 
@@ -4382,7 +4382,7 @@ export interface DiagnosisPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   provider: () => Promise<AsyncIterator<String>>;
-  data: () => Promise<AsyncIterator<String>>;
+  date: () => Promise<AsyncIterator<String>>;
   comments: () => Promise<AsyncIterator<String>>;
 }
 
