@@ -4,6 +4,7 @@ const address = require('./address');
 const client = require('./client');
 const concerns = require('./concerns');
 const diagnosis = require('./diagnosis');
+const intakeFormQuestions = require('./intakeFormQuestions');
 const intakeFormValues = require('./intakeFormValues');
 const insurance = require('./insurance');
 const parent = require('./parent');
@@ -18,6 +19,7 @@ const typeDefs = [
   client.typeDefs,
   concerns.typeDefs,
   diagnosis.typeDefs,
+  intakeFormQuestions.typeDefs,
   intakeFormValues.typeDefs,
   insurance.typeDefs,
   parent.typeDefs,
@@ -34,6 +36,7 @@ const resolvers = merge(
   client.resolvers,
   concerns.resolvers,
   diagnosis.resolvers,
+  intakeFormQuestions.resolvers,
   intakeFormValues.resolvers,
   insurance.resolvers,
   parent.resolvers,
