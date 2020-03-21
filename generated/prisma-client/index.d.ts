@@ -2358,7 +2358,7 @@ export interface ClientIntakeWhereInput {
 export interface IntakeFormQuestionsCreateInput {
   creditCardInfoSaved: Boolean;
   ratesDiscussed: Boolean;
-  preferredTimes: Boolean;
+  preferredTimes: String;
   needs: String;
   hasReferral: Boolean;
   priorTherapy: String;
@@ -2717,7 +2717,7 @@ export interface UserCreateWithoutRolesInput {
 export interface IntakeFormQuestionsUpdateDataInput {
   creditCardInfoSaved?: Maybe<Boolean>;
   ratesDiscussed?: Maybe<Boolean>;
-  preferredTimes?: Maybe<Boolean>;
+  preferredTimes?: Maybe<String>;
   needs?: Maybe<String>;
   hasReferral?: Maybe<Boolean>;
   priorTherapy?: Maybe<String>;
@@ -3186,8 +3186,20 @@ export interface IntakeFormQuestionsWhereInput {
   creditCardInfoSaved_not?: Maybe<Boolean>;
   ratesDiscussed?: Maybe<Boolean>;
   ratesDiscussed_not?: Maybe<Boolean>;
-  preferredTimes?: Maybe<Boolean>;
-  preferredTimes_not?: Maybe<Boolean>;
+  preferredTimes?: Maybe<String>;
+  preferredTimes_not?: Maybe<String>;
+  preferredTimes_in?: Maybe<String[] | String>;
+  preferredTimes_not_in?: Maybe<String[] | String>;
+  preferredTimes_lt?: Maybe<String>;
+  preferredTimes_lte?: Maybe<String>;
+  preferredTimes_gt?: Maybe<String>;
+  preferredTimes_gte?: Maybe<String>;
+  preferredTimes_contains?: Maybe<String>;
+  preferredTimes_not_contains?: Maybe<String>;
+  preferredTimes_starts_with?: Maybe<String>;
+  preferredTimes_not_starts_with?: Maybe<String>;
+  preferredTimes_ends_with?: Maybe<String>;
+  preferredTimes_not_ends_with?: Maybe<String>;
   needs?: Maybe<String>;
   needs_not?: Maybe<String>;
   needs_in?: Maybe<String[] | String>;
@@ -3277,7 +3289,7 @@ export interface IntakeFormValuesUpdateInput {
 export interface IntakeFormQuestionsUpdateManyMutationInput {
   creditCardInfoSaved?: Maybe<Boolean>;
   ratesDiscussed?: Maybe<Boolean>;
-  preferredTimes?: Maybe<Boolean>;
+  preferredTimes?: Maybe<String>;
   needs?: Maybe<String>;
   hasReferral?: Maybe<Boolean>;
   priorTherapy?: Maybe<String>;
@@ -3289,7 +3301,7 @@ export interface IntakeFormQuestionsUpdateManyMutationInput {
 export interface IntakeFormQuestionsUpdateInput {
   creditCardInfoSaved?: Maybe<Boolean>;
   ratesDiscussed?: Maybe<Boolean>;
-  preferredTimes?: Maybe<Boolean>;
+  preferredTimes?: Maybe<String>;
   needs?: Maybe<String>;
   hasReferral?: Maybe<Boolean>;
   priorTherapy?: Maybe<String>;
@@ -4394,7 +4406,7 @@ export interface IntakeFormQuestions {
   id: ID_Output;
   creditCardInfoSaved: Boolean;
   ratesDiscussed: Boolean;
-  preferredTimes: Boolean;
+  preferredTimes: String;
   needs: String;
   hasReferral: Boolean;
   priorTherapy: String;
@@ -4409,7 +4421,7 @@ export interface IntakeFormQuestionsPromise
   id: () => Promise<ID_Output>;
   creditCardInfoSaved: () => Promise<Boolean>;
   ratesDiscussed: () => Promise<Boolean>;
-  preferredTimes: () => Promise<Boolean>;
+  preferredTimes: () => Promise<String>;
   needs: () => Promise<String>;
   hasReferral: () => Promise<Boolean>;
   priorTherapy: () => Promise<String>;
@@ -4427,7 +4439,7 @@ export interface IntakeFormQuestionsSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   creditCardInfoSaved: () => Promise<AsyncIterator<Boolean>>;
   ratesDiscussed: () => Promise<AsyncIterator<Boolean>>;
-  preferredTimes: () => Promise<AsyncIterator<Boolean>>;
+  preferredTimes: () => Promise<AsyncIterator<String>>;
   needs: () => Promise<AsyncIterator<String>>;
   hasReferral: () => Promise<AsyncIterator<Boolean>>;
   priorTherapy: () => Promise<AsyncIterator<String>>;
@@ -4445,7 +4457,7 @@ export interface IntakeFormQuestionsNullablePromise
   id: () => Promise<ID_Output>;
   creditCardInfoSaved: () => Promise<Boolean>;
   ratesDiscussed: () => Promise<Boolean>;
-  preferredTimes: () => Promise<Boolean>;
+  preferredTimes: () => Promise<String>;
   needs: () => Promise<String>;
   hasReferral: () => Promise<Boolean>;
   priorTherapy: () => Promise<String>;
@@ -4674,7 +4686,7 @@ export interface IntakeFormQuestionsPreviousValues {
   id: ID_Output;
   creditCardInfoSaved: Boolean;
   ratesDiscussed: Boolean;
-  preferredTimes: Boolean;
+  preferredTimes: String;
   needs: String;
   hasReferral: Boolean;
   priorTherapy: String;
@@ -4689,7 +4701,7 @@ export interface IntakeFormQuestionsPreviousValuesPromise
   id: () => Promise<ID_Output>;
   creditCardInfoSaved: () => Promise<Boolean>;
   ratesDiscussed: () => Promise<Boolean>;
-  preferredTimes: () => Promise<Boolean>;
+  preferredTimes: () => Promise<String>;
   needs: () => Promise<String>;
   hasReferral: () => Promise<Boolean>;
   priorTherapy: () => Promise<String>;
@@ -4704,7 +4716,7 @@ export interface IntakeFormQuestionsPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   creditCardInfoSaved: () => Promise<AsyncIterator<Boolean>>;
   ratesDiscussed: () => Promise<AsyncIterator<Boolean>>;
-  preferredTimes: () => Promise<AsyncIterator<Boolean>>;
+  preferredTimes: () => Promise<AsyncIterator<String>>;
   needs: () => Promise<AsyncIterator<String>>;
   hasReferral: () => Promise<AsyncIterator<Boolean>>;
   priorTherapy: () => Promise<AsyncIterator<String>>;

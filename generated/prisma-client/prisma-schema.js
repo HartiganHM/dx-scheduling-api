@@ -1296,7 +1296,7 @@ type IntakeFormQuestions {
   id: ID!
   creditCardInfoSaved: Boolean!
   ratesDiscussed: Boolean!
-  preferredTimes: Boolean!
+  preferredTimes: String!
   needs: String!
   hasReferral: Boolean!
   priorTherapy: String!
@@ -1317,7 +1317,7 @@ type IntakeFormQuestionsConnection {
 input IntakeFormQuestionsCreateInput {
   creditCardInfoSaved: Boolean!
   ratesDiscussed: Boolean!
-  preferredTimes: Boolean!
+  preferredTimes: String!
   needs: String!
   hasReferral: Boolean!
   priorTherapy: String!
@@ -1366,7 +1366,7 @@ type IntakeFormQuestionsPreviousValues {
   id: ID!
   creditCardInfoSaved: Boolean!
   ratesDiscussed: Boolean!
-  preferredTimes: Boolean!
+  preferredTimes: String!
   needs: String!
   hasReferral: Boolean!
   priorTherapy: String!
@@ -1396,7 +1396,7 @@ input IntakeFormQuestionsSubscriptionWhereInput {
 input IntakeFormQuestionsUpdateDataInput {
   creditCardInfoSaved: Boolean
   ratesDiscussed: Boolean
-  preferredTimes: Boolean
+  preferredTimes: String
   needs: String
   hasReferral: Boolean
   priorTherapy: String
@@ -1411,7 +1411,7 @@ input IntakeFormQuestionsUpdateDataInput {
 input IntakeFormQuestionsUpdateInput {
   creditCardInfoSaved: Boolean
   ratesDiscussed: Boolean
-  preferredTimes: Boolean
+  preferredTimes: String
   needs: String
   hasReferral: Boolean
   priorTherapy: String
@@ -1426,7 +1426,7 @@ input IntakeFormQuestionsUpdateInput {
 input IntakeFormQuestionsUpdateManyMutationInput {
   creditCardInfoSaved: Boolean
   ratesDiscussed: Boolean
-  preferredTimes: Boolean
+  preferredTimes: String
   needs: String
   hasReferral: Boolean
   priorTherapy: String
@@ -1466,8 +1466,20 @@ input IntakeFormQuestionsWhereInput {
   creditCardInfoSaved_not: Boolean
   ratesDiscussed: Boolean
   ratesDiscussed_not: Boolean
-  preferredTimes: Boolean
-  preferredTimes_not: Boolean
+  preferredTimes: String
+  preferredTimes_not: String
+  preferredTimes_in: [String!]
+  preferredTimes_not_in: [String!]
+  preferredTimes_lt: String
+  preferredTimes_lte: String
+  preferredTimes_gt: String
+  preferredTimes_gte: String
+  preferredTimes_contains: String
+  preferredTimes_not_contains: String
+  preferredTimes_starts_with: String
+  preferredTimes_not_starts_with: String
+  preferredTimes_ends_with: String
+  preferredTimes_not_ends_with: String
   needs: String
   needs_not: String
   needs_in: [String!]

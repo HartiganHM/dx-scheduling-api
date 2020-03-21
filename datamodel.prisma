@@ -99,7 +99,7 @@ type IntakeFormQuestions {
   id: ID! @unique
   creditCardInfoSaved: Boolean!
   ratesDiscussed: Boolean!
-  preferredTimes: Boolean!
+  preferredTimes: String!
   needs: String!
   hasReferral: Boolean!
   priorTherapy: String!
