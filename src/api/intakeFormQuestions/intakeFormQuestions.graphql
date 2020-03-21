@@ -72,10 +72,10 @@ extend type Mutation {
     input: IntakeFormQuestionsCreateInput!
   ): IntakeFormQuestions!
   deleteIntakeFormQuestions(
-    where: IntakeFormQuestionsWhereUniqueInput
+    where: IntakeFormQuestionsWhereUniqueInput!
   ): IntakeFormQuestions!
   updateIntakeFormQuestions(
-    input: IntakeFormQuestionsUpdateInput
-    where: IntakeFormQuestionsWhereUniqueInput
+    input: IntakeFormQuestionsUpdateInput!
+    where: IntakeFormQuestionsWhereUniqueInput!
   ): IntakeFormQuestions!
 }
