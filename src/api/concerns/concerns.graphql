@@ -23,12 +23,28 @@ input ConcernsCreateInput {
   cognitive: String!
 }
 
+input ConcernsCreateOneInput {
+  create: ConcernsCreateInput
+}
+
 input ConcernsUpdateInput {
   areas: String
   communication: String
   motor: String
   sensory: String
   cognitive: String
+}
+
+input ConcernsUpdateDataInput {
+  areas: String
+  communication: String
+  motor: String
+  sensory: String
+  cognitive: String
+}
+
+input ConcernsUpdateOneRequiredInput {
+  update: ConcernsUpdateDataInput
 }
 
 extend type Query {
