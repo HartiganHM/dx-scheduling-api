@@ -17,9 +17,22 @@ input ReferralCreateInput {
   lastName: String!
 }
 
+input ReferralCreateOneInput {
+  create: ReferralCreateInput
+}
+
 input ReferralUpdateInput {
   firstName: String
   lastName: String
+}
+
+input ReferralUpdateDataInput {
+  firstName: String
+  lastName: String
+}
+
+input ReferralUpdateOneInput {
+  update: ReferralUpdateDataInput
 }
 
 extend type Query {
