@@ -1,0 +1,81 @@
+type IntakeFormQuestions {
+  id: ID! @unique
+  creditCardInfoSaved: Boolean!
+  ratesDiscussed: Boolean!
+  preferredTimes: String!
+  needs: String!
+  hasReferral: Boolean!
+  priorTherapy: String!
+  schoolSupport: String!
+  priorTreatments: String!
+  referral: Referral
+  referralConcernMatch: String
+  diagnosis: Diagnosis!
+  concerns: Concerns!
+}
+
+input IntakeFormQuestionsInput {
+  id: ID!
+}
+
+input IntakeFormQuestionsWhereUniqueInput {
+  id: ID
+}
+
+input IntakeFormQuestionsCreateInput {
+  creditCardInfoSaved: Boolean!
+  ratesDiscussed: Boolean!
+  preferredTimes: String!
+  needs: String!
+  hasReferral: Boolean!
+  priorTherapy: String!
+  schoolSupport: String!
+  priorTreatments: String!
+  referral: Referral
+  referralConcernMatch: String
+  diagnosis: Diagnosis!
+  concerns: Concerns!
+}
+
+input IntakeFormQuestionsCreateOneInput {
+  create: IntakeFormQuestionsCreateInput
+}
+
+input IntakeFormQuestionsUpdateInput {
+  creditCardInfoSaved: Boolean
+  ratesDiscussed: Boolean
+  preferredTimes: String
+  needs: String
+  hasReferral: Boolean
+  priorTherapy: String
+  schoolSupport: String
+  priorTreatments: String
+  referral: Referral
+  referralConcernMatch: String
+  diagnosis: Diagnosis
+  concerns: Concerns
+}
+
+input IntakeFormQuestionsUpdateOneRequiredInput {
+  update: IntakeFormQuestionsUpdateDataInput
+}
+
+extend type Query {
+  intakeFormQuestions(
+    where: IntakeFormQuestionsWhereUniqueInput!
+  ): IntakeFormQuestions
+  intakeFormQuestionses: [IntakeFormQuestions]!
+}
+
+extend type Mutation {
+  createIntakeFormQuestions(
+    input: IntakeFormQuestionsCreateInput!
+  ): IntakeFormQuestions!
+  deleteIntakeFormQuestions(
+    where: IntakeFormQuestionsWhereUniqueInput
+  ): IntakeFormQuestions!
+  updateIntakeFormQuestions(
+    input: IntakeFormQuestionsUpdateInput
+    where: IntakeFormQuestionsWhereUniqueInput
+  ): IntakeFormQuestions!
+}
