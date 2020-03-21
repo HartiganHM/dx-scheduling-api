@@ -19,6 +19,10 @@ input IntakeFormValuesCreateInput {
   client: ClientCreateOneInput!
 }
 
+input IntakeFormValuesCreateOneInput {
+  create: IntakeFormValuesCreateInput
+}
+
 input IntakeFormValuesCreateservicesRequestedInput {
   set: [String!]
 }
@@ -31,6 +35,16 @@ input IntakeFormValuesUpdateInput {
 
 input IntakeFormValuesUpdateservicesRequestedInput {
   set: [String!]
+}
+
+input IntakeFormValuesUpdateDataInput {
+  date: String
+  servicesRequested: [String]
+  client: ClientUpdateOneRequiredInput
+}
+
+input IntakeFormValuesUpdateOneRequiredInput {
+  update: IntakeFormValuesUpdateDataInput
 }
 
 extend type Query {
