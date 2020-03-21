@@ -2,6 +2,7 @@ const merge = require('lodash/merge');
 
 const address = require('./address');
 const client = require('./client');
+const clientIntake = require('./clientIntake');
 const concerns = require('./concerns');
 const diagnosis = require('./diagnosis');
 const intakeFormQuestions = require('./intakeFormQuestions');
@@ -17,6 +18,7 @@ const user = require('./user');
 const typeDefs = [
   address.typeDefs,
   client.typeDefs,
+  clientIntake.typeDefs,
   concerns.typeDefs,
   diagnosis.typeDefs,
   intakeFormQuestions.typeDefs,
@@ -33,6 +35,7 @@ const typeDefs = [
 const resolvers = merge(
   {},
   address.resolvers,
+  client.resolvers,
   client.resolvers,
   concerns.resolvers,
   diagnosis.resolvers,
