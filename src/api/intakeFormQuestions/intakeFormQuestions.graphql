@@ -1,5 +1,5 @@
 type IntakeFormQuestions {
-  id: ID! @unique
+  id: ID!
   creditCardInfoSaved: Boolean!
   ratesDiscussed: Boolean!
   preferredTimes: String!
@@ -31,10 +31,10 @@ input IntakeFormQuestionsCreateInput {
   priorTherapy: String!
   schoolSupport: String!
   priorTreatments: String!
-  referral: Referral
+  referral: ReferralCreateOneInput
   referralConcernMatch: String
-  diagnosis: Diagnosis!
-  concerns: Concerns!
+  diagnosis: DiagnosisCreateOneInput!
+  concerns: ConcernsCreateOneInput!
 }
 
 input IntakeFormQuestionsCreateOneInput {
@@ -50,10 +50,25 @@ input IntakeFormQuestionsUpdateInput {
   priorTherapy: String
   schoolSupport: String
   priorTreatments: String
-  referral: Referral
+  referral: ReferralUpdateOneInput
   referralConcernMatch: String
-  diagnosis: Diagnosis
-  concerns: Concerns
+  diagnosis: DiagnosisUpdateOneRequiredInput
+  concerns: ConcernsUpdateOneRequiredInput
+}
+
+input IntakeFormQuestionsUpdateDataInput {
+  creditCardInfoSaved: Boolean
+  ratesDiscussed: Boolean
+  preferredTimes: String
+  needs: String
+  hasReferral: Boolean
+  priorTherapy: String
+  schoolSupport: String
+  priorTreatments: String
+  referral: ReferralUpdateOneInput
+  referralConcernMatch: String
+  diagnosis: DiagnosisUpdateOneRequiredInput
+  concerns: ConcernsUpdateOneRequiredInput
 }
 
 input IntakeFormQuestionsUpdateOneRequiredInput {
