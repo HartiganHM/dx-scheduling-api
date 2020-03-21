@@ -21,11 +21,26 @@ input DiagnosisCreateInput {
   comments: String!
 }
 
+input DiagnosisCreateOneInput {
+  create: DiagnosisCreateInput
+}
+
 input DiagnosisUpdateInput {
   name: String
   provider: String
   date: String
   comments: String
+}
+
+input DiagnosisUpdateDataInput {
+  name: String
+  provider: String
+  date: String
+  comments: String
+}
+
+input DiagnosisUpdateOneRequiredInput {
+  update: DiagnosisUpdateDataInput
 }
 
 extend type Query {
