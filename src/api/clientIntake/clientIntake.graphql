@@ -1,0 +1,37 @@
+type ClientIntake {
+  id: ID!
+  intakeFormValues: IntakeFormValues!
+  intakeFormQuestions: IntakeFormQuestions!
+}
+
+input ClientIntakeInput {
+  id: ID!
+}
+
+input ClientIntakeWhereUniqueInput {
+  id: ID
+}
+
+input ClientIntakeCreateInput {
+  intakeFormValues: IntakeFormValuesCreateOneInput!
+  intakeFormQuestions: IntakeFormQuestionsCreateOneInput!
+}
+
+input ClientIntakeUpdateInput {
+  intakeFormValues: IntakeFormValuesUpdateOneRequiredInput
+  intakeFormQuestions: IntakeFormQuestionsUpdateOneRequiredInput
+}
+
+extend type Query {
+  clientIntake(where: ClientIntakeWhereUniqueInput!): ClientIntake
+  clientIntakes: [ClientIntake]!
+}
+
+extend type Mutation {
+  createClientIntake(input: ClientIntakeCreateInput!): ClientIntake!
+  deleteClientIntake(where: ClientIntakeWhereUniqueInput!): ClientIntake!
+  updateClientIntake(
+    input: ClientIntakeUpdateInput!
+    where: ClientIntakeWhereUniqueInput!
+  ): ClientIntake!
+}
