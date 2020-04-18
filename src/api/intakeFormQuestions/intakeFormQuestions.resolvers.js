@@ -26,9 +26,9 @@ const intakeFormQuestionsResolvers = {
   IntakeFormQuestions: {
     referral: (parent, args, context) =>
       context.prisma.intakeFormQuestions({ id: parent.id }).referral(),
-    diagnosis: () => (parent, args, context) =>
+    diagnosis: (parent, args, context) =>
       context.prisma.intakeFormQuestions({ id: parent.id }).diagnosis(),
-    concerns: () => (parent, args, context) =>
+    concerns: (parent, args, context) =>
       context.prisma.intakeFormQuestions({ id: parent.id }).concerns(),
   },
 };

@@ -36,7 +36,7 @@ const resolvers = merge(
   {},
   address.resolvers,
   client.resolvers,
-  client.resolvers,
+  clientIntake.resolvers,
   concerns.resolvers,
   diagnosis.resolvers,
   intakeFormQuestions.resolvers,
