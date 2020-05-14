@@ -1303,7 +1303,7 @@ type IntakeFormQuestions {
   schoolSupport: String!
   priorTreatments: String!
   referral: Referral
-  referralConcernMatch: Boolean
+  referralConcernMatch: String
   diagnosis: Diagnosis!
   concerns: Concerns!
 }
@@ -1324,7 +1324,7 @@ input IntakeFormQuestionsCreateInput {
   schoolSupport: String!
   priorTreatments: String!
   referral: ReferralCreateOneInput
-  referralConcernMatch: Boolean
+  referralConcernMatch: String
   diagnosis: DiagnosisCreateOneInput!
   concerns: ConcernsCreateOneInput!
 }
@@ -1372,7 +1372,7 @@ type IntakeFormQuestionsPreviousValues {
   priorTherapy: String!
   schoolSupport: String!
   priorTreatments: String!
-  referralConcernMatch: Boolean
+  referralConcernMatch: String
 }
 
 type IntakeFormQuestionsSubscriptionPayload {
@@ -1403,7 +1403,7 @@ input IntakeFormQuestionsUpdateDataInput {
   schoolSupport: String
   priorTreatments: String
   referral: ReferralUpdateOneInput
-  referralConcernMatch: Boolean
+  referralConcernMatch: String
   diagnosis: DiagnosisUpdateOneRequiredInput
   concerns: ConcernsUpdateOneRequiredInput
 }
@@ -1418,7 +1418,7 @@ input IntakeFormQuestionsUpdateInput {
   schoolSupport: String
   priorTreatments: String
   referral: ReferralUpdateOneInput
-  referralConcernMatch: Boolean
+  referralConcernMatch: String
   diagnosis: DiagnosisUpdateOneRequiredInput
   concerns: ConcernsUpdateOneRequiredInput
 }
@@ -1432,7 +1432,7 @@ input IntakeFormQuestionsUpdateManyMutationInput {
   priorTherapy: String
   schoolSupport: String
   priorTreatments: String
-  referralConcernMatch: Boolean
+  referralConcernMatch: String
 }
 
 input IntakeFormQuestionsUpdateOneRequiredInput {
@@ -1539,8 +1539,20 @@ input IntakeFormQuestionsWhereInput {
   priorTreatments_ends_with: String
   priorTreatments_not_ends_with: String
   referral: ReferralWhereInput
-  referralConcernMatch: Boolean
-  referralConcernMatch_not: Boolean
+  referralConcernMatch: String
+  referralConcernMatch_not: String
+  referralConcernMatch_in: [String!]
+  referralConcernMatch_not_in: [String!]
+  referralConcernMatch_lt: String
+  referralConcernMatch_lte: String
+  referralConcernMatch_gt: String
+  referralConcernMatch_gte: String
+  referralConcernMatch_contains: String
+  referralConcernMatch_not_contains: String
+  referralConcernMatch_starts_with: String
+  referralConcernMatch_not_starts_with: String
+  referralConcernMatch_ends_with: String
+  referralConcernMatch_not_ends_with: String
   diagnosis: DiagnosisWhereInput
   concerns: ConcernsWhereInput
   AND: [IntakeFormQuestionsWhereInput!]

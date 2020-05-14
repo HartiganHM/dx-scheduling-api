@@ -2365,7 +2365,7 @@ export interface IntakeFormQuestionsCreateInput {
   schoolSupport: String;
   priorTreatments: String;
   referral?: Maybe<ReferralCreateOneInput>;
-  referralConcernMatch?: Maybe<Boolean>;
+  referralConcernMatch?: Maybe<String>;
   diagnosis: DiagnosisCreateOneInput;
   concerns: ConcernsCreateOneInput;
 }
@@ -2724,7 +2724,7 @@ export interface IntakeFormQuestionsUpdateDataInput {
   schoolSupport?: Maybe<String>;
   priorTreatments?: Maybe<String>;
   referral?: Maybe<ReferralUpdateOneInput>;
-  referralConcernMatch?: Maybe<Boolean>;
+  referralConcernMatch?: Maybe<String>;
   diagnosis?: Maybe<DiagnosisUpdateOneRequiredInput>;
   concerns?: Maybe<ConcernsUpdateOneRequiredInput>;
 }
@@ -3259,8 +3259,20 @@ export interface IntakeFormQuestionsWhereInput {
   priorTreatments_ends_with?: Maybe<String>;
   priorTreatments_not_ends_with?: Maybe<String>;
   referral?: Maybe<ReferralWhereInput>;
-  referralConcernMatch?: Maybe<Boolean>;
-  referralConcernMatch_not?: Maybe<Boolean>;
+  referralConcernMatch?: Maybe<String>;
+  referralConcernMatch_not?: Maybe<String>;
+  referralConcernMatch_in?: Maybe<String[] | String>;
+  referralConcernMatch_not_in?: Maybe<String[] | String>;
+  referralConcernMatch_lt?: Maybe<String>;
+  referralConcernMatch_lte?: Maybe<String>;
+  referralConcernMatch_gt?: Maybe<String>;
+  referralConcernMatch_gte?: Maybe<String>;
+  referralConcernMatch_contains?: Maybe<String>;
+  referralConcernMatch_not_contains?: Maybe<String>;
+  referralConcernMatch_starts_with?: Maybe<String>;
+  referralConcernMatch_not_starts_with?: Maybe<String>;
+  referralConcernMatch_ends_with?: Maybe<String>;
+  referralConcernMatch_not_ends_with?: Maybe<String>;
   diagnosis?: Maybe<DiagnosisWhereInput>;
   concerns?: Maybe<ConcernsWhereInput>;
   AND?: Maybe<IntakeFormQuestionsWhereInput[] | IntakeFormQuestionsWhereInput>;
@@ -3283,7 +3295,7 @@ export interface IntakeFormQuestionsUpdateManyMutationInput {
   priorTherapy?: Maybe<String>;
   schoolSupport?: Maybe<String>;
   priorTreatments?: Maybe<String>;
-  referralConcernMatch?: Maybe<Boolean>;
+  referralConcernMatch?: Maybe<String>;
 }
 
 export interface IntakeFormQuestionsUpdateInput {
@@ -3296,7 +3308,7 @@ export interface IntakeFormQuestionsUpdateInput {
   schoolSupport?: Maybe<String>;
   priorTreatments?: Maybe<String>;
   referral?: Maybe<ReferralUpdateOneInput>;
-  referralConcernMatch?: Maybe<Boolean>;
+  referralConcernMatch?: Maybe<String>;
   diagnosis?: Maybe<DiagnosisUpdateOneRequiredInput>;
   concerns?: Maybe<ConcernsUpdateOneRequiredInput>;
 }
@@ -4400,7 +4412,7 @@ export interface IntakeFormQuestions {
   priorTherapy: String;
   schoolSupport: String;
   priorTreatments: String;
-  referralConcernMatch?: Boolean;
+  referralConcernMatch?: String;
 }
 
 export interface IntakeFormQuestionsPromise
@@ -4416,7 +4428,7 @@ export interface IntakeFormQuestionsPromise
   schoolSupport: () => Promise<String>;
   priorTreatments: () => Promise<String>;
   referral: <T = ReferralPromise>() => T;
-  referralConcernMatch: () => Promise<Boolean>;
+  referralConcernMatch: () => Promise<String>;
   diagnosis: <T = DiagnosisPromise>() => T;
   concerns: <T = ConcernsPromise>() => T;
 }
@@ -4434,7 +4446,7 @@ export interface IntakeFormQuestionsSubscription
   schoolSupport: () => Promise<AsyncIterator<String>>;
   priorTreatments: () => Promise<AsyncIterator<String>>;
   referral: <T = ReferralSubscription>() => T;
-  referralConcernMatch: () => Promise<AsyncIterator<Boolean>>;
+  referralConcernMatch: () => Promise<AsyncIterator<String>>;
   diagnosis: <T = DiagnosisSubscription>() => T;
   concerns: <T = ConcernsSubscription>() => T;
 }
@@ -4452,7 +4464,7 @@ export interface IntakeFormQuestionsNullablePromise
   schoolSupport: () => Promise<String>;
   priorTreatments: () => Promise<String>;
   referral: <T = ReferralPromise>() => T;
-  referralConcernMatch: () => Promise<Boolean>;
+  referralConcernMatch: () => Promise<String>;
   diagnosis: <T = DiagnosisPromise>() => T;
   concerns: <T = ConcernsPromise>() => T;
 }
@@ -4680,7 +4692,7 @@ export interface IntakeFormQuestionsPreviousValues {
   priorTherapy: String;
   schoolSupport: String;
   priorTreatments: String;
-  referralConcernMatch?: Boolean;
+  referralConcernMatch?: String;
 }
 
 export interface IntakeFormQuestionsPreviousValuesPromise
@@ -4695,7 +4707,7 @@ export interface IntakeFormQuestionsPreviousValuesPromise
   priorTherapy: () => Promise<String>;
   schoolSupport: () => Promise<String>;
   priorTreatments: () => Promise<String>;
-  referralConcernMatch: () => Promise<Boolean>;
+  referralConcernMatch: () => Promise<String>;
 }
 
 export interface IntakeFormQuestionsPreviousValuesSubscription
@@ -4710,7 +4722,7 @@ export interface IntakeFormQuestionsPreviousValuesSubscription
   priorTherapy: () => Promise<AsyncIterator<String>>;
   schoolSupport: () => Promise<AsyncIterator<String>>;
   priorTreatments: () => Promise<AsyncIterator<String>>;
-  referralConcernMatch: () => Promise<AsyncIterator<Boolean>>;
+  referralConcernMatch: () => Promise<AsyncIterator<String>>;
 }
 
 export interface PermissionEdge {

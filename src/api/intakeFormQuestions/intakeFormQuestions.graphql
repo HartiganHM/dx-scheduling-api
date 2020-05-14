@@ -9,7 +9,7 @@ type IntakeFormQuestions {
   schoolSupport: String!
   priorTreatments: String!
   referral: Referral
-  referralConcernMatch: Boolean
+  referralConcernMatch: String
   diagnosis: Diagnosis!
   concerns: Concerns!
 }
@@ -32,7 +32,7 @@ input IntakeFormQuestionsCreateInput {
   schoolSupport: String!
   priorTreatments: String!
   referral: ReferralCreateOneInput
-  referralConcernMatch: Boolean
+  referralConcernMatch: String
   diagnosis: DiagnosisCreateOneInput!
   concerns: ConcernsCreateOneInput!
 }
@@ -51,7 +51,7 @@ input IntakeFormQuestionsUpdateInput {
   schoolSupport: String
   priorTreatments: String
   referral: ReferralUpdateOneInput
-  referralConcernMatch: Boolean
+  referralConcernMatch: String
   diagnosis: DiagnosisUpdateOneRequiredInput
   concerns: ConcernsUpdateOneRequiredInput
 }
@@ -66,7 +66,7 @@ input IntakeFormQuestionsUpdateDataInput {
   schoolSupport: String
   priorTreatments: String
   referral: ReferralUpdateOneInput
-  referralConcernMatch: Boolean
+  referralConcernMatch: String
   diagnosis: DiagnosisUpdateOneRequiredInput
   concerns: ConcernsUpdateOneRequiredInput
 }
