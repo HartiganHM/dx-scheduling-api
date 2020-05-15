@@ -1,0 +1,62 @@
+type Concerns {
+  id: ID!
+  areas: String!
+  communication: String!
+  motor: String!
+  sensory: String!
+  cognitive: String!
+}
+
+input ConcernsInput {
+  id: ID!
+}
+
+input ConcernsWhereUniqueInput {
+  id: ID
+}
+
+input ConcernsCreateInput {
+  areas: String!
+  communication: String!
+  motor: String!
+  sensory: String!
+  cognitive: String!
+}
+
+input ConcernsCreateOneInput {
+  create: ConcernsCreateInput
+}
+
+input ConcernsUpdateInput {
+  areas: String
+  communication: String
+  motor: String
+  sensory: String
+  cognitive: String
+}
+
+input ConcernsUpdateDataInput {
+  areas: String
+  communication: String
+  motor: String
+  sensory: String
+  cognitive: String
+}
+
+input ConcernsUpdateOneRequiredInput {
+  update: ConcernsUpdateDataInput
+}
+
+extend type Query {
+  concerns(where: ConcernsInput!): Concerns!
+  concernses: [Concerns]!
+}
+
+extend type Mutation {
+  createConcerns(input: ConcernsCreateInput): Concerns!
+  deleteConcerns(where: ConcernsWhereUniqueInput!): Concerns!
+  updateConcerns(
+    input: ConcernsUpdateInput!
+    where: ConcernsWhereUniqueInput!
+  ): Concerns!
+}

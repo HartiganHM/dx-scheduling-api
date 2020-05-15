@@ -1,0 +1,58 @@
+type Diagnosis {
+  id: ID!
+  name: String!
+  provider: String!
+  date: String!
+  comments: String!
+}
+
+input DiagnosisInput {
+  id: ID!
+}
+
+input DiagnosisWhereUniqueInput {
+  id: ID
+}
+
+input DiagnosisCreateInput {
+  name: String!
+  provider: String!
+  date: String!
+  comments: String!
+}
+
+input DiagnosisCreateOneInput {
+  create: DiagnosisCreateInput
+}
+
+input DiagnosisUpdateInput {
+  name: String
+  provider: String
+  date: String
+  comments: String
+}
+
+input DiagnosisUpdateDataInput {
+  name: String
+  provider: String
+  date: String
+  comments: String
+}
+
+input DiagnosisUpdateOneRequiredInput {
+  update: DiagnosisUpdateDataInput
+}
+
+extend type Query {
+  diagnosis(where: DiagnosisInput!): Diagnosis!
+  diagnosises: [Diagnosis]!
+}
+
+extend type Mutation {
+  createDiagnosis(input: DiagnosisCreateInput!): Diagnosis!
+  deleteDiagnosis(where: DiagnosisWhereUniqueInput!): Diagnosis!
+  updateDiagnosis(
+    input: DiagnosisUpdateInput!
+    where: DiagnosisWhereUniqueInput!
+  ): Diagnosis!
+}
